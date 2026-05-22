@@ -118,7 +118,7 @@ const fussball: SportCurriculum = {
       ],
       safety: ['Im Jugendbereich Kopfbälle reduzieren – Nackenkraft erst aufbauen.', 'Bei Schwindel oder Kopfschmerzen sofort pausieren.'],
     }}),
-    mod({ id: 'b4', title: 'Dynamisches Aufwärmen', duration: '12 min', description: 'Mobility, Aktivierung und Ballgefühl vor jedem Training.', content: {
+    mod({ id: 'b4', title: 'FIFA 11+ Aufwärmen', duration: '12 min', description: 'Verletzungsprävention durch das offizielle FIFA-Programm.', ytVideoId: 'DiAbszQCwO8', channel: 'PhysioCoach Matteo', content: {
       intro: 'Über 50 % der Fußballverletzungen passieren in den ersten 15 Minuten. Ein strukturiertes FIFA-11+-Warm-up senkt das Risiko nachweislich.',
       keyPoints: [
         '5 min lockeres Joggen mit Richtungswechseln.',
@@ -221,7 +221,7 @@ const yoga: SportCurriculum = {
         'Sitz aufrecht, Schultern entspannt.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Sicher in den ersten Asanas', duration: '8 min', description: 'Wann pausieren, wann modifizieren?', content: {
+    mod({ id: 'b4', title: 'Verletzungsgefahren für Yoga-Anfänger', duration: '8 min', description: 'YOGABASICS warnt vor typischen Anfängerfallen.', ytVideoId: 'ED0aWn40DFQ', channel: 'YOGABASICS - Der 8 Minuten Club', content: {
       intro: 'Yoga ist sicher – wenn du auf den Körper hörst. Diese Hinweise helfen, typische Anfängerfehler zu vermeiden.',
       safety: [
         'Schmerz im Knie = sofort raus aus der Pose, niemals "durchhalten".',
@@ -315,14 +315,25 @@ const krafttraining: SportCurriculum = {
         'Erst dann Arbeitssätze.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Sicherheit im Studio', duration: '8 min', description: 'Spotter, Klemmen, Abräumen, Etikette.', content: {
-      intro: 'Krafttraining ist sicher – wenn du ein paar Regeln befolgst. Studio-Etikette schützt dich und andere.',
+    mod({ id: 'b4', title: 'Sicherheit & Etikette im Studio', duration: '10 min', description: 'Spotter, Klemmen, Bankdrücken, Studio-Knigge.', content: {
+      intro: 'Krafttraining ist einer der sichersten Sports – statistisch sicherer als Fußball oder Skifahren. Vorausgesetzt, du befolgst ein paar einfache Regeln. Gleichzeitig macht Studio-Etikette das Training für alle angenehmer.',
+      keyPoints: [
+        'Klemmen IMMER beidseitig – die Stange darf nicht kippen.',
+        'Schweres Bankdrücken nur im Rack mit Safety Pins oder mit aktivem Spotter.',
+        'Bei Kniebeuge das Gewicht im Rack auf passender Höhe einhängen.',
+        'Atmung: tief vor der Last, ausatmen in der Anstrengung – Valsalva nur bei sehr schwerem Heben.',
+        'Vor jedem Arbeitssatz: kurzer mentaler Check – Stange gerade? Füße richtig? Klemmen?',
+        'Pause-Etikette: kein Smartphone-Scrollen auf belegtem Gerät, nach Gebrauch abräumen.',
+      ],
+      tips: [
+        'Frage andere Trainierende nach einem Spot – das ist im Studio normal und erwünscht.',
+        'Handtuch ist Pflicht – Schweiß auf Polstern ist Ekel und Verletzungsrisiko.',
+        'Bei knappen Sätzen: lieber abbrechen als verletzen.',
+      ],
       safety: [
-        'Klemmen an der Langhantel sind NICHT optional.',
-        'Bei schwerem Bankdrücken: Spotter oder Power Rack.',
-        'Niemals mit verdrehter Wirbelsäule heben.',
-        'Gewichte zurückräumen, Handtuch nutzen.',
-        'Bei stechendem Schmerz sofort abbrechen.',
+        'Niemals mit verdrehter oder gerundeter Wirbelsäule heben.',
+        'Bei stechendem oder einschießendem Schmerz sofort abbrechen – nicht "durchziehen".',
+        'Olympisches Heben (Reißen, Stoßen) nur mit qualifiziertem Coach lernen.',
       ],
     }}),
   ],
@@ -360,7 +371,7 @@ const tennis: SportCurriculum = {
         'Mit pronierter Hand treffen, durchschwingen.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Grundstellung & Beinarbeit', duration: '8 min', description: 'Splittstep, kleine Schritte, immer bereit.', content: {
+    mod({ id: 'b4', title: 'Splitstep – die wichtigste Beinarbeit', duration: '6 min', description: 'Der oft vergessene Schritt – Grundlage jeder Bewegung.', ytVideoId: 'VpLXJ5YVFJ4', channel: 'Tennisschule Klee', content: {
       intro: 'Im Tennis wird mit den Füßen geschlagen, nicht mit dem Arm. Wer schlecht steht, schlägt schlecht – egal wie gut die Technik ist.',
       keyPoints: [
         'Splittstep: kleiner Hüpfer, wenn der Gegner trifft.',
@@ -399,7 +410,7 @@ const schwimmen: SportCurriculum = {
       ],
       safety: ['Nicht den Kopf dauerhaft über Wasser halten – Nackenprobleme drohen.'],
     }}),
-    mod({ id: 'b4', title: 'Wassergewöhnung & Sicherheit', duration: '8 min', description: 'Im Wasser entspannen, sicher schwimmen.', content: {
+    mod({ id: 'b4', title: 'Wassergewöhnung – Anfängerschwimmkurs Teil 2', duration: '12 min', description: 'Im Wasser entspannen und sicher Vertrauen aufbauen.', ytVideoId: 'LZfmAVRM1EQ', channel: 'swimcoachvideos', content: {
       intro: 'Bevor Technik kommt, kommt Vertrauen. Wassergewöhnung ist der Schlüssel – auch für Erwachsene, die Schwimmen "nachlernen".',
       keyPoints: [
         'Ausatmen UNTER Wasser – nicht oben.',
@@ -453,7 +464,7 @@ const klettern: SportCurriculum = {
         'Sicherungskurs in der Halle vor der ersten echten Tour.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Sicher fallen & landen', duration: '7 min', description: 'Bouldermatten richtig nutzen.', content: {
+    mod({ id: 'b4', title: 'Boulder-Basics: Sicher fallen und landen', duration: '8 min', description: 'Die wichtigste Skill nach dem Klettern.', ytVideoId: '6yVCjdKAQZw', channel: 'Grundkurs Bouldern', content: {
       intro: 'Über 70 % aller Boulder-Verletzungen passieren beim unkontrollierten Fallen. Saubere Falltechnik ist Skill Nr. 1.',
       keyPoints: [
         'Nie steif landen – Knie weich, Beine federn.',
@@ -493,7 +504,7 @@ const boxen: SportCurriculum = {
       tips: ['Übe in der Wohnung mit Klebeband-Quadrat – innerhalb der Markierung bewegen.'],
     }}),
     mod({ id: 'b3', title: 'Grundstellung & erste Kombinationen', duration: '10 min', description: 'Stand, Footwork und Schlag-Kombinationen.', ytVideoId: 'KSZk17UTfLc', channel: 'uebungenzuhause' }),
-    mod({ id: 'b4', title: 'Hand- und Kopfschutz – richtig nutzen', duration: '7 min', description: 'Bandagen, Handschuhe, Mundschutz.', content: {
+    mod({ id: 'b4', title: 'Boxbandagen richtig wickeln', duration: '6 min', description: 'KHUNPON erklärt die Bandagen-Technik Schritt für Schritt.', ytVideoId: '-8U3KTPr3Kc', channel: 'KHUN PON - Onlineshop (Kein Ladengeschäft)', content: {
       intro: 'Boxen ist ein Kontaktsport. Die richtige Schutzausrüstung macht Training erst möglich und schützt deine Karriere.',
       keyPoints: [
         'Bandagen schützen Finger und Handgelenk – immer wickeln.',
@@ -532,7 +543,7 @@ const radfahren: SportCurriculum = {
       ],
       tips: ['Vor der ersten 100-km-Tour ein Bike-Fitting machen lassen.'],
     }}),
-    mod({ id: 'b4', title: 'Sicherheit im Straßenverkehr', duration: '7 min', description: 'Handzeichen, Sichtbarkeit, Spurfahren.', content: {
+    mod({ id: 'b4', title: 'Handzeichen für Radfahrer', duration: '6 min', description: 'GCN erklärt die wichtigsten Handzeichen für die Gruppenfahrt.', ytVideoId: 'WWUFzfZuXgk', channel: 'GCN auf Deutsch', content: {
       intro: 'Auf der Straße bist du der kleinste Verkehrsteilnehmer – Sichtbarkeit und Vorhersehbarkeit retten Leben.',
       keyPoints: [
         'Handzeichen vor jedem Spurwechsel.',
@@ -580,7 +591,7 @@ const volleyball: SportCurriculum = {
         'Mit der ganzen Hand treffen, nicht nur Faust.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Rotation & Spielfeldverhalten', duration: '6 min', description: 'Zonen, Rotation und Rufabsprachen.', content: {
+    mod({ id: 'b4', title: 'Volleyball-Rotation einfach erklärt', duration: '7 min', description: 'Die Rotationsregel für Einsteiger.', ytVideoId: '7CN_VFuAjWE', channel: 'Volleyballfreak', content: {
       intro: 'Volleyball ist ein Rotationsspiel mit klaren Positionen. Wer das System nicht versteht, ist im Spiel verloren.',
       keyPoints: [
         '6 Spieler:innen drehen nach jedem Aufschlag-Gewinn im Uhrzeigersinn.',
@@ -623,7 +634,7 @@ const handball: SportCurriculum = {
         'Nach dem Pass weiterbewegen – kein "Pass and Watch".',
       ],
     }}),
-    mod({ id: 'b4', title: 'Schiedsrichtergesten lesen', duration: '5 min', description: 'Die wichtigsten Zeichen verstehen.', content: {
+    mod({ id: 'b4', title: 'Schiedsrichter-Handzeichen', duration: '7 min', description: 'Die wichtigsten Gesten verstehen.', ytVideoId: 'YYLjabcYGsU', channel: 'hsgschaumburgnord', content: {
       intro: 'Wer die Gesten kennt, spielt schneller und beschwert sich nicht – das hilft dem ganzen Team.',
       keyPoints: [
         'Schritt-Fehler: Schiedsrichter dreht Fäuste umeinander.',
@@ -661,14 +672,21 @@ const judo: SportCurriculum = {
       safety: ['Niemals mit gestrecktem Arm fallen – Schulter geht kaputt.'],
     }}),
     mod({ id: 'b3', title: 'Die vier Grundhaltegriffe', duration: '8 min', description: 'Bodenarbeit für Anfänger.', ytVideoId: 'HCqGvmPZieg', channel: 'Judo-im-Pott [de]' }),
-    mod({ id: 'b4', title: 'Dojo-Etikette & Tradition', duration: '6 min', description: 'Reigi – das, was Judo zu Judo macht.', content: {
-      intro: 'Judo ist nicht nur Sport, sondern auch Erziehung. Reigi (Etikette) ist Teil jeder Trainingseinheit.',
+    mod({ id: 'b4', title: 'Dojo-Etikette & Judo-Tradition', duration: '8 min', description: 'Reigi – das, was Judo zu Judo macht.', content: {
+      intro: 'Judo (柔道) heißt wörtlich "der sanfte Weg" und wurde 1882 von Jigorō Kanō begründet. Es ist nicht nur Sport, sondern auch Erziehungskonzept. Reigi (Etikette) ist Teil jeder Trainingseinheit und unterscheidet das Dojo vom Fitnessstudio.',
       keyPoints: [
-        'Beim Betreten/Verlassen der Matte: Verbeugung zum Shomen (Stirnwand).',
-        'Vor und nach dem Partnerübung: Verbeugung zum Partner.',
-        'Pünktlich, sauber, gepflegter Gi – Selbstdisziplin sichtbar machen.',
-        'Älteren und Höhergraduierten gegenüber respektvoll.',
+        'Beim Betreten / Verlassen der Matte: Verbeugung (Rei) zum Shomen (Stirnwand).',
+        'Vor und nach jeder Partnerübung: Verbeugung zum Partner – Augenkontakt halten.',
+        'Beim Eintreffen Lehrer (Sensei) und höher Graduierte zuerst begrüßen.',
+        'Pünktlich, sauberer Gi, kurze Fingernägel – Schutz für dich und Partner.',
+        'Während der Erklärung: stillsitzen im Seiza oder Kreuzsitz, nicht herumlaufen.',
+        'Im Notfall "Matte!" rufen – sofort wird das Training pausiert.',
       ],
+      tips: [
+        'Den Gi nach dem Training falten und sauber lagern – nicht in der Tasche knüllen.',
+        'Höhergraduierte sind nicht "die Lehrer", aber respektvoll behandeln – sie waren auch mal Anfänger.',
+      ],
+      safety: ['Niemals Schmuck auf der Matte – Verletzungsgefahr für beide Partner.', 'Kein Training mit offenen Wunden – Hygiene-Risiko.'],
     }}),
   ],
   fortgeschritten: genericIntermediate,
@@ -705,13 +723,20 @@ const karate: SportCurriculum = {
         'Kiai (Kampfschrei) an zwei festgelegten Stellen.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Etikette & Gürtelsystem', duration: '6 min', description: 'Reigi, Rang und Respekt im Dojo.', content: {
-      intro: 'Karate beginnt und endet mit Respekt. Etikette ist nicht Verpflichtung, sondern Geisteshaltung.',
+    mod({ id: 'b4', title: 'Karate-Etikette & das Kyu-Dan-System', duration: '8 min', description: 'Reigi, Rang und Respekt im Dojo.', content: {
+      intro: 'Karate (空手) bedeutet "leere Hand" – ohne Waffe. Es entstand auf Okinawa und kam in den 1920ern nach Japan. Was Karate vom reinen Kampfsport unterscheidet, ist die Geisteshaltung: Karate-do ist ein Weg (Do), der mit Etikette beginnt und endet.',
       keyPoints: [
-        'Verbeugung beim Betreten des Dojo (zum Shomen).',
-        'Verbeugung vor und nach jeder Partnerübung.',
-        'Pünktlichkeit und sauberer Gi – Selbstrespekt.',
-        'Gürtelsystem: 9. Kyu (Weiß) bis 1. Kyu (Braun), dann Dan-Grade (Schwarz).',
+        'Beim Betreten und Verlassen des Dojo: Verbeugung zum Shomen.',
+        'Begrüßung und Verabschiedung im Seiza (Kniesitz) – mit Mokuso (Meditationsmoment).',
+        'Vor und nach jeder Partnerübung: gegenseitige Verbeugung.',
+        'Gürtelsystem (Kyu-Grade, absteigend von 9. Kyu/Weiß bis 1. Kyu/Braun).',
+        'Dan-Grade (aufsteigend ab Shodan/1. Dan in Schwarz – mind. 10 Jahre Training für 5. Dan).',
+        'Der Gürtel wird symbolisch nie gewaschen – er trägt den Schweiß des Trainings.',
+      ],
+      tips: [
+        'Pünktlichkeit: 10 Minuten vor Trainingsbeginn da sein – das ist Standard, nicht "früh".',
+        'Beim Verspäten: vor der Matte abwarten, bis der Sensei einwinkt.',
+        'Während der Korrektur durch den Lehrer: aufmerksam zuhören, mit "Hai!" (Ja!) bestätigen.',
       ],
     }}),
   ],
@@ -748,7 +773,7 @@ const kickboxen: SportCurriculum = {
         'Treffpunkt: Außenseite Oberschenkel.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Sparring-Etikette & Sicherheit', duration: '7 min', description: 'Light Contact, Mundschutz, Respekt.', content: {
+    mod({ id: 'b4', title: 'Sparring-Tipps für Anfänger', duration: '8 min', description: 'Praxis-Tipps fürs erste Sparring.', ytVideoId: 'GLZV6hKYzic', channel: 'na- kangaroos', content: {
       intro: 'Sparring ist kein Kampf – es ist Training. Wer zu hart geht, verliert Sparringpartner und entwickelt sich nicht weiter.',
       keyPoints: [
         '"Light" heißt wirklich light – nicht 80 %.',
@@ -791,7 +816,7 @@ const badminton: SportCurriculum = {
         'Durchschwung quer vor den Körper.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Schläger und Federball-Wahl', duration: '5 min', description: 'Einsteiger-Setup richtig wählen.', content: {
+    mod({ id: 'b4', title: 'Badminton-Schläger kaufen', duration: '8 min', description: 'Worauf bei der Schlägerwahl achten?', ytVideoId: 'OgkSaZzbFGM', channel: 'Sport und Abenteuer', content: {
       intro: 'Anfänger brauchen kein Profi-Equipment – falsche Wahl bremst aber den Lernfortschritt aus.',
       keyPoints: [
         'Schläger: kopflastig (Power) oder grifflastig (Kontrolle) – Mittelweg ist Anfängerwahl.',
@@ -834,7 +859,7 @@ const tischtennis: SportCurriculum = {
       ],
       tips: ['Übe jeden Aufschlag 100× pro Woche solo am Tisch.'],
     }}),
-    mod({ id: 'b4', title: 'Schlägerwahl & Belag', duration: '5 min', description: 'Einsteiger-Setup, das wirklich passt.', content: {
+    mod({ id: 'b4', title: 'Welchen Schläger für Einsteiger?', duration: '7 min', description: 'Konkrete Schläger-Empfehlung für Einsteiger.', ytVideoId: 'LbJoxfnaneQ', channel: 'smarTT', content: {
       intro: 'Der falsche Schläger blockiert deinen Fortschritt für Monate. Mit dem richtigen Setup lernst du deutlich schneller.',
       keyPoints: [
         'Holz: All-Round, nicht zu schnell, nicht zu langsam.',
@@ -870,7 +895,7 @@ const squash: SportCurriculum = {
         'Ausschwung Richtung Wand, nicht zur Mitte.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Sicherheit auf engem Raum', duration: '5 min', description: 'Schutzbrille und Abstand zum Gegner.', content: {
+    mod({ id: 'b4', title: 'Squash kurz erklärt', duration: '7 min', description: 'Sportarten-Podcast zum schnellen Verständnis.', ytVideoId: 'ZGBW6ghgJ8E', channel: 'SportsGraph', content: {
       intro: 'Squash spielt sich auf engstem Raum mit Hochgeschwindigkeitsbällen ab. Schutz und Etikette sind kein "Nice to have".',
       keyPoints: [
         'Schutzbrille ist für Anfänger faktisch Pflicht.',
@@ -907,7 +932,7 @@ const rudern: SportCurriculum = {
         'Drag-Faktor (Widerstand) anpassen, nicht nur Frequenz.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Rücken sichern', duration: '7 min', description: 'Hyperextensions, Plank, Core.', content: {
+    mod({ id: 'b4', title: 'Core-Übungen auf dem Rudergerät', duration: '8 min', description: 'Vier effektive Übungen für einen starken Core.', ytVideoId: 'yQQNXdq2sYI', channel: 'FlowRow', content: {
       intro: 'Rudern belastet den unteren Rücken stark. Wer keinen starken Core hat, riskiert Bandscheibenprobleme.',
       keyPoints: [
         'Hyperextensions: 3 × 12 Wdh., 2× pro Woche.',
@@ -952,7 +977,7 @@ const segeln: SportCurriculum = {
       ],
       safety: ['Halse bei starkem Wind nur mit erfahrenem Skipper.'],
     }}),
-    mod({ id: 'b4', title: 'Sicherheit auf dem Wasser', duration: '7 min', description: 'Wetter, MOB, Crew-Briefing.', content: {
+    mod({ id: 'b4', title: 'Mann-über-Bord-Manöver', duration: '8 min', description: 'Grabner Sailing Academy zeigt das wichtigste Notfallmanöver.', ytVideoId: 'jgSSLDVOb0Q', channel: 'Grabner Boote', content: {
       intro: 'Auf dem Wasser bist du auf dich gestellt. Vorbereitung entscheidet, ob ein Törn entspannt oder dramatisch wird.',
       keyPoints: [
         'Schwimmweste immer, wenn nicht angeleint.',
@@ -991,7 +1016,7 @@ const surfen: SportCurriculum = {
         'Niemals direkt vor brechende Wellen paddeln.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Strand- und Wassersicherheit', duration: '7 min', description: 'Strömungen, Surf-Etikette, Rettung.', content: {
+    mod({ id: 'b4', title: 'Wenn das Meer gefährlich wird', duration: '9 min', description: 'Terra X plus über lebensgefährliche Strömungen.', ytVideoId: '_eu6Ycw9uhs', channel: 'Terra X plus', content: {
       intro: 'Das Meer ist mächtig und gleichgültig. Wer ohne Wissen ins Wasser geht, riskiert Leben.',
       safety: [
         'Niemals allein in unbekanntem Spot.',
@@ -1029,16 +1054,26 @@ const crossfit: SportCurriculum = {
       ],
     }}),
     mod({ id: 'b3', title: 'CrossFit Home-Workout mit Hendrik Senf', duration: '20 min', description: 'Praxisbeispiel mit Profi-Trainer.', ytVideoId: '3q8tJc4TY7E', channel: 'FITBOOK' }),
-    mod({ id: 'b4', title: 'Sicher in der Box', duration: '8 min', description: 'Coaches fragen, skalieren, hören.', content: {
-      intro: 'CrossFit-Boxen leben von der Coach-Qualität. Eine gute Box stellt Sicherheit vor Performance.',
+    mod({ id: 'b4', title: 'Sicher in der CrossFit-Box', duration: '10 min', description: 'Coaches, Skalierung, On-Ramp – Anfängerleitfaden.', content: {
+      intro: 'CrossFit hat den Ruf "verletzungsanfällig" zu sein – aber das stimmt nur für schlecht geführte Boxen. Eine gute Box bringt dich sicher durch jedes WOD. Das Wichtigste: lerne die Bewegungen sauber, bevor du sie unter Zeitdruck ausführst.',
       keyPoints: [
-        'On-Ramp / Foundation-Kurs vor dem ersten WOD.',
-        'Olympisches Heben nur unter Anleitung.',
-        'Niemals zu viel Gewicht zu früh.',
-        'Bei Schmerzen sofort abbrechen – kein "Push through".',
-        'Skalierung ist klug, nicht schwach.',
+        'On-Ramp / Foundation-Kurs (2–4 Wochen) ist vor jedem offiziellen WOD Pflicht.',
+        'Bewegungsqualität geht IMMER vor Geschwindigkeit oder Gewicht.',
+        'Skalierung ist Standard – jede Übung hat eine angepasste Variante.',
+        'Olympisches Heben (Snatch, Clean & Jerk) nur mit qualifizierter Anleitung.',
+        'Bei stechenden Schmerzen oder Schwindel sofort aussetzen.',
+        'Atmung im WOD: Pace finden, mit der du noch sprechen könntest.',
       ],
-      safety: ['Die Coaches sind dafür da, dich zu bremsen – hör auf sie.'],
+      tips: [
+        'Bei einem neuen WOD: zuerst die Bewegung trocken üben, dann das Gewicht testen.',
+        'Coaches sind dafür da, dich zu bremsen, nicht zu pushen – hör auf sie.',
+        'In Klassen genau hinten oder vorne anstellen, je nach Sichtbarkeit – Spiegel hilft.',
+      ],
+      safety: [
+        'Rhabdomyolyse (zerfallene Muskeln) ist eine reale Gefahr bei zu hartem Start – tritt bei dunkelbraunem Urin sofort zum Arzt.',
+        'Niemals "Kipping Pull-Ups" ohne sauberen "Strict Pull-Up" davor lernen – Schulterprobleme drohen.',
+        'Box-Jumps niemals erschöpft – Schienbeinverletzungen sind die häufigste CF-Verletzung.',
+      ],
     }}),
   ],
   fortgeschritten: genericIntermediate,
@@ -1102,7 +1137,7 @@ const wandern: SportCurriculum = {
         'Marschrichtung anpeilen: Kompass auf der Karte ausrichten, dann Pfeil verfolgen.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Sicherheit am Berg', duration: '8 min', description: 'Wetter, Notfall, Schwierigkeitsgrade.', content: {
+    mod({ id: 'b4', title: 'Notsituation am Berg – richtig handeln', duration: '10 min', description: 'ORTOVOX zeigt das Verhalten im alpinen Notfall.', ytVideoId: 'gyzQYbIWg2Y', channel: 'ORTOVOX', content: {
       intro: 'Berge verzeihen wenig. Wer in den Bergen unterwegs ist, plant für das Wetter und Szenarien.',
       keyPoints: [
         'Tourenplanung an Wetterbericht koppeln (Bergwetter Alpenverein).',
@@ -1141,7 +1176,7 @@ const mountainbike: SportCurriculum = {
       ],
       safety: ['Niemals nur vorne voll ziehen – Überschlag droht.'],
     }}),
-    mod({ id: 'b4', title: 'Schutzausrüstung', duration: '6 min', description: 'Helm, Knie, Brille, Handschuhe.', content: {
+    mod({ id: 'b4', title: 'Protektoren von Kopf bis Fuß', duration: '11 min', description: 'Anfängerguide für Schutzausrüstung.', ytVideoId: 'wMzkmTIuLNk', channel: 'Mark Bartsch', content: {
       intro: 'Stürze gehören zum MTB. Mit der richtigen Schutzausrüstung sind sie meist harmlos.',
       keyPoints: [
         'Helm immer – idealerweise mit verlängertem Hinterkopfschutz.',
@@ -1179,7 +1214,7 @@ const ski: SportCurriculum = {
         'Mit kurzen Schwüngen üben, dann verlängern.',
       ],
     }}),
-    mod({ id: 'b4', title: 'FIS-Pistenregeln & Sicherheit', duration: '6 min', description: 'Vorfahrt, Geschwindigkeit, Hilfeleistung.', content: {
+    mod({ id: 'b4', title: 'Die 10 FIS-Regeln erklärt', duration: '8 min', description: 'Marius Quast erklärt die offiziellen Pistenregeln.', ytVideoId: 'U4KCSh9zuJM', channel: 'Marius Quast', content: {
       intro: 'Auf der Piste gelten klare Regeln – wie im Straßenverkehr. Sie schützen dich und alle anderen.',
       keyPoints: [
         'Rücksicht auf andere Skifahrer.',
@@ -1222,7 +1257,7 @@ const snowboard: SportCurriculum = {
       ],
       tips: ['Üben auf der grünen Piste – nicht zu früh blaue Pisten.'],
     }}),
-    mod({ id: 'b4', title: 'Stürzen & sicher aufstehen', duration: '7 min', description: 'Fallen ist Teil des Lernens.', content: {
+    mod({ id: 'b4', title: 'Hinfallen und aufstehen', duration: '7 min', description: 'Sicher fallen und korrekt wieder aufstehen.', ytVideoId: '6BpzT10KP0U', channel: 'GER Knowboard - Die online Snowboardschule', content: {
       intro: 'Du wirst am ersten Tag 100× fallen. Das Wissen, wie du das ohne Verletzungen tust, macht den Unterschied.',
       keyPoints: [
         'Vorwärts: Knie und Hände nutzen, nicht volle Länge.',
@@ -1268,7 +1303,7 @@ const eishockey: SportCurriculum = {
         'Mit dem ganzen Körper drehen, nicht nur Arme.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Komplette Schutzausrüstung', duration: '6 min', description: 'Helm, Schulter, Ellbogen, Tiefschutz.', content: {
+    mod({ id: 'b4', title: 'Eishockey-Ausrüstung anziehen', duration: '12 min', description: 'owayo zeigt mit Christian Ehrhoff alle Teile.', ytVideoId: 'jLvZi-UpF8g', channel: 'owayo custom sports', content: {
       intro: 'Eishockey ist Vollkontakt-Sport mit Hochgeschwindigkeitspucks. Ohne komplette Ausrüstung kein Training.',
       keyPoints: [
         'Helm mit Gitter oder Visier – für Anfänger Gitter.',
@@ -1315,7 +1350,7 @@ const tanzen: SportCurriculum = {
       ],
       tips: ['Vor dem Tanzen 5 Min nur zur Musik wippen – das schult Timing.'],
     }}),
-    mod({ id: 'b4', title: 'Stilrichtungen überblicken', duration: '6 min', description: 'Welcher Tanz passt zu dir?', content: {
+    mod({ id: 'b4', title: 'Latein vs. Standard – der Unterschied', duration: '8 min', description: 'Hobbytanzgeflüster zeigt die Fußarbeit beider Stile.', ytVideoId: '6jUVQKmsjNs', channel: 'Hobbytanzgeflüster', content: {
       intro: 'Es gibt dutzende Tanzstile – manche brauchen einen Partner, andere nicht. Hier ein Überblick zur Orientierung.',
       keyPoints: [
         'Standard: Walzer, Tango, Foxtrott, Wiener Walzer, Quickstep.',
@@ -1354,7 +1389,7 @@ const parkour: SportCurriculum = {
         'Hocke kurz bleiben, nicht "stehen lassen".',
       ],
     }}),
-    mod({ id: 'b4', title: 'Spot-Scouting & Sicherheit', duration: '6 min', description: 'Untergrund prüfen, Sichtlinien.', content: {
+    mod({ id: 'b4', title: 'Parkour-Spots finden', duration: '7 min', description: 'urbanamadei erklärt, wie du gute Trainings-Spots erkennst.', ytVideoId: '_cdsmkyb3T8', channel: 'urbanamadei', content: {
       intro: 'Parkour ist nur so sicher wie der gewählte Spot. Vor jedem Sprung gilt: erst denken, dann springen.',
       keyPoints: [
         'Untergrund prüfen – nass, glatt, locker?',
@@ -1395,7 +1430,7 @@ const reiten: SportCurriculum = {
         'Aussitzen Trab: erst, wenn das Becken locker mitschwingt.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Stallarbeit & Pferdepflege', duration: '8 min', description: 'Putzen, Hufe auskratzen, Vertrauen aufbauen.', content: {
+    mod({ id: 'b4', title: 'Das Pferd pflegen und putzen', duration: '10 min', description: 'Loesdau Lessons – Basics mit Kati Teil 1.', ytVideoId: 'qbAllBFG0Q4', channel: 'Pferdesporthaus Loesdau', content: {
       intro: 'Reiten beginnt nicht im Sattel, sondern auf dem Stallgang. Wer das Pferd respektvoll pflegt, baut Vertrauen – die Basis für gutes Reiten.',
       keyPoints: [
         'Pferd vor dem Reiten gründlich putzen – Striegel, Kardätsche, Mähnenkamm.',
@@ -1440,7 +1475,7 @@ const golf: SportCurriculum = {
         'Distanz wichtiger als Linie – zu kurz ist immer schlechter.',
       ],
     }}),
-    mod({ id: 'b4', title: 'Etikette auf dem Platz', duration: '6 min', description: 'Schnelles Spiel, Pitchmarks, Bunker.', content: {
+    mod({ id: 'b4', title: 'Etikette auf dem Golfplatz', duration: '8 min', description: 'PGA-Pro Patrick Limbecker erklärt die Spielregeln im Umgang.', ytVideoId: 'liDL2inpR9g', channel: 'PGA Patrick Limbecker | PL Performance', content: {
       intro: 'Golf ist ein Sport mit ungeschriebenen Regeln. Wer die Etikette kennt, ist gern gesehen – wer sie ignoriert, wird gemieden.',
       keyPoints: [
         'Schnelles Spiel: bereit sein, wenn du dran bist.',
