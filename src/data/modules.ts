@@ -382,7 +382,41 @@ const tennis: SportCurriculum = {
       tips: ['Übe Splittsteps an der Wand – jedes Mal, wenn der Ball trifft, ein Hüpfer.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Vorhand-Topspin verbessern', duration: '10 min', description: 'In 3 Schritten zu mehr Spin und Kontrolle.', ytVideoId: 'odJxC0Nyx_I', channel: 'MeinTennisGame - Online Tennis Training', content: {
+      intro: 'Topspin trennt Anfänger vom fortgeschrittenen Spieler. Drei Anpassungen entscheiden, ob der Ball flach segelt oder mit Bogen und Kontrolle landet.',
+      keyPoints: [
+        'Schlägerkopf tiefer als die Ballposition – von unten nach oben schlagen.',
+        'Schnelle Pronation der Schlaghand am Treffmoment.',
+        'Hüftrotation als Power-Quelle – nicht der Arm.',
+        'Durchschwung über die andere Schulter, Schwungbahn lang.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Slice und Volleys', duration: '15 min', description: 'Defensive und offensive Netzschläge.', content: {
+      keyPoints: [
+        'Slice: Schlägerkopf öffnet, Schwung von oben nach unten – flacher, schwer zu retournieren.',
+        'Vorhand-Volley: Schläger fixiert, kurzer Schwung, Treffpunkt vor dem Körper.',
+        'Rückhand-Volley: Schulter zum Netz, kompakter Schwung.',
+        'Volley-Schritt: Splitstep, dann Vorwärtsschritt mit dem Außenfuß.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Match-Taktik gegen verschiedene Gegner', duration: '12 min', description: 'Spielanalyse und Anpassung.', content: {
+      keyPoints: [
+        'Gegen Topspin-Spieler: tief und mit Slice spielen, Tempo brechen.',
+        'Gegen Slicer: hohe Bälle aufnehmen, sofort drücken.',
+        'Gegen Aggressive: sicher anspielen, Fehler erzwingen.',
+        'Bei zwei verlorenen Spielen am Stück: Taktik wechseln.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für Tennis', duration: '20 min', description: 'Sprintkraft, Beweglichkeit, Stabilität.', content: {
+      keyPoints: [
+        'Sprint-Intervalle (10 × 20 m) 2× pro Woche.',
+        'Plyometrik für Sprung und Antritt.',
+        'Mobility für Schulter und Hüfte.',
+        'Rumpfkraft (Plank-Variationen, Dead Bug, Bird Dog).',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -425,7 +459,40 @@ const schwimmen: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Rückenschwimmen mit Toni Embacher', duration: '8 min', description: 'Die rückenschonendste Lage richtig lernen.', ytVideoId: 'Gd4riUvx7hc', channel: 'FITBOOK', content: {
+      intro: 'Rückenschwimmen ist die wirbelsäulenschonendste Lage – und gleichzeitig eine, die viele schief schwimmen. Ex-Profi Toni Embacher zeigt dir die Bausteine.',
+      keyPoints: [
+        'Hüfte hoch – die Körperlinie muss horizontal liegen.',
+        'Beinschlag aus der Hüfte, Knie nur leicht beugen.',
+        'Armzug: gestreckter Eintauch, S-förmiger Zug.',
+        'Kopf ruhig, Blick zur Decke.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Kraulen effizienter machen', duration: '12 min', description: 'Wasserlage und Rotation perfektionieren.', content: {
+      keyPoints: [
+        'Rotation aus der Hüfte (45°) – Schultern folgen.',
+        'Catch-Up-Übung: ein Arm wartet, bis der andere ankommt.',
+        'Atmung beidseitig (3er-Rhythmus) für Balance.',
+        'Pull-Buoy zwischen den Beinen für Armarbeit-Fokus.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Wechsel zwischen Lagen üben', duration: '15 min', description: 'Lagenschwimmen aufbauen.', content: {
+      keyPoints: [
+        'Reihenfolge im Wettkampf: Schmetterling → Rücken → Brust → Kraul.',
+        'Wendetechnik üben: Rollwende für Kraul/Rücken, Schwimmwende für Brust/Schmetterling.',
+        'Übergänge sauber – nicht antäuschen.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Schwimm-Trainingsplan strukturieren', duration: '14 min', description: 'Konditions-Aufbau im Wasser.', content: {
+      keyPoints: [
+        'Aufwärmen: 400 m locker mit Wechsel.',
+        'Hauptteil: 6–10 × 100 m mit 20–30 s Pause.',
+        'Technik-Drills (Pull-Buoy, Paddles) 1× pro Woche.',
+        'Cool-down: 200 m sehr locker, Streckendehnung.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -475,7 +542,43 @@ const klettern: SportCurriculum = {
       safety: ['Spotter haben bei hohen Boulder – sie steuern den Fall, fangen ihn nicht.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Vorstieg im Klettergarten', duration: '13 min', description: 'Vom Toprope zum Lead Climbing – sicher in den Vorstieg.', ytVideoId: '5M2oAKINaBg', channel: 'Transa', content: {
+      intro: 'Vorstieg ist der entscheidende Schritt vom Hobby- zum echten Kletterer. Du musst nicht nur klettern, sondern auch klippen, fallen, und beim Sichern dynamisch arbeiten.',
+      keyPoints: [
+        'Partner-Check VOR jedem Klettern: Knoten, Karabiner, Sicherungsgerät.',
+        'Sauberes Klippen: kurze Bewegung, Seil von hinten nach vorne.',
+        'Dynamisches Sichern: aktiv mitspringen beim Sturz, weiches Halten.',
+        'Erste Vorstieg-Stürze unter kontrollierten Bedingungen üben.',
+      ],
+      safety: ['Niemals mit Halbmastwurf im Vorstieg sichern – Tube/Grigri obligatorisch.', 'Backclipping vermeiden – Seil wird sonst beim Sturz aufgeschnitten.'],
+    }}),
+    mod({ id: 'i2', title: 'Fortgeschrittene Klettertechniken', duration: '15 min', description: 'Drop Knee, Heel Hook, Dyno.', content: {
+      keyPoints: [
+        'Drop Knee: Knie nach innen drehen, Hüfte zur Wand pressen – riesige Reichweite.',
+        'Heel Hook: Ferse einhaken, mit Hamstring ziehen.',
+        'Toe Hook: Zehen einhaken, körpernahes Halten.',
+        'Dyno: dynamischer Sprung mit Push aus den Beinen.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Routen lesen & projektieren', duration: '12 min', description: 'Eine Route mental durchgehen.', content: {
+      keyPoints: [
+        'Crux identifizieren – wo wird es schwer?',
+        'Ruheposition zwischen Schlüsselstellen finden.',
+        'Bewegungssequenz visualisieren.',
+        'Projekt-Routen über mehrere Sessions arbeiten.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Krafttraining für Kletterer', duration: '18 min', description: 'Hangboard, Klimmzug, Antagonisten.', content: {
+      keyPoints: [
+        'Hangboard: 7s On / 3s Off Intervalle, 6 Sätze.',
+        'Klimmzüge mit Zusatzgewicht.',
+        'Antagonisten: Liegestütze, Außenrotation – verhindert Schulterprobleme.',
+        'Niemals junge Finger maximal belasten (vor dem 16. Lebensjahr).',
+      ],
+      safety: ['Bei Fingerschmerz sofort pausieren – Ringbandverletzungen heilen Monate.'],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -515,7 +618,42 @@ const boxen: SportCurriculum = {
       safety: ['Kein Sparring ohne Schutz.', 'Bei Hand-/Handgelenkschmerzen sofort pausieren.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Wichtigste Kombinationen', duration: '10 min', description: 'One-Two und die klassischen Combos.', ytVideoId: 'SGGKQvXkSl8', channel: 'Darius', content: {
+      intro: 'Boxen ist ein Spiel der Kombinationen. Einzelne Schläge sind selten erfolgreich – Combos öffnen Deckungen und schaffen Punkte.',
+      keyPoints: [
+        '1-2 (Jab + Cross): die Grundkombination, immer üben.',
+        '1-2-3 (Jab + Cross + Hook): nach dem Cross seitlich nachsetzen.',
+        '1-1-2 (Doppelter Jab + Cross): Distanz brechen.',
+        '2-3 (Cross + Hook zum Körper): Körper-zu-Kopf-Wechsel.',
+        'Nach jeder Combo: Defense oder Schritt zurück.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Defense – Slip, Roll, Parry', duration: '12 min', description: 'Verteidigen ohne zu blockieren.', content: {
+      keyPoints: [
+        'Slip: Kopf nach links oder rechts verlagern – nicht mehr.',
+        'Roll: rotierende Bewegung unter dem Hook durch.',
+        'Parry: leichte Hand-Bewegung lenkt den Schlag um.',
+        'Block ist die LETZTE Verteidigung, nicht die erste.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Sandsack-Training', duration: '20 min', description: 'Power und Ausdauer am Sack.', content: {
+      keyPoints: [
+        '3 Minuten Runden mit 1 Minute Pause.',
+        'Verschiedene Höhen: Kopf, Körper, Leber.',
+        'Combos statt einzelner Schläge.',
+        'Auf Pratzen zur Präzision wechseln.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für Boxer', duration: '18 min', description: 'Lauf, HIIT, Seil.', content: {
+      keyPoints: [
+        '5 km Dauerlauf 2× pro Woche.',
+        'Seilspringen: 3 × 3 Min Doppelschwung-Intervalle.',
+        'HIIT-Sprints am Hügel.',
+        'Mobility Schulter und Hüfte – sonst harte Combos verletzen.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -558,7 +696,42 @@ const radfahren: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: '5 Tipps schneller bergauf', duration: '9 min', description: 'GCN auf Deutsch zur Bergauf-Performance.', ytVideoId: '1lk4Za-4Cas', channel: 'GCN auf Deutsch', content: {
+      intro: 'Bergauf fahren ist die unbarmherzigste Disziplin im Radsport: hier zählt das Verhältnis von Kraft zu Gewicht. GCN zeigt dir die fünf wichtigsten Hebel.',
+      keyPoints: [
+        'Pacing: nicht zu hart starten, gleichmäßiges Tempo halten.',
+        'Trittfrequenz hochhalten (75–90 U/min) – schont die Beine.',
+        'Wiegetritt sparsam einsetzen – kostet mehr Energie.',
+        'Atmung tief und gleichmäßig.',
+        'Gewicht reduzieren ist meist effektiver als mehr Training.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Sprint und Antritte', duration: '12 min', description: 'Maximalleistung über 10–30 Sekunden.', content: {
+      keyPoints: [
+        'Wiegetritt für volle Power – Oberkörper über dem Lenker.',
+        'Antritt: erst Sitzen, dann Wiegetritt bei voller Last.',
+        'Sprint im Pulk: Position in Top 5 vor dem Endspurt.',
+        'Aerodynamik bricht ab 40 km/h alles.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Aerodynamik & Positionsoptimierung', duration: '10 min', description: 'Mehr Speed bei gleicher Watt-Leistung.', content: {
+      keyPoints: [
+        'Im Aero-Lenker tief und schmal – Rücken flach.',
+        'Helm aerodynamisch – ohne Visier verlierst du Watt.',
+        'Kleidung körpernah – flatternde Stoffe bremsen messbar.',
+        'Bike-Fitting beim Profi für Watt-pro-Geschwindigkeit-Optimierung.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Ernährung auf langen Touren', duration: '14 min', description: 'Wann was essen und trinken.', content: {
+      keyPoints: [
+        'Vor dem Start: 2 h vorher Kohlenhydrate.',
+        'Auf der Tour: 60–90 g Kohlenhydrate / Stunde.',
+        'Hydration: 500–800 ml / Stunde, mit Elektrolyten.',
+        'Bei > 3h: feste Nahrung statt nur Gels.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -601,7 +774,41 @@ const volleyball: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Angriffsschlag – 3 Keys', duration: '10 min', description: 'Volleyballkompass zur Technik des harten Schmetterschlags.', ytVideoId: 'c-9VkMA94Ps', channel: 'Volleyballkompass', content: {
+      intro: 'Der Angriffsschlag (Spike) entscheidet die meisten Spielzüge. Drei technische Schlüssel machen den Unterschied zwischen "geht über" und "donnert in den Boden".',
+      keyPoints: [
+        'Anlauf 3-Schritt: links, rechts-links (oder spiegelbildlich) – Power aus dem letzten Schritt.',
+        'Beidarmiger Armzug während des Absprungs – wie ein Bogenspanner.',
+        'Treffmoment in vollster Streckung, oberhalb des Netzes.',
+        'Handgelenk-Snap am Schluss für Topspin und Power.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Block-Technik', duration: '12 min', description: 'Über dem Netz Punkte holen.', content: {
+      keyPoints: [
+        'Position: nahe am Netz, Hände hoch.',
+        'Absprung beidbeinig, ohne Anlauf.',
+        'Hände über das Netz schieben (penetrieren).',
+        'Augen auf den Ball UND den Angreifer.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Annahme harter Aufschläge', duration: '10 min', description: 'Floater und Sprungaufschläge sicher annehmen.', content: {
+      keyPoints: [
+        'Plattform früh formen – nicht warten.',
+        'Knie tief, Schwerpunkt nach vorne.',
+        'Bei Floater: nicht überreagieren, locker abfedern.',
+        'Annahmeziel ist immer der Zuspieler – nicht die Decke.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Taktik im 6-gegen-6', duration: '14 min', description: 'Rotation, Position, Spielzüge.', content: {
+      keyPoints: [
+        '5-1-System: ein Zuspieler, fünf Angreifer.',
+        '4-2-System: zwei Zuspieler – einfacher für Schulteams.',
+        'Libero-Wechsel mit Mittelblocker organisieren.',
+        'Spielzüge nummerieren: "Hut" = Mitte, "Pipe" = Hinterfeld-Angriff.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -644,7 +851,41 @@ const handball: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Sprungwurf durch Techniktraining verbessern', duration: '12 min', description: 'Handball Hacks – individuelles Techniktraining.', ytVideoId: 'T9M_mFSC-7A', channel: 'Handball Hacks', content: {
+      intro: 'Der Sprungwurf ist der Königsschlag im Handball. Profis machen 90 % ihrer Tore aus dem Sprung – aber Technik schlägt Kraft.',
+      keyPoints: [
+        'Absprungbein: bei Rechtshändern links – Hochsprung am höchsten Punkt.',
+        'Ballarm zieht in die Hochhalte, Spielbein knickt zur Brust.',
+        'Wurf aus voller Streckung, Peitsche aus dem Handgelenk.',
+        'Landung in den Wurfkreis vermeiden – außerhalb landen.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Spielzüge & Kreisanspiel', duration: '15 min', description: 'Den Kreis ins Spiel bringen.', content: {
+      keyPoints: [
+        'Kempa-Trick: Pass in die Luft zum springenden Kreis.',
+        'Stoßen und Anspielen: Position 3 oder 4 stößt durch, KL fängt.',
+        'Doppel-Pass über die Position des Kreisläufers.',
+        'Spielen aus dem Kreuz: Pass diagonal über das Spielfeld.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Verteidigungsformationen', duration: '12 min', description: '6-0, 3-2-1, 5-1.', content: {
+      keyPoints: [
+        '6-0: Alle Verteidiger auf 6-m-Linie – kompakt, gut gegen Rückraum.',
+        '3-2-1: dreigliedrig, aggressiv – gut gegen technische Teams.',
+        '5-1: ein vorgezogener Verteidiger – stört den Spielmacher.',
+        'Übergeben/Übernehmen: klare Absprache an den Schnittstellen.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für Handball', duration: '18 min', description: 'Sprint, Sprungkraft, Wurfausdauer.', content: {
+      keyPoints: [
+        'Sprint-Intervalle 30 m mit Richtungswechsel.',
+        'Plyometrik für den Absprung (Box Jumps).',
+        'Wurfschulter: Außenrotatoren mit Theraband.',
+        'Ganzkörperkraft für Zweikämpfe in der Verteidigung.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -689,7 +930,42 @@ const judo: SportCurriculum = {
       safety: ['Niemals Schmuck auf der Matte – Verletzungsgefahr für beide Partner.', 'Kein Training mit offenen Wunden – Hygiene-Risiko.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Randori auf Orangegurt-Niveau', duration: '12 min', description: 'JudoHD zeigt freies Üben für den 5. Kyu.', ytVideoId: 'qSuOYMq0Nss', channel: 'JudoHD', content: {
+      intro: 'Randori (乱取り, "freies Üben") ist Judo unter realistischen Bedingungen. Ab dem Orangegurt arbeitest du gegen Widerstand, mit voller Bewegung.',
+      keyPoints: [
+        'Beweglich bleiben, nicht klammern – Judo ist Bewegung.',
+        'Kuzushi (Gleichgewichtsbrechen) vor jedem Wurf.',
+        'Mehrere Würfe verketten: erster scheitert → sofort zweiter.',
+        'Niemals mit Ego kämpfen – verlieren ist Lernen.',
+      ],
+      safety: ['Bei eingehaktem Arm: sofort lockerlassen.', 'Tap-Out im Bodenkampf wird sofort respektiert.'],
+    }}),
+    mod({ id: 'i2', title: 'Bodenkampf-Aufbau (Ne-waza)', duration: '14 min', description: 'Vom Stand in den Boden – und gewinnen.', content: {
+      keyPoints: [
+        'Übergang: nach dem Wurf sofort in die Bodenkontrolle.',
+        'Vier Grundhaltegriffe: Kesa-gatame, Yoko-shiho-gatame, Kami-shiho-gatame, Tate-shiho-gatame.',
+        'Befreiungstechniken aus den Haltegriffen.',
+        'Hebel- und Würgegriffe ab Blaugurt (1. Kyu).',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Wettkampftaktik', duration: '12 min', description: 'Auf dem Tatami siegen.', content: {
+      keyPoints: [
+        'Erste 30 Sekunden: Gegner studieren, Griffe testen.',
+        'Bei Führung: kontrollierte Verteidigung, kein Hyper-Risk.',
+        'Bei Rückstand: aggressiver Griff, dynamische Würfe.',
+        'Shido (Strafe) vermeiden: aktiv kämpfen, nicht passiv.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Krafttraining für Judoka', duration: '15 min', description: 'Funktionelle Kraft am Tatami.', content: {
+      keyPoints: [
+        'Griffkraft: Hangboard, Towel-Pull-Ups.',
+        'Kreuzheben für Wurf-Power aus den Beinen.',
+        'Klimmzüge mit Gi-Aufhängung.',
+        'Rumpfstabilität – jede Bewegung im Judo braucht den Core.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -740,7 +1016,43 @@ const karate: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Mawashi Geri Chudan im Kumite', duration: '8 min', description: 'KSC Team zur effektivsten Tritttechnik im Wettkampf.', ytVideoId: 'JYm_tE-K9pc', channel: 'KSC Team', content: {
+      intro: 'Mawashi Geri Chudan ist die meistvariierte Technik im Karate-Kumite – schnell, präzise, punktet bei gutem Treffer sofort.',
+      keyPoints: [
+        'Hüfte führt die Bewegung, Knie hochziehen.',
+        'Treffpunkt mit Spann oder Schienbein (Wettkampf: Spann).',
+        'Standbein-Ferse rotiert mit – Power aus der Drehung.',
+        'Sofort Bein zurückziehen – nicht stehenlassen.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Kata Heian Nidan', duration: '10 min', description: 'Die zweite Heian-Kata.', content: {
+      intro: 'Heian Nidan ist die Kata für den 7. Kyu (gelb-orange). Sie führt seitwärts gerichtete Bewegungen ein.',
+      keyPoints: [
+        '26 Techniken in einer komplexen Choreografie.',
+        'Erste Kombinationen aus Block + Konter.',
+        'Wechsel zwischen tiefen und hohen Ständen.',
+        'Tempo wechselt zwischen schnell und ruhig.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Bunkai – Kata-Anwendung', duration: '15 min', description: 'Was die Bewegungen wirklich bedeuten.', content: {
+      intro: 'Bunkai (分解) heißt "Zerlegung". Jede Kata-Bewegung hat eine konkrete Kampfanwendung – Bunkai macht aus Tanz Kampfkunst.',
+      keyPoints: [
+        'Jede Bewegung hat mindestens eine direkte Anwendung.',
+        'Mehrdeutig: ein Block kann auch ein Schlag sein.',
+        'Mit Partner üben – Theorie reicht nicht.',
+        'Ältere Versionen der Kata zeigen die ursprüngliche Anwendung.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Wettkampfvorbereitung', duration: '12 min', description: 'Auf das erste Turnier vorbereitet sein.', content: {
+      keyPoints: [
+        'Sparring mit Wettkampf-Regeln (Punkterichter, Zone, Zeit).',
+        'Mawashi Geri und Gyaku Zuki sind die Punkte-Bringer.',
+        'Ippon (3 Punkte): vor allem mit gut platzierten Tritten.',
+        'Mental: Visualisierung des Ablaufs am Vorabend.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -784,7 +1096,41 @@ const kickboxen: SportCurriculum = {
       safety: ['Anfänger sollten erst nach 3+ Monaten Training ins Sparring.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Mawashi Geri – Grundübungen', duration: '10 min', description: 'Marie Niino Karate – die Basis-Übungen für den Rundtritt.', ytVideoId: '09frCZOfD0E', channel: 'Marie Niino Karate & Kokoro Physical Training', content: {
+      intro: 'Mawashi Geri (Roundhouse Kick) ist im Kickboxen die meistverwendete Technik. Saubere Ausführung schützt deine Hüfte und macht den Tritt schnell.',
+      keyPoints: [
+        'Knie zuerst hochziehen – diagonal.',
+        'Hüfte rotiert vollständig mit, Standbein dreht 90°.',
+        'Treffen mit dem Schienbein, nicht mit dem Spann.',
+        'Bein nach dem Tritt sofort zurück in die Deckung.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Defense und Konter', duration: '12 min', description: 'Verteidigen und sofort kontern.', content: {
+      keyPoints: [
+        'Auf Jab: Slip + Cross-Konter.',
+        'Auf Cross: Roll + Hook-Konter.',
+        'Auf Front Kick: Side-Step + Low Kick.',
+        'Konter funktioniert nur, wenn du erst die Distanz kontrollierst.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Sandsack-Training mit Tritten', duration: '15 min', description: 'Power und Ausdauer am Pratzen und Sack.', content: {
+      keyPoints: [
+        '3 × 3 Min Runden mit 1 Min Pause.',
+        'Jede Runde mit anderer Combo-Fokus.',
+        'Auf Pratzen für Präzision.',
+        'Tritte mit dem rechten und linken Bein gleich oft.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Wettkampftaktik', duration: '14 min', description: 'Punkten im Light Contact und K1.', content: {
+      keyPoints: [
+        'Light Contact: schnelle Technik, kein Knockout-Versuch.',
+        'K1: Powerschläge im Bereich, Clinch erlaubt.',
+        'Ring-Generalität: die Mitte halten.',
+        'Konditions-Drittel: erstes Drittel mit Tempo, letztes mit Effizienz.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -826,7 +1172,41 @@ const badminton: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Vorhand-Überkopf Smash', duration: '8 min', description: 'Die Sportlehrer zur Power-Technik.', ytVideoId: 'Z8lY0OJmnVI', channel: 'Die Sportlehrer', content: {
+      intro: 'Der Smash ist der härteste Schlag im Badminton – Profis schmettern mit über 400 km/h. Mit sauberer Technik wird er schon im Hobby zur unverteidigbaren Waffe.',
+      keyPoints: [
+        'Treffpunkt steil über dem Kopf, leicht vor dem Körper.',
+        'Schnelle Pronation – Schlägerkopf peitscht durch.',
+        'Volle Körperrotation, Schlaghand führt.',
+        'Nach dem Schlag sofort zurück zur Mitte.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Doppelspiel-Taktik', duration: '12 min', description: 'Vorne-Hinten-System richtig spielen.', content: {
+      keyPoints: [
+        'Bei Angriff: vorne-hinten-Aufstellung (Front-Back).',
+        'Bei Verteidigung: seitlich (Side-Side).',
+        'Rotation: nach Pushshot vorne, nach hohem Ball hinten.',
+        'Kommunikation: "Mein!" oder "Deins!" laut rufen.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Drop, Drive, Lift', duration: '12 min', description: 'Die drei taktischen Schlagvarianten.', content: {
+      keyPoints: [
+        'Drop: kurze, leise Schläge ans Netz.',
+        'Drive: flacher, schneller Schlag parallel zum Netz.',
+        'Lift: defensiver Hochschlag aus dem Vorderfeld.',
+        'Variation gewinnt Punkte – nicht nur Power.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für Badminton', duration: '15 min', description: 'Schnellkraft und Reaktion.', content: {
+      keyPoints: [
+        'Sprintintervalle 5–10 m für Antritt.',
+        'Plyometrie für den Smash-Sprung.',
+        'Schulter-Mobility für die Pronation.',
+        'Reaktions-Drills mit Partner.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -869,7 +1249,41 @@ const tischtennis: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Vorhand-Topspin DTTB', duration: '10 min', description: 'Deutscher Tischtennis-Bund – der wichtigste Schlag im modernen TT.', ytVideoId: 'woT6NgJymBk', channel: 'Deutscher Tischtennis-Bund', content: {
+      intro: 'Der Vorhand-Topspin ist im modernen offensiven Tischtennis der dominante Schlag. Ohne ihn kommst du auf Vereins-Niveau nicht weiter.',
+      keyPoints: [
+        'Schläger schließt im Treffmoment, streift den Ball von hinten/unten.',
+        'Power aus Beinen, Hüfte und Schulter – nicht aus dem Arm.',
+        'Tiefe Position – Knie deutlich gebeugt.',
+        'Durchschwung über die linke Schulter (Rechtshänder).',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Schupfball-Variationen', duration: '12 min', description: 'Die defensive Antwort auf Aufschläge.', content: {
+      keyPoints: [
+        'Kurzer Schupfball: dicht am Netz, schwer anzuspinnen.',
+        'Halblanger Schupf: zwingt zum Topspin – kontrollierbar.',
+        'Aggressives Schupfen: gezielter Druck auf die Ecken.',
+        'Aktive Hand am Treffpunkt – nicht passiv.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Aufschlag-Strategie', duration: '14 min', description: 'Der Aufschlag entscheidet 30 % aller Punkte.', content: {
+      keyPoints: [
+        'Variation: jede Aufschlagrunde mit anderem Schnitt.',
+        'Spin verstecken: Wechsel von Ober- und Unterschnitt mit gleichem Bewegungsablauf.',
+        'Platzierung: lange Aufschläge zur Vorhand des Gegners.',
+        'Kurzaufschläge ziehen ins Spiel rein.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für TT', duration: '12 min', description: 'Reaktion, Beweglichkeit, Stabilität.', content: {
+      keyPoints: [
+        'Reaktions-Drills: Ball aus mehreren Richtungen returnieren.',
+        'Beinarbeit: kleine schnelle Schritte, kein Springen.',
+        'Hüft-Mobility für tiefen Stand.',
+        'Augen-Hand-Koordination mit Tennisball.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -906,7 +1320,41 @@ const squash: SportCurriculum = {
       safety: ['Schutzbrille kostet 20 € – Augenoperation 2.000 €.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Boast Shot verbessern', duration: '7 min', description: 'Squashpoint zur taktischen Schlagvariante.', ytVideoId: 'KqTusUA_JM0', channel: 'Squashpoint', content: {
+      intro: 'Der Boast ist der trickreichste Schlag im Squash: Der Ball trifft erst die Seitenwand, dann die Vorderwand. Richtig eingesetzt zwingt er den Gegner ins Vorderfeld.',
+      keyPoints: [
+        'Schlagen aus dem Hinterfeld – Boast funktioniert defensiv und offensiv.',
+        'Treffwinkel: 45° zur Seitenwand, ca. 30 cm über der Tin.',
+        'Variieren: 2-Wall- vs. 3-Wall-Boast.',
+        'Nach dem Boast SOFORT zurück zur T-Position.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'T-Position halten', duration: '10 min', description: 'Die Mitte des Courts kontrollieren.', content: {
+      keyPoints: [
+        'Nach jedem Schlag direkt zurück zur T.',
+        'Position seitlich verschieben, nicht hin und her laufen.',
+        'Wer die T hält, kontrolliert das Spiel.',
+        'Bei Druck: tiefere Längsschläge ans Hinterfeld.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Volley-Schläge', duration: '12 min', description: 'Den Ball aus der Luft nehmen.', content: {
+      keyPoints: [
+        'Schneller Eingriff bricht den Rhythmus des Gegners.',
+        'Volley-Drive: aus dem Mittelfeld direkt nach hinten.',
+        'Volley-Drop: vor dem Bouncen abkürzen.',
+        'Position 1 m hinter der T für aggressive Volleys.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für Squash', duration: '15 min', description: 'Sprint-Ausdauer und Stabilität.', content: {
+      keyPoints: [
+        'Ghosting-Drills: leere Court-Bewegung simulieren.',
+        'Sprint-Intervalle 30 s an / 30 s aus.',
+        'Plyometrie für den Lunge zum Ball.',
+        'Mobility für tiefe Ausfallschritte.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -943,7 +1391,41 @@ const rudern: SportCurriculum = {
       safety: ['Bei Rückenschmerzen pausieren – nicht "durchziehen".'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Schlagfrequenz richtig wählen', duration: '8 min', description: 'Augletics zur effizienten Schlagzahl.', ytVideoId: 'SJc3NisV3kA', channel: 'Augletics Rudergeräte', content: {
+      intro: 'Die Schlagfrequenz ist im Rudern wichtiger als Power. Zu hoch = ineffizient, zu niedrig = Power verschwendet. Augletics zeigt dir das Optimum.',
+      keyPoints: [
+        'Grundlagentraining: 18–22 Schläge / Min.',
+        'Wettkampf (2000 m): 28–34 SPM.',
+        'Sprint-Intervalle: 36+ SPM.',
+        'Schlagzahl muss zur Druckphase passen – nicht eilen.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Race Pacing für 2000 m', duration: '15 min', description: 'Die olympische Distanz strategisch fahren.', content: {
+      keyPoints: [
+        'Start (250 m): hohe Schlagzahl 38-40 SPM, harter Druck.',
+        'Body (250-1750 m): 28-32 SPM, konstant.',
+        'Sprint (letzte 250 m): wieder 36+ SPM mit allem.',
+        'Negative Splits: zweite 1000 m schneller als erste.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Krafttraining für Ruderer', duration: '15 min', description: 'Kreuzheben, Klimmzug, Beine.', content: {
+      keyPoints: [
+        'Kreuzheben 3 × 5 für Hüft- und Beinstreckung.',
+        'Klimmzüge für den Endzug.',
+        'Frontkniebeuge für Knie-Stabilität.',
+        'Plank-Varianten für den Core.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Vom Ergometer aufs Wasser', duration: '12 min', description: 'Den Übergang zum Boot meistern.', content: {
+      keyPoints: [
+        'Balance: 80 % Aufmerksamkeit auf das Boot, nicht den Schlag.',
+        'Skull (zwei Riemen) ist anfangs einfacher als Riemen.',
+        'Slow & balanced – nicht hart fahren am Anfang.',
+        'Vor allem: nicht ins Wasser fallen ;-)',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -988,7 +1470,41 @@ const segeln: SportCurriculum = {
       safety: ['Crew vor dem Ablegen einweisen: wo Westen, wo Notruf, wer Skipper.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Spinnaker setzen', duration: '10 min', description: 'Der Segelberater Folge 10 – Spi-Manöver.', ytVideoId: 'flzjpDM1FjA', channel: 'NAUTIC FILM', content: {
+      intro: 'Der Spinnaker (Spi) ist das große bunte Segel für Raumkurse. Setzen und Bergen erfordert Crew-Koordination – aber dafür segelst du danach mit doppelter Geschwindigkeit.',
+      keyPoints: [
+        'Vorbereiten: Schoten und Fallen klar legen.',
+        'Setzen im Schutz der Großsegels – verhindert Verheddern.',
+        'Trimmen: Achterkante muss leicht "atmen".',
+        'Bergen: Luvseite zuerst, dann Leeschot lockern.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Trimm bei verschiedenen Windverhältnissen', duration: '14 min', description: 'Segel optimal stellen.', content: {
+      keyPoints: [
+        'Wenig Wind: tiefer Twist, lockerer Trimm.',
+        'Mittlerer Wind: Standard – Achterstag fest, Großschot anziehen.',
+        'Viel Wind: Großbaum nach unten (Vang), Vorsegel flach.',
+        'Telltales zeigen, ob der Trimm passt.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Regatta-Grundlagen', duration: '15 min', description: 'Vom ersten Wettkampf an mithalten.', content: {
+      keyPoints: [
+        'Startlinie: Position auf Steuerbordseite ist ideal.',
+        'Layline berechnen: nicht zu weit ausholen.',
+        'Bei Boje rounding: enge Linie nehmen.',
+        'Regeln kennen: Steuerbord vor Backbord.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Reffen bei Starkwind', duration: '10 min', description: 'Segelfläche verkleinern – sicher segeln.', content: {
+      keyPoints: [
+        'Frühzeitig reffen, nicht erst bei Sturm.',
+        'Erst Großsegel reffen, dann Vorsegel.',
+        'Crew einweisen: jeder weiß, wo Sicherheitsweste und Reffleinen sind.',
+      ],
+      safety: ['Bei Böen über 25 Knoten: defensive Routen wählen.', 'Wetterprognose alle 3 h checken.'],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1027,7 +1543,41 @@ const surfen: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Backside Cutback & Bottom Turn', duration: '8 min', description: 'WINDSURFERS – die beiden Schlüssel-Manöver.', ytVideoId: 'MpcUyDeTgCc', channel: 'WINDSURFERS', content: {
+      intro: 'Cutback und Bottom Turn sind die zentralen Manöver, mit denen du auf der Welle Geschwindigkeit nutzt und Punkte sammelst.',
+      keyPoints: [
+        'Bottom Turn: am Fuß der Welle eindrehen, Druck auf die Heel-Edge.',
+        'Cutback: oben in der Welle den Kurs umkehren.',
+        'Backside (Rücken zur Welle) ist schwerer als Frontside.',
+        'Knie tief, Blick führt – wohin du schaust, fährst du.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Top Turn & Snaps', duration: '12 min', description: 'Aggressive Manöver auf der Welle.', content: {
+      keyPoints: [
+        'Top Turn: gleitend nach oben fahren, dann Druck wechseln.',
+        'Snap: schnelle Drehung mit Spray-Effekt.',
+        'Floater: über den Wellenkamm gleiten.',
+        'Re-entry: hinter der Welle wieder einsteigen.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Surfboard-Wahl für Fortgeschrittene', duration: '10 min', description: 'Vom Softboard zum Performance-Board.', content: {
+      keyPoints: [
+        'Volumen reduzieren – mehr Wendigkeit, weniger Stabilität.',
+        'Shortboard für schnelle Manöver – ab Surfniveau Stufe 4.',
+        'Fish für kleine Wellen, Gun für große.',
+        'Finsetup variieren: Thruster (3) für Allround, Quad (4) für Speed.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Surf-Fitness', duration: '15 min', description: 'Trockentraining für längere Sessions.', content: {
+      keyPoints: [
+        'Schwimmen für Paddel-Ausdauer (Schulter).',
+        'Yoga für Hüft- und Schultermobility.',
+        'Pop-Up Tausende von Wiederholungen daheim.',
+        'Balance-Training auf Bosu Ball.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1076,7 +1626,43 @@ const crossfit: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Muscle Up Tutorial', duration: '14 min', description: 'Coach Stef – Bar Muscle Up Schritt für Schritt.', ytVideoId: 'mUlkFVmOKMw', channel: 'Coach Stef', content: {
+      intro: 'Der Muscle Up ist die Krönung der Calisthenics. Mit der richtigen Technik geht er, sobald du saubere Klimmzüge und Dips kannst.',
+      keyPoints: [
+        'Voraussetzung: 10 saubere Strict Pull Ups + 10 Dips.',
+        'False Grip: Handgelenk über die Stange – ermöglicht Übergang.',
+        'Explosiv hochziehen mit Hüft-Kick.',
+        'Übergang: Brust über die Stange, dann Push.',
+      ],
+      safety: ['Niemals nur mit Kipping – Schulterprobleme drohen.'],
+    }}),
+    mod({ id: 'i2', title: 'Olympische Lifts – Grundlagen', duration: '20 min', description: 'Snatch, Clean, Jerk.', content: {
+      keyPoints: [
+        'Lernen NUR mit Coach – Verletzungsrisiko sonst hoch.',
+        'Snatch: Boden zu Overhead in einer Bewegung.',
+        'Clean & Jerk: erst auf die Schulter, dann Overhead.',
+        'Mit Holzstange üben, bevor du Gewicht draufpackst.',
+      ],
+      safety: ['Niemals olympisch heben ohne saubere Frontkniebeuge / Overhead Squat.'],
+    }}),
+    mod({ id: 'i3', title: 'Double Unders', duration: '10 min', description: 'Doppelschwung am Seil.', content: {
+      keyPoints: [
+        'Hochsprung knapp 5–10 cm – nicht mehr.',
+        'Handgelenke kurbeln, nicht die Arme.',
+        'Singel-Doppel-Wechsel: ein Single zwischen Doubles.',
+        'Erst lockere 30 Singles, dann erste Double versuchen.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Wettkampf-Vorbereitung', duration: '12 min', description: 'Open / Quarterfinals / Local Comps.', content: {
+      keyPoints: [
+        'CrossFit Open ist global zugänglich – jeder kann mitmachen.',
+        'Warm-up Routine vor jedem WOD.',
+        'Strategy: weiß was kommt, plane Pacing.',
+        'Mentaltraining – CrossFit ist viel im Kopf.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1111,7 +1697,42 @@ const pilates: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Pilates Reformer – Einführung', duration: '10 min', description: 'Vela Pilates – was du vorm ersten Reformer-Training wissen solltest.', ytVideoId: 'qRDITmQrWbw', channel: 'Vela Pilates', content: {
+      intro: 'Der Reformer ist DAS Pilates-Gerät schlechthin. Mit Federn und Schlitten erschließt du Bewegungen, die auf der Matte unmöglich sind – aber Sicherheit ist hier wichtig.',
+      keyPoints: [
+        'Federn (1, 1.5, 2 Federn) regulieren den Widerstand.',
+        'Headrest, Shoulder Rests, Foot Bar richtig einstellen.',
+        'Mehrere Übungen aus dem klassischen Repertoire (Footwork, Hundred, Long Stretch).',
+        'Niemals Federn lösen während eine Übung läuft.',
+      ],
+      safety: ['Schlitten kann zurückschnellen – kontrollierte Bewegung Pflicht.'],
+    }}),
+    mod({ id: 'i2', title: 'Mat Pilates – fortgeschrittene Übungen', duration: '20 min', description: 'Teaser, Roll Over, Swan, Boomerang.', content: {
+      keyPoints: [
+        'Teaser: V-Sitz aus Liegen – Königsdisziplin der Bauch-Kraft.',
+        'Roll Over: aus Liegen Beine über den Kopf.',
+        'Swan: tiefe Rückbeuge mit Push-Up Arms.',
+        'Boomerang: kombinierte Sequenz aus Teaser und Roll Over.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Pilates für Sportler', duration: '15 min', description: 'Performance-Booster für andere Sportarten.', content: {
+      keyPoints: [
+        'Läufer profitieren von Hüftöffnern und Core.',
+        'Skifahrer brauchen Bein- und Rumpfstabilität.',
+        'Schwimmer: Rotation und Schulterstabilität.',
+        'Pilates verbessert Wahrnehmung – egal welcher Sport.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Atemtechnik vertiefen', duration: '8 min', description: 'Pilates-Atmung über die Basics hinaus.', content: {
+      keyPoints: [
+        'Lateral Breathing: in den Brustkorb seitlich, nicht in den Bauch.',
+        'Atem führt die Bewegung – nicht umgekehrt.',
+        'Ausatmen in der schwersten Phase.',
+        'Zwerchfell aktiv nutzen für Core-Stabilität.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1148,7 +1769,41 @@ const wandern: SportCurriculum = {
       safety: ['Notruf in den Bergen: 112 funktioniert europaweit, auch ohne Empfang über andere Netze.', 'Bei Gewitter: tiefer gehen, exponierte Stellen meiden.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Ultraleicht-Packliste Mehrtagestour', duration: '14 min', description: 'SASCHA zur Alpen-Mehrtagestour mit minimalem Gewicht.', ytVideoId: 'QXcriumM-w8', channel: 'SASCHA', content: {
+      intro: 'Bei Mehrtagestouren entscheidet jedes Gramm. Ultraleicht-Wandern heißt: alles weglassen, was nicht wirklich gebraucht wird – dann genießt du den Weg.',
+      keyPoints: [
+        'Basisgewicht (ohne Wasser/Essen) Ziel: 6–8 kg.',
+        '3-Schichten-Prinzip strikt einhalten.',
+        'Schlafsystem nach Klima wählen (Daune vs. synthetisch).',
+        'Filter statt Tabletten – schneller und besser im Geschmack.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Trekking-Tourenplanung', duration: '15 min', description: 'Mehrere Tage hintereinander planen.', content: {
+      keyPoints: [
+        'Höhenmeter / Tag: 800–1200 Hm für Mehrtagestouren angemessen.',
+        'Hütten-Reservierung 4–6 Monate im Voraus für Sommer-Alpen.',
+        'Karte + GPS-App (komoot, OutdoorActive, Locus Map).',
+        'Alternativ-Route immer im Hinterkopf.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Hütten- und Biwakübernachtungen', duration: '10 min', description: 'Wie es in den Bergen abläuft.', content: {
+      keyPoints: [
+        'Auf der Hütte: Hüttenschlafsack ist Pflicht.',
+        'Reservierung verbindlich – auch im Schlechtwetter erscheinen.',
+        'Bergsteigeressen: meist Halbpension – ankommen, bestellen.',
+        'Biwak: nur im Notfall, lokale Vorschriften beachten.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionsaufbau fürs Trekking', duration: '14 min', description: 'Trainieren für 7-Tage-Touren.', content: {
+      keyPoints: [
+        '3 Monate Vorlauf: 1× pro Woche lange Tour mit Rucksack.',
+        'Berg-Treppe oder Stadion-Stufen mit Rucksack.',
+        'Beinkraft: Ausfallschritte und Kniebeugen.',
+        'Schuhe einlaufen: 100+ km vor der Tour.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1187,7 +1842,42 @@ const mountainbike: SportCurriculum = {
       safety: ['Full-Face-Helm ab Schwierigkeit S2.', 'Sicht: helle, kontrastreiche Kleidung.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'HOW TO DROP – Drops springen', duration: '9 min', description: 'Rock my Trail Mountainbikeschule zur Sprung-Technik.', ytVideoId: '6eO9wqmDRB8', channel: 'Rock my Trail Mountainbikeschule', content: {
+      intro: 'Der Drop ist der erste echte Trail-Move. Erst mit guter Drop-Technik kannst du Trails ab S2 sicher fahren.',
+      keyPoints: [
+        'Approach gerade und mit Tempo – nicht bremsen.',
+        'Beim Absprung Hinterrad belasten, Vorderrad anlupfen.',
+        'In der Luft Knie und Ellbogen leicht beugen.',
+        'Landen mit beiden Rädern gleichzeitig (oder Hinterrad zuerst).',
+      ],
+      safety: ['Erst kleine Drops (20–30 cm) üben, dann steigern.', 'Erschöpft niemals springen – Konzentration ist alles.'],
+    }}),
+    mod({ id: 'i2', title: 'Trail-Schwierigkeiten S1–S3', duration: '12 min', description: 'Die SingleTrail-Skala richtig einschätzen.', content: {
+      keyPoints: [
+        'S0: Forstweg, jeder fährt.',
+        'S1: leichter Trail, Wurzeln und Steine.',
+        'S2: anspruchsvoller, kleine Drops und Spitzkehren.',
+        'S3: technisch schwer, ohne Erfahrung gefährlich.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Sprünge: Tabletops & Doubles', duration: '14 min', description: 'Park-Skills aufbauen.', content: {
+      keyPoints: [
+        'Tabletop: flacher Sprung – sicher, gut zum Lernen.',
+        'Double: Lücke zwischen Absprung und Landung – nur mit Speed.',
+        'Pumptrack lernen: Rhythmus und Linie.',
+        'Helm-Setup für Park: Full-Face oder Half-Shell mit Brille.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Bike-Setup für Trails', duration: '10 min', description: 'Fahrwerk, Reifendruck, Bremshebel.', content: {
+      keyPoints: [
+        'Reifendruck: 1.4–1.8 bar je nach Untergrund und Gewicht.',
+        'Federgabel-Setup: 25–30 % Sag.',
+        'Bremshebel zur Erreichbarkeit verschieben.',
+        'Tubeless für weniger Platten und Grip.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1229,7 +1919,42 @@ const ski: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Carving-Technik für Fortgeschrittene', duration: '12 min', description: 'bergfex Skikurs – das Königsschwingen.', ytVideoId: 'MCHl5FBZfVI', channel: 'bergfex', content: {
+      intro: 'Carving ist das, was die meisten Skifahrer wirklich wollen: saubere Spurschnitte mit hoher Geschwindigkeit. Die Technik dahinter kommt aber nicht von alleine.',
+      keyPoints: [
+        'Aufkanten aktiv aus den Knöcheln, dann Knien.',
+        'Außenski stark belasten – 70/30 Verteilung.',
+        'Kreuzhang: Schultern bleiben talwärts.',
+        'Druckwechsel sauber an der Falllinie.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Buckelpiste fahren', duration: '14 min', description: 'Moguls technisch sauber.', content: {
+      keyPoints: [
+        'Tiefer Stand mit Knien als Stoßdämpfer.',
+        'Rhythmus wichtiger als Schwung-Qualität.',
+        'Hände vor dem Körper, Stöcke aktiv setzen.',
+        'Linie vor dem Buckel wählen, nicht im Buckel.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Tiefschnee – die Grundlagen', duration: '12 min', description: 'Vom Pisten- zum Off-Piste-Fahrer.', content: {
+      keyPoints: [
+        'Mit Druck nach hinten (50/50 statt 40/60).',
+        'Längere, runde Schwünge statt kurz und kantig.',
+        'Spezielles Equipment: breitere Ski, Rocker-Form.',
+        'Lawinen-Set (LVS, Schaufel, Sonde) immer dabei.',
+      ],
+      safety: ['Niemals allein abseits der Piste.', 'Lawinen-Lagebericht jeden Tag checken.'],
+    }}),
+    mod({ id: 'i4', title: 'Skitouren – Einstieg', duration: '15 min', description: 'Mit Fellen den Berg hoch.', content: {
+      keyPoints: [
+        'Tourenski + Tourenbindung + Felle nötig.',
+        'Aufstieg mit Spitzkehren – Technik will geübt sein.',
+        'LVS-Übung mindestens einmal pro Saison.',
+        'Erstmal mit Bergführer oder erfahrenem Partner.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1268,7 +1993,43 @@ const snowboard: SportCurriculum = {
       safety: ['Handgelenkschoner sind goldwert in den ersten Wochen.', 'Helm immer – auch auf der Anfängerpiste.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Kicker springen – die Basics', duration: '10 min', description: 'Melina Merkhoffer zum ersten Kicker.', ytVideoId: '3yBdgS3L1fE', channel: 'Melina Merkhoffer', content: {
+      intro: 'Der erste Kicker-Sprung ist ein Schritt vom Carver zum Freerider. Mit der richtigen Technik fliegst du – statt zu fallen.',
+      keyPoints: [
+        'Tempo abschätzen am Vortag mit einem Tester.',
+        'Squared-Stance am Absprung – Druck auf beide Beine.',
+        'Pop am Lip: aktiv abdrücken, nicht einfach drüberfliegen.',
+        'Landung: Knie weich, sofort zum Schwung.',
+      ],
+      safety: ['Helm und Protektoren bei jedem Park-Tag.', 'Erst kleine Kicker (Knee-Level), dann steigern.'],
+    }}),
+    mod({ id: 'i2', title: 'Switch Riding', duration: '12 min', description: 'Mit dem "falschen" Fuß vorne fahren.', content: {
+      keyPoints: [
+        'Switch ist Pflicht für jeden Park-Snowboarder.',
+        'Anfangs auf flacher Piste in der Falllinie üben.',
+        'Beide Kanten gleich gut beherrschen.',
+        '50/50: 50 % Switch, 50 % Regular fahren.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Tiefschnee – die ersten Schwünge', duration: '12 min', description: 'Vom Park ins Backcountry.', content: {
+      keyPoints: [
+        'Hinteren Fuß stärker belasten – die Nose schwimmt.',
+        'Runde, gleichmäßige Schwünge statt kurze Bremser.',
+        'Spezielles Pulver-Board oder Rocker-Form.',
+        'Lawinen-Wissen ist Pflicht im Backcountry.',
+      ],
+      safety: ['LVS, Schaufel, Sonde dabei + Übung.', 'Lawinenlagebericht jeden Tag.'],
+    }}),
+    mod({ id: 'i4', title: 'Park-Etikette', duration: '7 min', description: 'Snowboard-Park Knigge.', content: {
+      keyPoints: [
+        'Auf Drop In warten, bis vorherige fertig ist.',
+        'Nicht in der Landezone stehen bleiben.',
+        '"Hörbar dropping in" – ankündigen.',
+        'Nach Sturz: Bahn sofort frei machen.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1315,7 +2076,41 @@ const eishockey: SportCurriculum = {
       safety: ['Niemals ohne komplette Schutzkleidung aufs Eis.', 'Schlittschuhe scharf halten – stumpf = Unfall.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Powerplay-ABC: das Überzahlspiel', duration: '10 min', description: 'MySports zum Spezialteam-Spiel.', ytVideoId: 'nDIyVD0Q2tI', channel: 'MySports', content: {
+      intro: 'Special Teams (Powerplay und Boxplay) machen rund 20 % der Spielzeit aus. Spiele gewinnt oft, wer hier dominiert.',
+      keyPoints: [
+        '1-3-1-Formation: ein Spielmacher hinten, drei Forwards.',
+        'Umbrella: in Form eines Schirms aufstellen.',
+        'Schnelle Pass-Triangulation – nicht stillstehen.',
+        'Shooting Lanes öffnen: Spieler stehen versetzt.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Boxplay / Unterzahl', duration: '10 min', description: 'Defensiv wirksam unterzahl spielen.', content: {
+      keyPoints: [
+        'Box-Formation: 2 vorne, 2 hinten.',
+        'Aktiv Schussbahnen blockieren.',
+        'Lange Pässe in den Mittelkreis vermeiden – Übergeben.',
+        'Wechsel-Disziplin: Linien bleiben in Position.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Spielsysteme & Forecheck', duration: '14 min', description: 'Strukturiert offensiv spielen.', content: {
+      keyPoints: [
+        '1-2-2 Forecheck: aggressiv, ein Stürmer presst die Scheibe.',
+        '2-1-2 Forecheck: zwei Stürmer im Druckspiel.',
+        'Trap (1-3-1): defensiv mit Konter-Fokus.',
+        'Center Lane Drive: zentraler Antritt mit Optionen.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Konditionstraining für Eishockey', duration: '15 min', description: 'Maximale Sprintkraft 30-60 Sekunden.', content: {
+      keyPoints: [
+        'Schicht ist 30-60 s Vollgas, dann 1 Min Pause.',
+        'Sprintintervalle 30 s an / 30 s aus.',
+        'Beinkraft (Kniebeuge, Box Jumps).',
+        'Beweglichkeit der Hüfte – essenziell für den Schritt.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1361,7 +2156,41 @@ const tanzen: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Discofox-Grundschritt', duration: '7 min', description: 'Doodance – in 1 Minute erklärt.', ytVideoId: 'iGz2pLtGv7w', channel: 'Doodance - Online Tanzen lernen!', content: {
+      intro: 'Discofox ist der "Allrounder" der Paartänze – funktioniert auf praktisch jeder Hochzeit, in jeder Bar. Mit dem Grundschritt allein bist du tanzfähig.',
+      keyPoints: [
+        '4/4-Rhythmus, gezählt: 1-2-3-4 oder schnell-schnell-langsam.',
+        'Herr führt mit der rechten Hand auf dem Rücken der Dame.',
+        'Schrittfolge: Seitwärts, Tap, Seitwärts, Tap.',
+        'Dann Drehungen einbauen.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Standardtänze vertiefen', duration: '15 min', description: 'Walzer, Tango, Foxtrott.', content: {
+      keyPoints: [
+        'Langsamer Walzer: 3/4-Takt, eleganter Stil.',
+        'Wiener Walzer: schneller, viele Drehungen.',
+        'Tango: scharfer Stil, plötzliche Stopps.',
+        'Foxtrott: 4/4, fließende Bewegung – gut für jede Musik.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Choreografie selbst bauen', duration: '15 min', description: 'Eine kleine Routine zusammenstellen.', content: {
+      keyPoints: [
+        'Musik wählen, Beats zählen.',
+        'Grundschritt als roter Faden.',
+        '8er-Sequenzen bauen – einprägsam.',
+        'Aufbauen: Intro – Verse – Chorus – Bridge.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Auftritt & Bühnenpräsenz', duration: '10 min', description: 'Vor Publikum tanzen.', content: {
+      keyPoints: [
+        'Lächeln – wirkt selbstbewusst.',
+        'Blickkontakt mit Partner und Publikum.',
+        'Falls Fehler: weitermachen, nicht stehenbleiben.',
+        'Outfit passend zum Stil.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1404,7 +2233,42 @@ const parkour: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Wall Run lernen', duration: '8 min', description: 'Freerunning Factory zur klassischen Mauer-Überwindung.', ytVideoId: 'rA0Dy8wzcY0', channel: 'Freerunning Factory', content: {
+      intro: 'Der Wall Run ist eine ikonische Parkour-Technik: an einer Wand hochlaufen und das obere Ende greifen. In 3 Schritten geht es.',
+      keyPoints: [
+        'Anlauf mit Tempo – Geschwindigkeit ist Hebel.',
+        'Ersten Schritt mit dem schwächeren Fuß an der Wand.',
+        'Zweiten Schritt mit dem stärkeren Fuß zum Hochstoßen.',
+        'Mit den Händen die Kante greifen.',
+      ],
+      safety: ['Erst an niedrigen Wänden üben.', 'Handgelenke und Schultern aufwärmen.'],
+    }}),
+    mod({ id: 'i2', title: 'Flow & Combinationen', duration: '12 min', description: 'Mehrere Moves verketten.', content: {
+      keyPoints: [
+        'Flow heißt: keine Pause zwischen Bewegungen.',
+        'Vault → Wall Run → Präzision verketten.',
+        'Rhythmus wichtig – Bewegung sucht den nächsten Move.',
+        'Tempo variieren – nicht alles auf max.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Krafttraining für Parkour', duration: '15 min', description: 'Funktionelle Kraft für den Körper.', content: {
+      keyPoints: [
+        'Klimmzüge, Liegestütze, Pistols (einbeinige Kniebeugen).',
+        'Hand-Foot-Coordination: Cat Crawl, Bear Crawl.',
+        'Sprungkraft: Plyometrie, Box Jumps.',
+        'Beweglichkeit: Hüfte, Schulter, Handgelenk.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Mentale Vorbereitung', duration: '10 min', description: 'Sprünge im Kopf vorher meistern.', content: {
+      keyPoints: [
+        'Visualisierung vor jedem Sprung.',
+        'Risk Assessment: kann ich das HEUTE?',
+        'Kein Drücken durch andere – nur eigene Entscheidung.',
+        'Fortschritt langsam – Parkour ist Geduldssport.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1441,7 +2305,41 @@ const reiten: SportCurriculum = {
       safety: ['Niemals von hinten ans Pferd herangehen.', 'Helm und feste Stiefel sind Pflicht.'],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Galopphilfen erklärt', duration: '11 min', description: 'WR-ride your life – Hilfen für die schönste Gangart.', ytVideoId: 'dcGE1wYiPPU', channel: 'WR-ride your life  Riding Academy by Wolfgang Rust', content: {
+      intro: 'Der Galopp ist die Königsgangart – aber nur, wenn Reiter und Pferd zusammen arbeiten. Die richtige Hilfengebung macht alles aus.',
+      keyPoints: [
+        'Aus dem Trab heraus mit dem äußeren Schenkel den Galopp anreiten.',
+        'Innerer Schenkel hält die Biegung.',
+        'Sitz mitschwingen lassen – nicht versuchen, mit den Beinen zu treiben.',
+        'Rechter Handgalopp und linker Handgalopp gleich üben.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Springen – Grundlagen', duration: '15 min', description: 'Vom Cavaletti zum ersten Sprung.', content: {
+      keyPoints: [
+        'Leichter Sitz (Vorgehalten) für Sprünge.',
+        'Cavaletti-Reihen für Rhythmus und Distanz.',
+        'Aus dem Galopp anspringen – Tempo halten.',
+        'Bügel etwas kürzer als beim Sitzen.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Dressur-Aufgaben', duration: '15 min', description: 'A-Niveau Aufgaben erkennen und üben.', content: {
+      keyPoints: [
+        'Volten in den Ecken sauber reiten.',
+        'Tritt-Übergänge: Schritt-Trab-Galopp und zurück.',
+        'Hilfengebung leicht und kombiniert.',
+        'Im Viereck Linien einhalten – Punkte des Vierecks lernen (A-B-C-X).',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Pferdetraining-Pläne', duration: '12 min', description: 'Strukturiertes Reiten.', content: {
+      keyPoints: [
+        '3–5 Trainingseinheiten pro Woche, davon 1× Ruhetag.',
+        'Lösungsphase: 15 Min im Schritt und Trab.',
+        'Arbeitsphase: Lektionen passend zum Niveau.',
+        'Cool-down: 10 Min im Schritt – Pferd trocken werden lassen.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
@@ -1486,7 +2384,41 @@ const golf: SportCurriculum = {
       ],
     }}),
   ],
-  fortgeschritten: genericIntermediate,
+  fortgeschritten: [
+    mod({ id: 'i1', title: 'Bunkerschlag – Konzept und Technik', duration: '10 min', description: 'BIRDIETRAIN zum Standard-Bunkerschlag.', ytVideoId: 'yzbzX9Xa3CU', channel: 'BIRDIETRAIN', content: {
+      intro: 'Der Bunkerschlag ist DER Schlag, der Amateure von Wettkampfspielern trennt. Mit der richtigen Technik kommt der Ball jedes Mal raus – und manchmal sogar zum Loch.',
+      keyPoints: [
+        'Sand-Wedge nutzen, offene Schlagfläche.',
+        'Stand breit, leichter Spread.',
+        'Hände leicht hinter dem Ball – nicht davor.',
+        'Sand 5 cm vor dem Ball treffen – Ball wird vom Sand mitgetragen.',
+      ],
+    }}),
+    mod({ id: 'i2', title: 'Pitch- und Chip-Schläge', duration: '14 min', description: 'Das kurze Spiel beherrschen.', content: {
+      keyPoints: [
+        'Chip: kurzer Schlag, läuft viel.',
+        'Pitch: höherer Schlag mit mehr Stop.',
+        'Kontrollierte Schwunglänge: Brust-Brust = mittlere Distanz.',
+        'Hände aktiv, Handgelenke locker.',
+      ],
+    }}),
+    mod({ id: 'i3', title: 'Driver-Schwung verbessern', duration: '15 min', description: 'Längere und präzisere Abschläge.', content: {
+      keyPoints: [
+        'Schwung breit aufbauen – nicht steil.',
+        'Hüfte führt die Bewegung.',
+        'Treffpunkt leicht oberhalb der Schläger-Mitte (Sweet Spot).',
+        'Aufwärts-Treffmoment für maximale Distanz.',
+      ],
+    }}),
+    mod({ id: 'i4', title: 'Mentales Spielmanagement', duration: '12 min', description: 'Score-Management auf 18 Loch.', content: {
+      keyPoints: [
+        'Pre-Shot-Routine: gleicher Ablauf vor jedem Schlag.',
+        'Schlag vergessen, nächster ist neu.',
+        'Bei schwierigen Lagen: konservativ spielen.',
+        'Atmen, lockern, Schwung.',
+      ],
+    }}),
+  ],
   profi: standardProfi,
 };
 
