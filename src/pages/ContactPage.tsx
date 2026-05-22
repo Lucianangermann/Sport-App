@@ -1,0 +1,122 @@
+import { useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import { CLUBS } from '../data/clubs';
+import { PageHeader } from '../components/PageHeader';
+import { useAppStore } from '../store/useAppStore';
+
+const todayISO = () => new Date().toISOString().slice(0, 10);
+
+export const ContactPage = () => {
+  const { id } = useParams<{ id: string }>();
+  const club = CLUBS.find((c) => c.id === id);
+  const profile = useAppStore((s) => s.profile);
+  const addInquiry = useAppStore((s) => s.addInquiry);
+
+  const [name, setName] = useState(profile.name);
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('Ich möchte ein Probetraining vereinbaren.');
+  const [date, setDate] = useState(todayISO());
+  const [sent, setSent] = useState(false);
+
+  if (!club) return <Navigate to="/clubs" replace />;
+
+  const valid = name.trim().length > 1 && /\S+@\S+\.\S+/.test(email) && message.trim().length > 5 && date;
+
+  const submit = () => {
+    if (!valid) return;
+    addInquiry({ clubId: club.id, name, email, message, preferredDate: date });
+    setSent(true);
+  };
+
+  if (sent) {
+    return (
+      <div>
+        <PageHeader title="Anfrage gesendet" />
+        <div className="flex flex-col items-center px-5 pt-6 text-center">
+          <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100 text-5xl">
+            ✓
+          </div>
+          <h2 className="font-display text-2xl font-bold">Wir haben deine Anfrage gesendet!</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            <strong>{club.name}</strong> meldet sich in der Regel innerhalb von 1–2 Werktagen bei dir.
+          </p>
+          <div className="my-6 w-full rounded-2xl bg-white p-4 text-left text-sm shadow-card">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Wunschtermin</div>
+            <div className="font-display text-base font-bold">
+              {new Date(date).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })}
+            </div>
+          </div>
+          <div className="flex w-full gap-2">
+            <Link
+              to="/profile"
+              className="flex-1 rounded-2xl bg-slate-100 py-3.5 text-center font-semibold text-ink-900"
+            >
+              Meine Anfragen
+            </Link>
+            <Link
+              to="/"
+              className="flex-1 rounded-2xl bg-ink-900 py-3.5 text-center font-semibold text-white"
+            >
+              Zur Startseite
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <PageHeader title="Probetraining" subtitle={club.name} back />
+      <div className="space-y-4 px-5 pb-8">
+        <Field label="Dein Name">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+          />
+        </Field>
+        <Field label="E-Mail">
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="du@example.de"
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+          />
+        </Field>
+        <Field label="Wunschtermin">
+          <input
+            value={date}
+            min={todayISO()}
+            onChange={(e) => setDate(e.target.value)}
+            type="date"
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+          />
+        </Field>
+        <Field label="Nachricht">
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={4}
+            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+          />
+        </Field>
+        <button
+          onClick={submit}
+          disabled={!valid}
+          className="w-full rounded-2xl bg-ink-900 py-4 font-semibold text-white transition disabled:bg-slate-300"
+        >
+          Anfrage senden
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <label className="block">
+    <div className="mb-1 text-xs font-semibold text-slate-600">{label}</div>
+    {children}
+  </label>
+);
