@@ -21,7 +21,7 @@ export const FavoritesPage = () => {
             cta={
               <Link
                 to="/discover"
-                className="mt-2 rounded-full bg-ink-900 px-5 py-2 text-sm font-semibold text-white"
+                className="mt-2 rounded-full bg-ink-900 px-5 py-2 text-sm font-semibold text-white dark:bg-white dark:text-ink-900"
               >
                 Sportarten entdecken
               </Link>

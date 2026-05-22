@@ -29,15 +29,18 @@ export const ClubDetailPage = () => {
         </div>
 
         <section className="mt-5">
-          <h2 className="mb-1 font-display text-base font-bold">Über den Verein</h2>
-          <p className="text-sm text-slate-600">{club.description}</p>
+          <h2 className="mb-1 font-display text-base font-bold text-ink-900 dark:text-white">Über den Verein</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-300">{club.description}</p>
         </section>
 
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-base font-bold">Trainingszeiten</h2>
+          <h2 className="mb-2 font-display text-base font-bold text-ink-900 dark:text-white">Trainingszeiten</h2>
           <ul className="space-y-1.5">
             {club.trainingTimes.map((t) => (
-              <li key={t} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm shadow-card">
+              <li
+                key={t}
+                className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-ink-900 shadow-card dark:bg-ink-800 dark:text-white dark:shadow-card-dark"
+              >
                 <span>🗓️</span>
                 <span>{t}</span>
               </li>
@@ -46,8 +49,8 @@ export const ClubDetailPage = () => {
         </section>
 
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-base font-bold">Kontakt</h2>
-          <div className="rounded-2xl bg-white p-3 text-sm shadow-card">
+          <h2 className="mb-2 font-display text-base font-bold text-ink-900 dark:text-white">Kontakt</h2>
+          <div className="rounded-2xl bg-white p-3 text-sm text-ink-900 shadow-card dark:bg-ink-800 dark:text-white dark:shadow-card-dark">
             <div className="flex items-center gap-2 py-1">📍 {club.address}</div>
             <div className="flex items-center gap-2 py-1">✉️ {club.contactEmail}</div>
             <div className="flex items-center gap-2 py-1">📞 {club.contactPhone}</div>
@@ -58,14 +61,14 @@ export const ClubDetailPage = () => {
           {club.trialAvailable ? (
             <Link
               to={`/club/${club.id}/contact`}
-              className="block w-full rounded-2xl bg-ink-900 py-4 text-center font-semibold text-white"
+              className="block w-full rounded-2xl bg-ink-900 py-4 text-center font-semibold text-white dark:bg-white dark:text-ink-900"
             >
               🤝 Probetraining anfragen
             </Link>
           ) : (
             <button
               disabled
-              className="block w-full rounded-2xl bg-slate-200 py-4 text-center font-semibold text-slate-500"
+              className="block w-full rounded-2xl bg-slate-200 py-4 text-center font-semibold text-slate-500 dark:bg-ink-700 dark:text-slate-500"
             >
               Kein Probetraining verfügbar
             </button>
@@ -77,8 +80,10 @@ export const ClubDetailPage = () => {
 };
 
 const Stat = ({ label, value }: { label: string; value: string }) => (
-  <div className="rounded-2xl bg-white p-3 text-center shadow-card">
-    <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">{label}</div>
-    <div className="font-display text-base font-bold">{value}</div>
+  <div className="rounded-2xl bg-white p-3 text-center shadow-card dark:bg-ink-800 dark:shadow-card-dark">
+    <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+      {label}
+    </div>
+    <div className="font-display text-base font-bold text-ink-900 dark:text-white">{value}</div>
   </div>
 );

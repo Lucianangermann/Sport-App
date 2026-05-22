@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import { CURRICULA, LEVEL_LABELS } from '../data/modules';
 import { getSportById, moduleKey } from '../utils/helpers';
@@ -13,7 +13,6 @@ export const LevelDetailPage = () => {
   const { id, level } = useParams<{ id: string; level: string }>();
   const sport = id ? getSportById(id) : undefined;
   const progress = useAppStore((s) => s.progress);
-  const toggleModule = useAppStore((s) => s.toggleModule);
 
   if (!sport || !isLevel(level)) return <Navigate to="/discover" replace />;
 
@@ -30,7 +29,9 @@ export const LevelDetailPage = () => {
         <div className="rounded-2xl p-4 text-white" style={{ background: sport.color }}>
           <div className="flex items-center justify-between text-xs font-semibold">
             <span>Dein Fortschritt</span>
-            <span>{done}/{modules.length} Module</span>
+            <span>
+              {done}/{modules.length} Module
+            </span>
           </div>
           <div className="mt-2">
             <ProgressBar value={ratio} color="rgba(255,255,255,0.95)" />
@@ -46,40 +47,55 @@ export const LevelDetailPage = () => {
           const key = moduleKey(sport.id, level, m.id);
           const completed = !!progress[key];
           return (
-            <div
+            <Link
               key={m.id}
-              className={`rounded-2xl border-2 bg-white p-4 transition ${
-                completed ? 'border-emerald-200 bg-emerald-50/40' : 'border-transparent shadow-card'
+              to={`/sport/${sport.id}/${level}/${m.id}`}
+              className={`block rounded-2xl border-2 p-4 transition active:scale-[0.99] ${
+                completed
+                  ? 'border-emerald-200 bg-emerald-50/40 dark:border-emerald-700/40 dark:bg-emerald-900/15'
+                  : 'border-transparent bg-white shadow-card dark:bg-ink-800 dark:shadow-card-dark'
               }`}
             >
               <div className="flex gap-3">
-                <div className="aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-slate-100">
-                  <div
-                    className="flex h-full w-full items-center justify-center text-2xl"
-                    style={{ background: `${sport.color}1f` }}
-                  >
-                    ▶︎
-                  </div>
+                <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-slate-100 dark:bg-ink-700">
+                  {m.ytVideoId ? (
+                    <>
+                      <img
+                        src={`https://i.ytimg.com/vi/${m.ytVideoId}/mqdefault.jpg`}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <span className="text-2xl">▶︎</span>
+                      </div>
+                    </>
+                  ) : (
+                    <div
+                      className="flex h-full w-full items-center justify-center text-2xl"
+                      style={{ background: `${sport.color}1f` }}
+                    >
+                      ▶︎
+                    </div>
+                  )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
                     Modul {idx + 1} · {m.duration}
+                    {m.ytVideoId && <span className="ml-1 text-rose-500">· YouTube</span>}
                   </div>
-                  <div className="font-display text-base font-bold">{m.title}</div>
-                  <p className="text-xs text-slate-500">{m.description}</p>
+                  <div className="font-display text-base font-bold text-ink-900 dark:text-white">
+                    {m.title}
+                  </div>
+                  <p className="line-clamp-2 text-xs text-slate-500 dark:text-slate-400">{m.description}</p>
+                  {completed && (
+                    <div className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                      ✓ Abgeschlossen
+                    </div>
+                  )}
                 </div>
               </div>
-              <button
-                onClick={() => toggleModule(sport.id, level, m.id)}
-                className={`mt-3 flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition ${
-                  completed
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-ink-900 text-white'
-                }`}
-              >
-                {completed ? '✓ Abgeschlossen' : 'Als erledigt markieren'}
-              </button>
-            </div>
+            </Link>
           );
         })}
       </section>

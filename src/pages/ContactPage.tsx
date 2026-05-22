@@ -33,29 +33,33 @@ export const ContactPage = () => {
       <div>
         <PageHeader title="Anfrage gesendet" />
         <div className="flex flex-col items-center px-5 pt-6 text-center">
-          <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100 text-5xl">
+          <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100 text-5xl dark:bg-emerald-900/40">
             ✓
           </div>
-          <h2 className="font-display text-2xl font-bold">Wir haben deine Anfrage gesendet!</h2>
-          <p className="mt-2 text-sm text-slate-600">
+          <h2 className="font-display text-2xl font-bold text-ink-900 dark:text-white">
+            Wir haben deine Anfrage gesendet!
+          </h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
             <strong>{club.name}</strong> meldet sich in der Regel innerhalb von 1–2 Werktagen bei dir.
           </p>
-          <div className="my-6 w-full rounded-2xl bg-white p-4 text-left text-sm shadow-card">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Wunschtermin</div>
-            <div className="font-display text-base font-bold">
+          <div className="my-6 w-full rounded-2xl bg-white p-4 text-left text-sm shadow-card dark:bg-ink-800 dark:shadow-card-dark">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              Wunschtermin
+            </div>
+            <div className="font-display text-base font-bold text-ink-900 dark:text-white">
               {new Date(date).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })}
             </div>
           </div>
           <div className="flex w-full gap-2">
             <Link
               to="/profile"
-              className="flex-1 rounded-2xl bg-slate-100 py-3.5 text-center font-semibold text-ink-900"
+              className="flex-1 rounded-2xl bg-slate-100 py-3.5 text-center font-semibold text-ink-900 dark:bg-ink-700 dark:text-white"
             >
               Meine Anfragen
             </Link>
             <Link
               to="/"
-              className="flex-1 rounded-2xl bg-ink-900 py-3.5 text-center font-semibold text-white"
+              className="flex-1 rounded-2xl bg-ink-900 py-3.5 text-center font-semibold text-white dark:bg-white dark:text-ink-900"
             >
               Zur Startseite
             </Link>
@@ -73,7 +77,7 @@ export const ContactPage = () => {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+            className={inputCls}
           />
         </Field>
         <Field label="E-Mail">
@@ -82,7 +86,7 @@ export const ContactPage = () => {
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="du@example.de"
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+            className={inputCls}
           />
         </Field>
         <Field label="Wunschtermin">
@@ -91,7 +95,7 @@ export const ContactPage = () => {
             min={todayISO()}
             onChange={(e) => setDate(e.target.value)}
             type="date"
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+            className={inputCls}
           />
         </Field>
         <Field label="Nachricht">
@@ -99,13 +103,13 @@ export const ContactPage = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={4}
-            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-ink-900"
+            className={`${inputCls} resize-none`}
           />
         </Field>
         <button
           onClick={submit}
           disabled={!valid}
-          className="w-full rounded-2xl bg-ink-900 py-4 font-semibold text-white transition disabled:bg-slate-300"
+          className="w-full rounded-2xl bg-ink-900 py-4 font-semibold text-white transition disabled:bg-slate-300 dark:bg-white dark:text-ink-900 dark:disabled:bg-ink-700 dark:disabled:text-slate-500"
         >
           Anfrage senden
         </button>
@@ -114,9 +118,12 @@ export const ContactPage = () => {
   );
 };
 
+const inputCls =
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-ink-900 outline-none placeholder:text-slate-400 focus:border-ink-900 dark:border-ink-700 dark:bg-ink-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-white';
+
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <label className="block">
-    <div className="mb-1 text-xs font-semibold text-slate-600">{label}</div>
+    <div className="mb-1 text-xs font-semibold text-slate-600 dark:text-slate-300">{label}</div>
     {children}
   </label>
 );

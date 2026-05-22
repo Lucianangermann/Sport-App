@@ -7,8 +7,15 @@ import { getSportById, xpForLevel, moduleKey } from '../utils/helpers';
 import { ProgressBar } from '../components/ProgressBar';
 import { CURRICULA } from '../data/modules';
 import { SPORTS } from '../data/sports';
+import { useThemeStore, type ThemeMode } from '../store/useThemeStore';
 
 const AVATARS = ['🏃', '🏋️', '🧘', '🚴', '🏊', '🧗', '⚽', '🏀', '🎾', '🥋', '⛷️', '💃'];
+
+const THEME_OPTIONS: Array<{ id: ThemeMode; label: string; emoji: string }> = [
+  { id: 'light', label: 'Hell', emoji: '☀️' },
+  { id: 'dark', label: 'Dunkel', emoji: '🌙' },
+  { id: 'system', label: 'System', emoji: '⚙️' },
+];
 
 export const ProfilePage = () => {
   const profile = useAppStore((s) => s.profile);
@@ -19,6 +26,8 @@ export const ProfilePage = () => {
   const setAvatar = useAppStore((s) => s.setAvatar);
   const updateSettings = useAppStore((s) => s.updateSettings);
   const resetAll = useAppStore((s) => s.resetAll);
+  const themeMode = useThemeStore((s) => s.mode);
+  const setThemeMode = useThemeStore((s) => s.setMode);
 
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(profile.name);
@@ -42,14 +51,14 @@ export const ProfilePage = () => {
               if (editing) setProfileName(draftName);
               setEditing(!editing);
             }}
-            className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold shadow-card"
+            className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink-900 shadow-card dark:bg-ink-700 dark:text-white dark:shadow-card-dark"
           >
             {editing ? 'Speichern' : 'Bearbeiten'}
           </button>
         }
       />
       <div className="px-5 pb-8">
-        <div className="rounded-3xl bg-ink-900 p-5 text-white">
+        <div className="rounded-3xl bg-ink-900 p-5 text-white dark:bg-ink-800">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-4xl">
               {profile.avatarEmoji}
@@ -64,12 +73,16 @@ export const ProfilePage = () => {
               ) : (
                 <div className="font-display text-xl font-bold">{profile.name}</div>
               )}
-              <div className="text-xs text-white/70">Level {level} · {profile.xp} XP</div>
+              <div className="text-xs text-white/70">
+                Level {level} · {profile.xp} XP
+              </div>
             </div>
           </div>
           <div className="mt-4">
             <ProgressBar value={levelPct} color="rgba(255,255,255,0.95)" />
-            <div className="mt-1 text-[11px] text-white/70">{nextThreshold - profile.xp} XP bis Level {level + 1}</div>
+            <div className="mt-1 text-[11px] text-white/70">
+              {nextThreshold - profile.xp} XP bis Level {level + 1}
+            </div>
           </div>
           {editing && (
             <div className="mt-4">
@@ -99,7 +112,7 @@ export const ProfilePage = () => {
 
         {sportsInProgress.length > 0 && (
           <section className="mt-6">
-            <h2 className="mb-2 font-display text-lg font-bold">Aktive Sportarten</h2>
+            <h2 className="mb-2 font-display text-lg font-bold text-ink-900 dark:text-white">Aktive Sportarten</h2>
             <div className="space-y-2">
               {sportsInProgress.map((s) => {
                 const totalMods = ['anfaenger', 'fortgeschritten', 'profi'].reduce(
@@ -108,14 +121,15 @@ export const ProfilePage = () => {
                 );
                 const done = (['anfaenger', 'fortgeschritten', 'profi'] as const).reduce(
                   (acc, lvl) =>
-                    acc + CURRICULA[s.id][lvl].filter((m) => progress[moduleKey(s.id, lvl, m.id)]).length,
+                    acc +
+                    CURRICULA[s.id][lvl].filter((m) => progress[moduleKey(s.id, lvl, m.id)]).length,
                   0,
                 );
                 return (
                   <Link
                     key={s.id}
                     to={`/sport/${s.id}`}
-                    className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-card"
+                    className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-card dark:bg-ink-800 dark:shadow-card-dark"
                   >
                     <div
                       className="flex h-12 w-12 items-center justify-center rounded-xl text-2xl"
@@ -125,8 +139,12 @@ export const ProfilePage = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <div className="font-display text-sm font-bold">{s.name}</div>
-                        <div className="text-xs text-slate-500">{done}/{totalMods}</div>
+                        <div className="font-display text-sm font-bold text-ink-900 dark:text-white">
+                          {s.name}
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">
+                          {done}/{totalMods}
+                        </div>
                       </div>
                       <ProgressBar value={done / totalMods} color={s.color} />
                     </div>
@@ -139,13 +157,13 @@ export const ProfilePage = () => {
 
         {inquiries.length > 0 && (
           <section className="mt-6">
-            <h2 className="mb-2 font-display text-lg font-bold">Meine Anfragen</h2>
+            <h2 className="mb-2 font-display text-lg font-bold text-ink-900 dark:text-white">Meine Anfragen</h2>
             <div className="space-y-2">
               {inquiries.map((inq) => {
                 const club = CLUBS.find((c) => c.id === inq.clubId);
                 const sport = club && getSportById(club.sportId);
                 return (
-                  <div key={inq.id} className="rounded-2xl bg-white p-3 shadow-card">
+                  <div key={inq.id} className="rounded-2xl bg-white p-3 shadow-card dark:bg-ink-800 dark:shadow-card-dark">
                     <div className="flex items-start gap-3">
                       <div
                         className="flex h-10 w-10 items-center justify-center rounded-xl text-xl"
@@ -155,12 +173,14 @@ export const ProfilePage = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <div className="font-display text-sm font-bold">{club?.name}</div>
-                          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                          <div className="font-display text-sm font-bold text-ink-900 dark:text-white">
+                            {club?.name}
+                          </div>
+                          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
                             Gesendet
                           </span>
                         </div>
-                        <div className="text-xs text-slate-500">
+                        <div className="text-xs text-slate-500 dark:text-slate-400">
                           Wunsch: {new Date(inq.preferredDate).toLocaleDateString('de-DE')}
                         </div>
                       </div>
@@ -173,8 +193,28 @@ export const ProfilePage = () => {
         )}
 
         <section className="mt-6">
-          <h2 className="mb-2 font-display text-lg font-bold">Einstellungen</h2>
-          <div className="overflow-hidden rounded-2xl bg-white shadow-card">
+          <h2 className="mb-2 font-display text-lg font-bold text-ink-900 dark:text-white">Erscheinungsbild</h2>
+          <div className="grid grid-cols-3 gap-2">
+            {THEME_OPTIONS.map((o) => (
+              <button
+                key={o.id}
+                onClick={() => setThemeMode(o.id)}
+                className={`rounded-2xl border-2 px-3 py-3 text-sm font-semibold transition ${
+                  themeMode === o.id
+                    ? 'border-ink-900 bg-ink-900 text-white dark:border-white dark:bg-white dark:text-ink-900'
+                    : 'border-transparent bg-white text-ink-900 shadow-card dark:bg-ink-800 dark:text-white dark:shadow-card-dark'
+                }`}
+              >
+                <div className="text-2xl">{o.emoji}</div>
+                <div className="mt-1 text-xs">{o.label}</div>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6">
+          <h2 className="mb-2 font-display text-lg font-bold text-ink-900 dark:text-white">Einstellungen</h2>
+          <div className="overflow-hidden rounded-2xl bg-white shadow-card dark:bg-ink-800 dark:shadow-card-dark">
             <Toggle
               label="Benachrichtigungen"
               value={profile.settings.notifications}
@@ -185,12 +225,12 @@ export const ProfilePage = () => {
               value={profile.settings.locationEnabled}
               onChange={(v) => updateSettings({ locationEnabled: v })}
             />
-            <div className="flex items-center justify-between border-t border-slate-100 px-4 py-3">
-              <div className="text-sm">Sprache</div>
+            <div className="flex items-center justify-between border-t border-slate-100 px-4 py-3 dark:border-ink-700">
+              <div className="text-sm text-ink-900 dark:text-white">Sprache</div>
               <select
                 value={profile.settings.language}
                 onChange={(e) => updateSettings({ language: e.target.value as 'de' | 'en' })}
-                className="rounded-lg bg-slate-100 px-2 py-1 text-sm"
+                className="rounded-lg bg-slate-100 px-2 py-1 text-sm text-ink-900 dark:bg-ink-700 dark:text-white"
               >
                 <option value="de">Deutsch</option>
                 <option value="en">English</option>
@@ -203,7 +243,7 @@ export const ProfilePage = () => {
           onClick={() => {
             if (window.confirm('Alle Daten zurücksetzen? Dein Fortschritt geht verloren.')) resetAll();
           }}
-          className="mt-6 w-full rounded-2xl bg-white py-3 text-sm font-semibold text-rose-600 shadow-card"
+          className="mt-6 w-full rounded-2xl bg-white py-3 text-sm font-semibold text-rose-600 shadow-card dark:bg-ink-800 dark:text-rose-400 dark:shadow-card-dark"
         >
           Konto zurücksetzen
         </button>
@@ -213,9 +253,11 @@ export const ProfilePage = () => {
 };
 
 const Stat = ({ title, value }: { title: string; value: string }) => (
-  <div className="rounded-2xl bg-white p-3 shadow-card">
-    <div className="font-display text-xl font-bold">{value}</div>
-    <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">{title}</div>
+  <div className="rounded-2xl bg-white p-3 shadow-card dark:bg-ink-800 dark:shadow-card-dark">
+    <div className="font-display text-xl font-bold text-ink-900 dark:text-white">{value}</div>
+    <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+      {title}
+    </div>
   </div>
 );
 
@@ -230,18 +272,18 @@ const Toggle = ({
 }) => (
   <button
     onClick={() => onChange(!value)}
-    className="flex w-full items-center justify-between border-b border-slate-100 px-4 py-3 last:border-b-0"
+    className="flex w-full items-center justify-between border-b border-slate-100 px-4 py-3 last:border-b-0 dark:border-ink-700"
   >
-    <span className="text-sm">{label}</span>
+    <span className="text-sm text-ink-900 dark:text-white">{label}</span>
     <span
       className={`flex h-6 w-11 items-center rounded-full p-0.5 transition ${
-        value ? 'bg-ink-900' : 'bg-slate-200'
+        value ? 'bg-ink-900 dark:bg-white' : 'bg-slate-200 dark:bg-ink-700'
       }`}
     >
       <span
-        className={`h-5 w-5 rounded-full bg-white shadow transition-transform ${
+        className={`h-5 w-5 rounded-full bg-white shadow transition-transform dark:bg-ink-900 ${
           value ? 'translate-x-5' : ''
-        }`}
+        } ${value ? 'dark:bg-ink-900' : 'dark:bg-slate-300'}`}
       />
     </span>
   </button>

@@ -8,7 +8,7 @@ const TABS = [
 ];
 
 export const BottomNav = () => (
-  <nav className="sticky bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur">
+  <nav className="sticky bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur transition-colors dark:border-ink-700 dark:bg-ink-800/95">
     <div className="grid grid-cols-4">
       {TABS.map((t) => (
         <NavLink
@@ -17,7 +17,9 @@ export const BottomNav = () => (
           end={t.to === '/'}
           className={({ isActive }) =>
             `flex flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium transition-colors ${
-              isActive ? 'text-ink-900' : 'text-slate-400'
+              isActive
+                ? 'text-ink-900 dark:text-white'
+                : 'text-slate-400 dark:text-slate-500'
             }`
           }
         >
@@ -25,7 +27,11 @@ export const BottomNav = () => (
             <>
               <span className={`text-xl transition-transform ${isActive ? 'scale-110' : ''}`}>{t.icon}</span>
               <span>{t.label}</span>
-              <span className={`mt-0.5 h-1 w-1 rounded-full ${isActive ? 'bg-ink-900' : 'bg-transparent'}`} />
+              <span
+                className={`mt-0.5 h-1 w-1 rounded-full ${
+                  isActive ? 'bg-ink-900 dark:bg-white' : 'bg-transparent'
+                }`}
+              />
             </>
           )}
         </NavLink>

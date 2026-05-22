@@ -66,7 +66,7 @@ export const SportDetailPage = () => {
       </header>
 
       <section className="px-5 pt-6">
-        <h2 className="mb-3 font-display text-lg font-bold">Dein Lernpfad</h2>
+        <h2 className="mb-3 font-display text-lg font-bold text-ink-900 dark:text-white">Dein Lernpfad</h2>
         <div className="space-y-3">
           {LEVELS.map((lvl) => {
             const meta = LEVEL_LABELS[lvl];
@@ -75,18 +75,20 @@ export const SportDetailPage = () => {
               <Link
                 key={lvl}
                 to={`/sport/${sport.id}/${lvl}`}
-                className="block rounded-2xl bg-white p-4 shadow-card"
+                className="block rounded-2xl bg-white p-4 shadow-card dark:bg-ink-800 dark:shadow-card-dark"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">{meta.emoji}</span>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <div className="font-display text-base font-bold">{meta.label}</div>
-                      <span className="text-xs font-semibold text-slate-500">
+                      <div className="font-display text-base font-bold text-ink-900 dark:text-white">
+                        {meta.label}
+                      </div>
+                      <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                         {done}/{total}
                       </span>
                     </div>
-                    <div className="mb-2 text-xs text-slate-500">{meta.subtitle}</div>
+                    <div className="mb-2 text-xs text-slate-500 dark:text-slate-400">{meta.subtitle}</div>
                     <ProgressBar value={ratio} color={sport.color} />
                   </div>
                 </div>
@@ -99,8 +101,8 @@ export const SportDetailPage = () => {
       {clubs.length > 0 && (
         <section className="px-5 pt-7 pb-6">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold">Vereine in deiner Nähe</h2>
-            <Link to={`/sport/${sport.id}/clubs`} className="text-xs font-semibold text-slate-500">
+            <h2 className="font-display text-lg font-bold text-ink-900 dark:text-white">Vereine in deiner Nähe</h2>
+            <Link to={`/sport/${sport.id}/clubs`} className="text-xs font-semibold text-slate-500 dark:text-slate-400">
               Alle →
             </Link>
           </div>

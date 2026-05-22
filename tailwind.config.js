@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -12,6 +13,7 @@ export default {
           900: '#0B0F14',
           800: '#121821',
           700: '#1B2330',
+          600: '#27303F',
         },
         accent: {
           DEFAULT: '#FF5A1F',
@@ -19,6 +21,7 @@ export default {
       },
       boxShadow: {
         card: '0 4px 24px -8px rgba(15, 23, 42, 0.08)',
+        'card-dark': '0 4px 24px -8px rgba(0, 0, 0, 0.45)',
       },
       animation: {
         'fade-in': 'fadeIn 220ms ease-out',

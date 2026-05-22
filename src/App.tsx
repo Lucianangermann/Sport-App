@@ -8,6 +8,7 @@ import { FavoritesPage } from './pages/FavoritesPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { SportDetailPage } from './pages/SportDetailPage';
 import { LevelDetailPage } from './pages/LevelDetailPage';
+import { LessonViewerPage } from './pages/LessonViewerPage';
 import { ClubsPage } from './pages/ClubsPage';
 import { ClubDetailPage } from './pages/ClubDetailPage';
 import { ContactPage } from './pages/ContactPage';
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/sport/:id" element={<SportDetailPage />} />
           <Route path="/sport/:id/:level" element={<LevelDetailPage />} />
+          <Route path="/sport/:id/:level/:moduleId" element={<LessonViewerPage />} />
           <Route path="/sport/:id/clubs" element={<ClubsPage />} />
           <Route path="/clubs" element={<ClubsPage />} />
           <Route path="/club/:id" element={<ClubDetailPage />} />

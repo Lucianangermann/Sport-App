@@ -32,12 +32,30 @@ export interface Sport {
   popularity: number; // 0-100, for trending
 }
 
+export interface LessonSource {
+  title: string;
+  url: string;
+}
+
+export interface LessonContent {
+  intro?: string;
+  keyPoints?: string[];
+  tips?: string[];
+  safety?: string[];
+  sources?: LessonSource[];
+}
+
 export interface TrainingModule {
   id: string;
   title: string;
   description: string;
   duration: string; // e.g. "20 min"
-  videoPlaceholder: string; // url placeholder
+  /** 11-char YouTube video ID, if a real lesson video is available. */
+  ytVideoId?: string;
+  /** Channel that hosts the video, for attribution. */
+  channel?: string;
+  /** Optional richer lesson content shown beneath the video. */
+  content?: LessonContent;
 }
 
 export interface SportCurriculum {

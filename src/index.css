@@ -11,11 +11,23 @@ body,
 }
 
 body {
-  @apply font-sans bg-slate-100 text-ink-900 antialiased;
+  @apply font-sans bg-slate-100 text-ink-900 antialiased transition-colors duration-200;
+}
+
+html.dark body {
+  @apply bg-ink-900 text-slate-100;
 }
 
 .app-shell {
-  @apply mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-slate-50 shadow-2xl shadow-slate-900/10;
+  @apply mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-slate-50 shadow-2xl shadow-slate-900/10 transition-colors duration-200;
+}
+
+html.dark .app-shell {
+  @apply bg-ink-900 shadow-black/30;
+}
+
+html.dark ::selection {
+  @apply bg-white/20;
 }
 
 .no-scrollbar::-webkit-scrollbar {

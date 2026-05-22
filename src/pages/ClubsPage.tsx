@@ -38,15 +38,17 @@ export const ClubsPage = () => {
 
       <div className="px-5 pb-3">
         {!settings.locationEnabled && (
-          <div className="mb-3 flex items-start gap-3 rounded-2xl bg-amber-50 p-3 text-sm">
+          <div className="mb-3 flex items-start gap-3 rounded-2xl bg-amber-50 p-3 text-sm dark:bg-amber-900/20">
             <span className="text-xl">📍</span>
             <div className="flex-1">
-              <div className="font-semibold text-amber-900">Standort aktivieren</div>
-              <div className="text-xs text-amber-800">Für noch genauere Empfehlungen in deiner Nähe.</div>
+              <div className="font-semibold text-amber-900 dark:text-amber-200">Standort aktivieren</div>
+              <div className="text-xs text-amber-800 dark:text-amber-200/80">
+                Für noch genauere Empfehlungen in deiner Nähe.
+              </div>
             </div>
             <button
               onClick={() => updateSettings({ locationEnabled: true })}
-              className="shrink-0 rounded-full bg-amber-900 px-3 py-1.5 text-xs font-semibold text-white"
+              className="shrink-0 rounded-full bg-amber-900 px-3 py-1.5 text-xs font-semibold text-white dark:bg-amber-300 dark:text-amber-900"
             >
               Erlauben
             </button>
@@ -58,7 +60,9 @@ export const ClubsPage = () => {
               key={d.id}
               onClick={() => setDistance(d.id)}
               className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-                distance === d.id ? 'bg-ink-900 text-white' : 'bg-white text-slate-700 shadow-card'
+                distance === d.id
+                  ? 'bg-ink-900 text-white dark:bg-white dark:text-ink-900'
+                  : 'bg-white text-slate-700 shadow-card dark:bg-ink-800 dark:text-slate-300 dark:shadow-card-dark'
               }`}
             >
               {d.label}
