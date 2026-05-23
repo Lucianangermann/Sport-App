@@ -7,6 +7,13 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const apiKey = env.ANTHROPIC_API_KEY ?? '';
 
+  if (!apiKey && mode !== 'production') {
+    console.warn(
+      '\n[anthropic proxy] ⚠️  ANTHROPIC_API_KEY not set. Create .env.local with your key.\n' +
+        '   cp .env.local.example .env.local && edit it.\n',
+    );
+  }
+
   return {
     plugins: [react()],
     server: {
@@ -19,10 +26,19 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/anthropic/, ''),
           configure: (proxy) => {
-            proxy.on('proxyReq', (proxyReq) => {
-              if (apiKey) {
-                proxyReq.setHeader('x-api-key', apiKey);
+            proxy.on('proxyReq', (proxyReq, _req, res) => {
+              if (!apiKey) {
+                // Short-circuit: respond directly so the user sees a clear message.
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(
+                  JSON.stringify({
+                    error: 'ANTHROPIC_API_KEY ist nicht gesetzt. Erstelle .env.local aus .env.local.example und starte den Dev-Server neu.',
+                  }),
+                );
+                proxyReq.destroy();
+                return;
               }
+              proxyReq.setHeader('x-api-key', apiKey);
               // Drop the browser-direct-access header — we're going through a proxy now.
               proxyReq.removeHeader('anthropic-dangerous-direct-browser-access');
             });
