@@ -66,7 +66,7 @@ export const WeeklyInsights = () => {
       {loading && (
         <div className="flex items-center gap-3 rounded-2xl bg-white p-4 text-sm text-slate-500 shadow-card dark:bg-ink-800 dark:text-slate-400 dark:shadow-card-dark">
           <LoadingDots />
-          <span>Die KI analysiert deine Woche…</span>
+          <span>Deine Woche wird ausgewertet…</span>
         </div>
       )}
 

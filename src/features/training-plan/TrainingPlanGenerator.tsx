@@ -115,12 +115,12 @@ export const TrainingPlanGenerator = () => {
 
   return (
     <div>
-      <PageHeader title="KI-Trainingsplan" subtitle={sport.name} back />
+      <PageHeader title="Trainingsplan" subtitle={sport.name} back />
 
       {!plan && !loading && (
         <div className="space-y-6 px-5 pb-6">
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Beantworte 4 Fragen — die KI baut dir einen individuellen 4-Wochen-Plan auf Level{' '}
+            Beantworte 4 Fragen — wir bauen dir einen 4-Wochen-Plan auf Level{' '}
             <strong className="text-ink-900 dark:text-white">
               {level === 'anfaenger' ? 'Anfänger' : level === 'fortgeschritten' ? 'Fortgeschritten' : 'Profi'}
             </strong>
@@ -189,11 +189,11 @@ export const TrainingPlanGenerator = () => {
 
       {loading && (
         <div className="flex h-[60vh] flex-col items-center justify-center gap-4 px-5 text-ink-900 dark:text-white">
-          <div className="text-5xl">🤖</div>
+          <div className="text-5xl">📋</div>
           <h2 className="font-display text-xl font-bold">Dein Plan wird gebaut…</h2>
           <LoadingDots />
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Die KI baut 4 Wochen × {daysPerWeek} Tage zusammen.
+            4 Wochen × {daysPerWeek} Tage werden zusammengestellt.
           </p>
         </div>
       )}

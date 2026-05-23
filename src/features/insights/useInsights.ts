@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { callClaudeJSON } from '../../lib/claude';
 import { useAppStore } from '../../store/useAppStore';
 import { getSportById, xpForLevel } from '../../utils/helpers';
 
@@ -11,11 +10,11 @@ export interface InsightCard {
 
 interface CachedInsights {
   generatedAtISO: string;
-  isoWeek: string; // YYYY-Www
+  isoWeek: string;
   insights: InsightCard[];
 }
 
-const CACHE_KEY = 'weekly_insights_v1';
+const CACHE_KEY = 'weekly_insights_v2';
 
 const isoWeek = (d: Date): string => {
   const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -52,6 +51,7 @@ interface WeeklyStats {
   level: number;
   nextLevelThreshold: number;
   xp: number;
+  modulesLastWeek: number;
 }
 
 const buildStats = (
@@ -60,13 +60,15 @@ const buildStats = (
   xp: number,
 ): WeeklyStats => {
   const now = new Date();
-  // Start of current ISO week (Monday)
-  const day = (now.getDay() + 6) % 7; // Mon = 0
+  const day = (now.getDay() + 6) % 7;
   const startOfWeek = new Date(now);
   startOfWeek.setHours(0, 0, 0, 0);
   startOfWeek.setDate(startOfWeek.getDate() - day);
+  const startOfLastWeek = new Date(startOfWeek);
+  startOfLastWeek.setDate(startOfLastWeek.getDate() - 7);
 
   let modulesThisWeek = 0;
+  let modulesLastWeek = 0;
   const activeDays = new Set<string>();
   const sports = new Set<string>();
 
@@ -78,6 +80,8 @@ const buildStats = (
       const sportId = key.split(':')[0];
       const sport = getSportById(sportId);
       if (sport) sports.add(sport.name);
+    } else if (completed >= startOfLastWeek) {
+      modulesLastWeek++;
     }
   }
 
@@ -92,14 +96,13 @@ const buildStats = (
     level,
     nextLevelThreshold: nextThreshold,
     xp,
+    modulesLastWeek,
   };
 };
 
-/** Static prognose card based on completion rate. */
 const buildPrognose = (stats: WeeklyStats): InsightCard => {
   const { xp, level, nextLevelThreshold, modulesThisWeek } = stats;
   const xpToNext = Math.max(1, nextLevelThreshold - xp);
-  // Each completed module gives 25 XP.
   const modulesNeeded = Math.ceil(xpToNext / 25);
   if (modulesThisWeek === 0) {
     return {
@@ -116,22 +119,69 @@ const buildPrognose = (stats: WeeklyStats): InsightCard => {
   };
 };
 
+const buildVolumeInsight = (stats: WeeklyStats): InsightCard => {
+  const { modulesThisWeek, modulesLastWeek } = stats;
+  if (modulesThisWeek === 0 && modulesLastWeek === 0) {
+    return { icon: '🚀', title: 'Volumen', text: 'Du hast diese Woche noch nicht trainiert — eine kurze Einheit reicht für den Einstieg.' };
+  }
+  if (modulesThisWeek === 0) {
+    return { icon: '⏱️', title: 'Volumen', text: `Letzte Woche hast du ${modulesLastWeek} Modul${modulesLastWeek === 1 ? '' : 'e'} geschafft — hol dir den Rhythmus zurück.` };
+  }
+  if (modulesLastWeek === 0) {
+    return { icon: '🔥', title: 'Volumen', text: `${modulesThisWeek} Modul${modulesThisWeek === 1 ? '' : 'e'} diese Woche — starker Wiedereinstieg.` };
+  }
+  const diff = modulesThisWeek - modulesLastWeek;
+  if (diff > 0) {
+    return { icon: '📈', title: 'Volumen', text: `+${diff} Modul${diff === 1 ? '' : 'e'} gegenüber letzter Woche — du legst zu.` };
+  }
+  if (diff < 0) {
+    return { icon: '🪫', title: 'Volumen', text: `${Math.abs(diff)} Modul${Math.abs(diff) === 1 ? '' : 'e'} weniger als letzte Woche — kein Problem, dranbleiben.` };
+  }
+  return { icon: '⚖️', title: 'Volumen', text: `Gleiche Anzahl wie letzte Woche — Konstanz ist wertvoll.` };
+};
+
+const buildDiversityInsight = (stats: WeeklyStats): InsightCard => {
+  const n = stats.sportsThisWeek.length;
+  if (n === 0) {
+    return { icon: '🎨', title: 'Vielfalt', text: 'Wenn du startest: 1–2 Sportarten parallel sind ein guter Mix.' };
+  }
+  if (n === 1) {
+    return { icon: '🎯', title: 'Vielfalt', text: `Fokus auf ${stats.sportsThisWeek[0]} — Spezialisierung bringt schnelle Fortschritte.` };
+  }
+  if (n === 2) {
+    return { icon: '🔀', title: 'Vielfalt', text: `Schöner Mix aus ${stats.sportsThisWeek.join(' & ')} — komplementäre Reize.` };
+  }
+  return { icon: '🌈', title: 'Vielfalt', text: `${n} verschiedene Sportarten — breit aufgestellt, achte aber auf Tiefe in 1–2.` };
+};
+
+const buildStreakInsight = (stats: WeeklyStats): InsightCard => {
+  const { streak, activeDaysThisWeek } = stats;
+  if (streak >= 7) {
+    return { icon: '🔥', title: 'Streak', text: `${streak} Tage in Folge aktiv — beeindruckende Disziplin.` };
+  }
+  if (streak >= 3) {
+    return { icon: '⚡️', title: 'Streak', text: `${streak} Tage Streak — noch ${7 - streak} Tag${7 - streak === 1 ? '' : 'e'} bis zum Wochen-Badge.` };
+  }
+  if (activeDaysThisWeek >= 3) {
+    return { icon: '💪', title: 'Aktive Tage', text: `${activeDaysThisWeek} Tage aktiv diese Woche — solide Grundlage.` };
+  }
+  return { icon: '🌱', title: 'Konsistenz', text: 'Kurze tägliche Einheiten bauen schneller Routine als seltene lange.' };
+};
+
 export function useInsights() {
   const progress = useAppStore((s) => s.progress);
   const profile = useAppStore((s) => s.profile);
   const [insights, setInsights] = useState<InsightCard[]>([]);
   const [prognose, setPrognose] = useState<InsightCard | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   const [stats, setStats] = useState<WeeklyStats | null>(null);
 
-  // Compute stats + prognose on mount / when data changes.
   useEffect(() => {
     const s = buildStats(progress, profile.streakDays, profile.xp);
     setStats(s);
     setPrognose(buildPrognose(s));
 
-    // Load cached insights if same ISO week
     const cached = loadCache();
     if (cached && cached.isoWeek === isoWeek(new Date())) {
       setInsights(cached.insights);
@@ -141,31 +191,15 @@ export function useInsights() {
   const generate = useCallback(async () => {
     if (!stats) return;
     setLoading(true);
-    setError(null);
-    try {
-      const prompt = `Trainingsdaten der aktuellen Woche:
-- Abgeschlossene Module: ${stats.modulesThisWeek}
-- Aktive Trainingstage: ${stats.activeDaysThisWeek}
-- Trainierte Sportarten: ${stats.sportsThisWeek.join(', ') || 'noch keine'}
-- Streak: ${stats.streak} Tage
-- Level: ${stats.level} (${stats.xp} XP)
-- Gesamt abgeschlossen: ${stats.totalCompleted} Module`;
-
-      const result = await callClaudeJSON<InsightCard[]>({
-        system:
-          'Analysiere die Trainingsdaten und gib 3 kurze Insights auf Deutsch. Antworte ausschließlich als JSON-Array: [{ "icon": "🔥", "title": "...", "text": "..." }, ... 3 Einträge]. Jeder text max. 1 Satz, motivierend und konkret. Nutze passende Emoji für icon. Keine Erklärung davor oder danach.',
-        messages: [{ role: 'user', content: prompt }],
-        maxTokens: 512,
-      });
-
-      const list = Array.isArray(result) ? result.slice(0, 3) : [];
-      setInsights(list);
-      saveCache({ generatedAtISO: new Date().toISOString(), isoWeek: isoWeek(new Date()), insights: list });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unbekannter Fehler');
-    } finally {
-      setLoading(false);
-    }
+    await new Promise((r) => window.setTimeout(r, 400));
+    const list: InsightCard[] = [
+      buildVolumeInsight(stats),
+      buildDiversityInsight(stats),
+      buildStreakInsight(stats),
+    ];
+    setInsights(list);
+    saveCache({ generatedAtISO: new Date().toISOString(), isoWeek: isoWeek(new Date()), insights: list });
+    setLoading(false);
   }, [stats]);
 
   return { insights, prognose, stats, loading, error, generate };

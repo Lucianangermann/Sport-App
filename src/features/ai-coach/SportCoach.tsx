@@ -75,7 +75,7 @@ export const SportCoach = ({ sport, level, completedModules, open, onClose }: Pr
               <div className="font-display text-base font-bold leading-tight">
                 Dein {sport.name}-Coach
               </div>
-              <div className="text-[11px] text-white/80">KI-gestützt · auf Deutsch</div>
+              <div className="text-[11px] text-white/80">Tipps · auf Deutsch</div>
             </div>
           </div>
           <div className="flex items-center gap-2">

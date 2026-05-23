@@ -111,7 +111,7 @@ export const SportMatchQuiz = () => {
               Finde deinen perfekten Sport
             </h1>
             <p className="text-slate-600 dark:text-slate-300">
-              8 kurze Fragen — und unsere KI empfiehlt dir die fünf Sportarten, die am besten zu dir passen. Dauer: ca. 2
+              8 kurze Fragen — und wir empfehlen dir die fünf Sportarten, die am besten zu dir passen. Dauer: ca. 2
               Minuten.
             </p>
             <div className="space-y-2 rounded-2xl bg-white p-4 text-sm shadow-card dark:bg-ink-800 dark:shadow-card-dark">
@@ -120,8 +120,8 @@ export const SportMatchQuiz = () => {
                 <span className="text-slate-700 dark:text-slate-200">3 Basis-Fragen zu deinen Vorlieben</span>
               </div>
               <div className="flex gap-3">
-                <span>🤖</span>
-                <span className="text-slate-700 dark:text-slate-200">5 dynamische Fragen, von der KI generiert</span>
+                <span>🧩</span>
+                <span className="text-slate-700 dark:text-slate-200">5 weitere Fragen zu deinem Trainings-Profil</span>
               </div>
               <div className="flex gap-3">
                 <span>📊</span>
@@ -140,8 +140,7 @@ export const SportMatchQuiz = () => {
         {step === 'questions' && currentQuestion && (
           <div key={animKey} className="animate-slide-up space-y-5">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Frage {currentIdx + 1}
-              {currentIdx >= 3 && <span className="ml-2 text-rose-500">· KI-generiert</span>}
+              Frage {currentIdx + 1} von {totalQuestions}
             </div>
             <h2 className="font-display text-2xl font-bold leading-tight text-ink-900 dark:text-white">
               {currentQuestion.question}
@@ -158,22 +157,16 @@ export const SportMatchQuiz = () => {
                 </button>
               ))}
             </div>
-            {isLoadingQuestion && (
-              <div className="flex items-center justify-center gap-2 pt-4 text-xs text-slate-500 dark:text-slate-400">
-                <LoadingDots />
-                <span>Nächste Frage wird generiert…</span>
-              </div>
-            )}
           </div>
         )}
 
         {step === 'loading' && (
           <div className="flex h-[70vh] flex-col items-center justify-center gap-4 text-ink-900 dark:text-white">
-            <div className="text-5xl">🤖</div>
+            <div className="text-5xl">🎯</div>
             <h2 className="font-display text-2xl font-bold">Wir analysieren deine Antworten…</h2>
             <LoadingDots />
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              Die KI berechnet deine Top-5 Sportarten.
+              Deine Top-5 Sportarten werden berechnet.
             </p>
           </div>
         )}

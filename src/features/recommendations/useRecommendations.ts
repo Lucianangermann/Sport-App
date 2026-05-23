@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { callClaudeJSON } from '../../lib/claude';
 import { useAppStore } from '../../store/useAppStore';
 import { SPORTS } from '../../data/sports';
+import type { Sport } from '../../types';
 
 export interface Recommendation {
   sport: string;
@@ -13,9 +13,10 @@ interface WeatherSnapshot {
   description: string;
   tempC: number;
   isOutdoorFriendly: boolean;
+  weatherCode: number;
 }
 
-const DEFAULT_LAT = 48.1351; // München fallback
+const DEFAULT_LAT = 48.1351;
 const DEFAULT_LON = 11.5820;
 
 const WEATHER_CODES: Record<number, { de: string; outdoorFriendly: boolean }> = {
@@ -41,7 +42,7 @@ const WEATHER_CODES: Record<number, { de: string; outdoorFriendly: boolean }> = 
   96: { de: 'Gewitter mit Hagel', outdoorFriendly: false },
 };
 
-const dayNamesDE = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+const SNOW_CODES = new Set([71, 73, 75]);
 
 const fetchWeather = async (lat: number, lon: number): Promise<WeatherSnapshot> => {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=weathercode,temperature_2m`;
@@ -51,7 +52,12 @@ const fetchWeather = async (lat: number, lon: number): Promise<WeatherSnapshot> 
   const code = data?.current?.weathercode ?? 0;
   const temp = data?.current?.temperature_2m ?? 0;
   const entry = WEATHER_CODES[code] ?? { de: 'wechselhaft', outdoorFriendly: true };
-  return { description: entry.de, tempC: Math.round(temp), isOutdoorFriendly: entry.outdoorFriendly };
+  return {
+    description: entry.de,
+    tempC: Math.round(temp),
+    isOutdoorFriendly: entry.outdoorFriendly,
+    weatherCode: code,
+  };
 };
 
 const fetchPosition = (): Promise<GeolocationPosition | null> =>
@@ -64,11 +70,11 @@ const fetchPosition = (): Promise<GeolocationPosition | null> =>
     );
   });
 
-const STORAGE_KEY = 'smart_rec_v1';
+const STORAGE_KEY = 'smart_rec_v2';
 
 interface CachedRec {
   generatedAtISO: string;
-  hourBucket: string; // YYYY-MM-DD-HH
+  hourBucket: string;
   dismissedHourBucket?: string;
   rec: Recommendation;
 }
@@ -93,6 +99,87 @@ const saveCache = (data: CachedRec) => {
   }
 };
 
+const isWinterSport = (id: string) => ['ski', 'snowboard', 'eishockey'].includes(id);
+
+const scoreSport = (
+  sport: Sport,
+  ctx: { weather: WeatherSnapshot; hour: number; isFavorite: boolean },
+): number => {
+  let score = sport.popularity * 0.5;
+  const { weather, hour, isFavorite } = ctx;
+
+  if (isFavorite) score += 30;
+
+  const outdoor = sport.tags.includes('outdoor');
+  const indoor = sport.tags.includes('indoor');
+  if (weather.isOutdoorFriendly && outdoor) score += 25;
+  if (!weather.isOutdoorFriendly && indoor) score += 25;
+  if (!weather.isOutdoorFriendly && outdoor) score -= 30;
+
+  // Temperature
+  if (outdoor && weather.tempC < 5) score -= 10;
+  if (outdoor && weather.tempC >= 18 && weather.tempC <= 26) score += 8;
+
+  // Snow boost for winter sports
+  if (SNOW_CODES.has(weather.weatherCode) && isWinterSport(sport.id)) score += 35;
+  if (!SNOW_CODES.has(weather.weatherCode) && isWinterSport(sport.id) && weather.tempC > 5) score -= 25;
+
+  // Time of day
+  if (hour < 9) {
+    // Mornings: prefer calmer / outdoor / running
+    if (['yoga', 'pilates', 'laufen', 'wandern', 'schwimmen'].includes(sport.id)) score += 15;
+    if (sport.tags.includes('high-intensity')) score -= 5;
+  } else if (hour >= 9 && hour < 17) {
+    // Daytime: any
+    if (sport.tags.includes('outdoor') && weather.isOutdoorFriendly) score += 5;
+  } else if (hour >= 17 && hour < 21) {
+    // Evening: team sports, gym, indoor classes
+    if (sport.tags.includes('team')) score += 12;
+    if (['krafttraining', 'crossfit', 'boxen', 'kickboxen', 'tanzen'].includes(sport.id)) score += 10;
+  } else {
+    // Late night: low-impact only
+    if (sport.tags.includes('low-intensity')) score += 10;
+    if (sport.tags.includes('high-intensity')) score -= 15;
+    if (outdoor) score -= 10;
+  }
+
+  return score;
+};
+
+const buildReason = (sport: Sport, weather: WeatherSnapshot, hour: number, isFavorite: boolean): string => {
+  const parts: string[] = [];
+  if (isFavorite) parts.push('einer deiner Favoriten');
+
+  if (SNOW_CODES.has(weather.weatherCode) && isWinterSport(sport.id)) {
+    parts.push(`Schneefall draußen — ${sport.name} ist genau richtig`);
+  } else if (weather.isOutdoorFriendly && sport.tags.includes('outdoor')) {
+    parts.push(`${weather.tempC}°C und ${weather.description} — perfekt für draußen`);
+  } else if (!weather.isOutdoorFriendly && sport.tags.includes('indoor')) {
+    parts.push(`${weather.description} draußen — indoor läuft heute besser`);
+  }
+
+  if (hour < 9 && ['yoga', 'laufen', 'pilates'].includes(sport.id)) {
+    parts.push('idealer Morgensport');
+  } else if (hour >= 17 && hour < 21 && sport.tags.includes('team')) {
+    parts.push('typische Trainingszeit für Teamsportler');
+  } else if (hour >= 21 && sport.tags.includes('low-intensity')) {
+    parts.push('ruhig genug für den Abend');
+  }
+
+  if (!parts.length) parts.push(`passt gut zu ${weather.description} bei ${weather.tempC}°C`);
+  return parts[0].charAt(0).toUpperCase() + parts[0].slice(1) + '.';
+};
+
+const EMOJI_MAP: Record<string, string> = {
+  fussball: '⚽️', basketball: '🏀', tennis: '🎾', schwimmen: '🏊', klettern: '🧗',
+  yoga: '🧘', boxen: '🥊', laufen: '🏃', radfahren: '🚴', volleyball: '🏐',
+  handball: '🤾', judo: '🥋', karate: '🥋', kickboxen: '🥊', badminton: '🏸',
+  tischtennis: '🏓', squash: '🎯', rudern: '🚣', segeln: '⛵️', surfen: '🏄',
+  krafttraining: '💪', crossfit: '🏋️', pilates: '🧘‍♀️', wandern: '🥾',
+  mountainbike: '🚵', ski: '⛷️', snowboard: '🏂', eishockey: '🏒',
+  tanzen: '💃', parkour: '🤸', reiten: '🐎', golf: '⛳️',
+};
+
 export function useRecommendations() {
   const favorites = useAppStore((s) => s.favorites);
   const locationEnabled = useAppStore((s) => s.profile.settings.locationEnabled);
@@ -101,7 +188,6 @@ export function useRecommendations() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Initial: load from cache if same hour and not dismissed for this hour
   useEffect(() => {
     const cached = loadCache();
     const now = hourBucket(new Date());
@@ -115,7 +201,6 @@ export function useRecommendations() {
         return;
       }
     }
-    // Otherwise, generate fresh once
     void generate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -137,26 +222,20 @@ export function useRecommendations() {
       const weather = await fetchWeather(lat, lon);
       const now = new Date();
       const hour = now.getHours();
-      const dayOfWeek = dayNamesDE[now.getDay()];
-      const favSports = favorites
-        .map((id) => SPORTS.find((s) => s.id === id)?.name)
-        .filter(Boolean)
-        .join(', ') || 'noch keine Favoriten';
 
-      const result = await callClaudeJSON<Recommendation>({
-        system:
-          'Du bist ein Sport-Berater. Empfehle EINE passende Sportart und gib eine sehr kurze Begründung auf Deutsch (max. 1 Satz). Antworte ausschließlich mit JSON in genau diesem Format: { "sport": "...", "reason": "...", "emoji": "..." }. Sport-Namen aus dieser Liste: Fußball, Basketball, Tennis, Schwimmen, Klettern, Yoga, Boxen, Laufen, Radfahren, Volleyball, Handball, Judo, Karate, Kickboxen, Badminton, Tischtennis, Squash, Rudern, Segeln, Surfen, Krafttraining, CrossFit, Pilates, Wandern, Mountainbike, Ski Alpin, Snowboard, Eishockey, Tanzen, Parkour, Reiten, Golf. Berücksichtige Wetter, Uhrzeit, Wochentag und Favoriten.',
-        messages: [
-          {
-            role: 'user',
-            content: `Wetter: ${weather.description}, ${weather.tempC}°C (${weather.isOutdoorFriendly ? 'outdoor-tauglich' : 'eher indoor'}).
-Uhrzeit: ${hour}:00 Uhr (${dayOfWeek}).
-Favoriten: ${favSports}.
-Empfehle EINE Sportart für jetzt.`,
-          },
-        ],
-        maxTokens: 200,
-      });
+      const favSet = new Set(favorites);
+      const ranked = SPORTS.map((sport) => ({
+        sport,
+        score: scoreSport(sport, { weather, hour, isFavorite: favSet.has(sport.id) }),
+      })).sort((a, b) => b.score - a.score);
+
+      const top = ranked[0].sport;
+      const result: Recommendation = {
+        sport: top.name,
+        reason: buildReason(top, weather, hour, favSet.has(top.id)),
+        emoji: EMOJI_MAP[top.id] ?? '🏅',
+      };
+
       setRec(result);
       saveCache({ generatedAtISO: now.toISOString(), hourBucket: hourBucket(now), rec: result });
     } catch (err) {
