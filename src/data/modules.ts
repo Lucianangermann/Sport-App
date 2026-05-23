@@ -136,7 +136,28 @@ const fussball: SportCurriculum = {
     mod({ id: 'i3', title: 'Kopfball-Training für Fortgeschrittene', duration: '10 min', description: 'Timing-Übungen mit Sprungkraft.', ytVideoId: 'vN7BefbV8sM', channel: 'Deutsches Fußball Internat' }),
     mod({ id: 'i4', title: 'Regeneration nach Spielen', duration: '8 min', description: 'Auslaufen, Ernährung, Schlaf.' }),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Spielintelligenz – 3 gegen 1', duration: '15 min', description: 'Horst Wein zur Wahrnehmungsschulung im Profibereich.', ytVideoId: '5CDd2r5umww', channel: 'IFJ96', content: {
+      intro: 'Auf Profiniveau entscheidet Spielintelligenz, nicht Athletik allein. Die Wahrnehmung des Raumes, das Antizipieren der Bewegung des Mitspielers und das Lösen von Über- und Unterzahlsituationen sind die Skills, die Top-Spieler von Bundesligaspielern unterscheiden.',
+      keyPoints: [
+        '3-gegen-1-Spielformen schulen Entscheidungsgeschwindigkeit.',
+        'Vor dem Pass: Blick über die Schulter, Optionen scannen.',
+        'Pass mit Tempo passend zur Aktion danach.',
+        'Antizipation: wo läuft der Mitspieler hin, wo die Lücke?',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Match- und Gegneranalyse', duration: '20 min', description: 'Video-Studium auf Profiniveau.', content: {
+      intro: 'Im modernen Profifußball werden vor jedem Spiel 4–8 Stunden Videomaterial des Gegners studiert. Wer das auch im Amateurbereich macht, hat einen Vorteil.',
+      keyPoints: [
+        'Eigene Spiele aufzeichnen – Smartphone reicht.',
+        'Pattern erkennen: wo steht der Gegner bei Standards?',
+        'Schwächen identifizieren: wer ist langsam, wer übermotiviert?',
+        'Mit Trainer und Mannschaft besprechen.',
+      ],
+    }}),
+  ],
 };
 
 const basketball: SportCurriculum = {
@@ -186,7 +207,27 @@ const basketball: SportCurriculum = {
     mod({ id: 'i3', title: 'Konditionstraining', duration: '20 min', description: 'Sprint-Intervalle, Sprungkraft, Beweglichkeit.' }),
     mod({ id: 'i4', title: 'Spielsysteme verstehen', duration: '18 min', description: 'Motion Offense vs. Pick & Roll Sets.' }),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Wurftraining mit Lucca Staiger', duration: '10 min', description: '1x1SPORT mit einem Bundesligaspieler.', ytVideoId: 'bjJi_5L2sAU', channel: '1x1SPORT', content: {
+      intro: 'Auf Profiniveau wird der Wurf bis ins kleinste Detail trainiert. Lucca Staiger (Bundesliga, Nationalspieler) zeigt Drills, die jedes Wurfniveau verbessern.',
+      keyPoints: [
+        '500–1000 Würfe pro Trainingssession – wiederholbare Form.',
+        'Form Shooting aus 1 m Abstand vor Distanzwürfen.',
+        'Game-Speed-Drills: Würfe mit Tempo und unter Druck.',
+        'Off-Hand entwickeln: schwächere Hand mind. 20 % der Würfe.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Spielanalyse & Coaching', duration: '20 min', description: 'Vom Spieler zum Spielmacher.', content: {
+      keyPoints: [
+        'NBA-Spiele studieren: warum funktioniert eine Aktion?',
+        'Eigene Spielsequenzen aufnehmen und ehrlich bewerten.',
+        'Pick-and-Roll-Optionen lesen lernen.',
+        'Coaching anderer macht dich selbst besser.',
+      ],
+    }}),
+  ],
 };
 
 const yoga: SportCurriculum = {
@@ -343,7 +384,27 @@ const krafttraining: SportCurriculum = {
     mod({ id: 'i3', title: 'Volumen, Intensität & Frequenz', duration: '15 min', description: 'Die drei Stellschrauben des Trainings.' }),
     mod({ id: 'i4', title: 'Ernährung für Muskelaufbau', duration: '12 min', description: 'Kalorienüberschuss, Protein, Timing.' }),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Powerlifting-Spezialisierung', duration: '20 min', description: 'Maximalkraft systematisch entwickeln.', content: {
+      intro: 'Powerlifting ist die kompetitive Spezialisierung des Krafttrainings: Kniebeuge, Bankdrücken, Kreuzheben jeweils auf 1 Wiederholung mit maximalem Gewicht.',
+      keyPoints: [
+        '1RM-Training: 80–95 % der Maximalkraft.',
+        'Drei Hauptlifts plus Hilfsübungen – nicht mehr.',
+        'Cycle-System: 4 Wochen Volumen, 3 Wochen Intensität, 1 Woche Deload.',
+        'Wettkampf-Equipment: Knee Sleeves, Wrist Wraps, Lifting Belt.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Coaching: Form-Checks geben', duration: '15 min', description: 'Wie du Bewegung analysierst und cuest.', content: {
+      keyPoints: [
+        'Frontansicht für Symmetrie, Seitenansicht für Bewegungsbahn.',
+        'Cues kurz und konkret ("Brust raus", nicht "achte auf deine Haltung").',
+        'Video-Aufnahmen aus mehreren Winkeln nutzen.',
+        'Erst loben, dann korrigieren, dann erneut loben.',
+      ],
+    }}),
+  ],
 };
 
 const tennis: SportCurriculum = {
@@ -417,7 +478,27 @@ const tennis: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Pronation – die Geheimwaffe des Aufschlags', duration: '12 min', description: 'Sven Bendlin zum entscheidenden Profi-Detail.', ytVideoId: 'k5Xe3AN89ac', channel: 'Tenniswelt von Sven Bendlin', content: {
+      intro: 'Die Pronation des Unterarms am Treffmoment trennt 180-km/h-Aufschläge von 220-km/h-Aufschlägen. Profis nutzen sie unbewusst – Hobby-Spieler oft gar nicht.',
+      keyPoints: [
+        'Schlägerkopf rotiert nach innen am Treffmoment.',
+        'Kontinentalgriff erlaubt die volle Pronation.',
+        'Kein bewusstes "Schwingen" – Bewegung ist explosiv und kurz.',
+        'Übung: Aufschlag in der Bewegung gegen die Wand.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Match-Analyse & Ranking-Aufstieg', duration: '15 min', description: 'Vom Hobby zum LK-Spieler.', content: {
+      keyPoints: [
+        'Eigene Spiele aufzeichnen – Erkenntnisse sind brutal ehrlich.',
+        'LK-System verstehen (Leistungsklasse 1–25).',
+        'Wettkampf-Erfahrung sammeln: lokale Turniere, dann Verbandsserien.',
+        'Trainingsplan mit Coach – Selbstcoaching limitiert.',
+      ],
+    }}),
+  ],
 };
 
 const schwimmen: SportCurriculum = {
@@ -493,7 +574,28 @@ const schwimmen: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Delfinschwimmen mit Toni Embacher', duration: '8 min', description: 'Die anspruchsvollste Schwimmlage – mit 6-fachem deutschen Meister.', ytVideoId: 'LHUr7bklKeQ', channel: 'FITBOOK', content: {
+      intro: 'Schmetterling (Delfin) ist die anstrengendste und technisch anspruchsvollste Lage. Auf Profiniveau geht es um maximalen Vortrieb mit minimalem Widerstand.',
+      keyPoints: [
+        'Wellenbewegung kommt aus der Hüfte, nicht aus den Schultern.',
+        'Armzug: parallel, kraftvolle Druckphase.',
+        'Atmung jeden zweiten Zyklus – seltener atmen = schneller.',
+        'Beinschlag synchron, zwei Schläge pro Armzyklus.',
+      ],
+      safety: ['Ohne saubere Technik: Schultern und unterer Rücken leiden – nur mit Coach an Volumen steigern.'],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Wettkampf-Vorbereitung', duration: '15 min', description: 'Tapering und Renntag-Routine.', content: {
+      keyPoints: [
+        'Tapering: 2 Wochen vor Wettkampf Volumen senken, Intensität halten.',
+        'Wendetechnik perfektionieren – 0,3 s pro Wende über 8 Wenden = 2,4 s.',
+        'Renntag: Frühstück 3 h vorher, Aufwärmen 45 Min vor Start.',
+        'Visualisierung des Rennens am Vorabend.',
+      ],
+    }}),
+  ],
 };
 
 const klettern: SportCurriculum = {
@@ -579,7 +681,31 @@ const klettern: SportCurriculum = {
       safety: ['Bei Fingerschmerz sofort pausieren – Ringbandverletzungen heilen Monate.'],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Mehrseillängen – Vorbereitung', duration: '14 min', description: 'Transa zur alpinen Routenplanung.', ytVideoId: 'QDf_WRPRNHU', channel: 'Transa', content: {
+      intro: 'Mehrseillängen-Klettern bringt dich aus der Halle in echte Wände. Plotzliche Wetterwechsel, langer Abstieg, große Höhen — Vorbereitung ist alles.',
+      keyPoints: [
+        'Routenwahl: Topo studieren, Schwierigkeit ehrlich einschätzen.',
+        'Equipment: Halbseil-Technik, Bandschlingen, Friends, Set.',
+        'Wetterprognose im Detail – Mehrseillängen abbrechen ist Pflicht.',
+        'Pacing: oben sein vor dem Mittag.',
+      ],
+      safety: [
+        'Erst mit Bergführer in echte Routen – Theorie reicht nicht.',
+        'Notfallplan: Wer weiß, wo ihr seid? Wann meldet ihr euch zurück?',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Projektklettern 8a+', duration: '20 min', description: 'Eine Route in mehreren Sessions arbeiten.', content: {
+      keyPoints: [
+        'Schwierige Routen brauchen 5–50 Versuche – Geduld.',
+        'Jede Session: 2–3 Top-Versuche, dann Pause.',
+        'Crux-Stellen ohne Sturz angehen, dann verketten.',
+        'Mentale Routine vor dem Start.',
+      ],
+    }}),
+  ],
 };
 
 const boxen: SportCurriculum = {
@@ -654,7 +780,27 @@ const boxen: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Boxen wie ein Profi – Konter', duration: '12 min', description: 'Coach Ferhat zu Kontertechniken.', ytVideoId: 'sAP5Tp2fmAs', channel: 'Coach Ferhat', content: {
+      intro: 'Im Profibox ist der Konter wertvoller als jeder eigene Angriff – der Gegner ist offen, du triffst mit maximaler Wucht.',
+      keyPoints: [
+        'Konter über die Führhand: schnell, nicht hart.',
+        'Konter über die Schlaghand: nach Slip, knock-out-Risiko.',
+        'Body-Konter zum Bauch nach Kopf-Versuch.',
+        'Counterpuncher-Strategie: Geduld, Lesen, Explosion.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Wettkampf-Strategie & Cornering', duration: '15 min', description: 'Ringgeneralität auf Profiniveau.', content: {
+      keyPoints: [
+        'Erstes Drittel: Distanz und Timing erkennen.',
+        'Zweites Drittel: gefundene Lücken systematisch ausnutzen.',
+        'Drittes Drittel: kontrolliert verteidigen oder Knockout-Druck.',
+        'Cornering: Trainer-Anweisungen 30 s pro Pause.',
+      ],
+    }}),
+  ],
 };
 
 const radfahren: SportCurriculum = {
@@ -732,7 +878,27 @@ const radfahren: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Schwellentraining & Sweet Spot', duration: '14 min', description: 'SCYENCE-Masterclass zum Profi-Training in Zone 4.', ytVideoId: 'VCRUcO7w9Hg', channel: 'SCYENCE', content: {
+      intro: 'Schwellentempo ist die intensivste Belastung, die ein Athlet langfristig aushalten kann (~1 Stunde Vollgas). Profis verbringen 30–40 % ihrer Saison in Zone 3-4.',
+      keyPoints: [
+        'FTP-Test bestimmen (20-min-Test × 0,95).',
+        'Sweet Spot: 88–94 % FTP, 2–3 × 20 Min.',
+        'Threshold: 94–105 % FTP, 1 × 30 Min oder 2 × 15 Min.',
+        'VO₂max: über 105 % FTP, 5 × 5 Min mit 3 Min Pause.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Race-Strategie & Renntaktik', duration: '15 min', description: 'Pacing, Position, Sprint.', content: {
+      keyPoints: [
+        'Vor dem Rennen: Strecken-Recon, kritische Punkte markieren.',
+        'In der Gruppe: Energie sparen, Windschatten nutzen.',
+        'Berg-Sprint: lange Atemzüge, gleichmäßiger Tritt.',
+        'Endspurt: aus 200 m, nicht früher.',
+      ],
+    }}),
+  ],
 };
 
 const volleyball: SportCurriculum = {
@@ -809,7 +975,27 @@ const volleyball: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Schnellangriff – Basistechnik', duration: '10 min', description: 'ARGE Volleyball BW zum Tempo-Angriff der Profis.', ytVideoId: 'jodOgyYC10E', channel: 'ARGE Volleyball Baden-Württemberg', content: {
+      intro: 'Auf Profiniveau wird mit Geschwindigkeit gespielt. Schnellangriff (Quick) trifft, bevor die Verteidigung den Block aufstellen kann.',
+      keyPoints: [
+        '1er-Tempo: Angreifer ist schon in der Luft, wenn der Zuspieler den Ball bekommt.',
+        '3er-Tempo: zweite Reihe, leicht versetzt.',
+        'Anlauf-Timing entscheidet alles – mit Zuspieler abstimmen.',
+        'Block muss raten – schaffe ihm Entscheidungen.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Beach vs. Halle: Übergang', duration: '15 min', description: 'Doppelter Sport, doppelte Skills.', content: {
+      keyPoints: [
+        'Beach: keine Position, jeder muss alles können.',
+        'Sand bremst – Sprungkraft schwerer einzusetzen.',
+        'Wind und Sonne lesen – jeder Punkt anders.',
+        'Halle: Spezialisierung pro Position.',
+      ],
+    }}),
+  ],
 };
 
 const handball: SportCurriculum = {
@@ -886,7 +1072,27 @@ const handball: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: '1-gegen-0-Gegenstoß mit Christian Prokop', duration: '8 min', description: 'Profi-Trainingsform vom DHB-Coach.', ytVideoId: '9N0Zs_vZMnU', channel: 'handball.inspires', content: {
+      intro: 'Tempogegenstöße entscheiden Spitzenspiele. Christian Prokop (Ex-Nationaltrainer) zeigt die saubere Form für 1-gegen-0-Situationen.',
+      keyPoints: [
+        'Sprintbeschleunigung nach Ballgewinn – nicht zögern.',
+        'Pass mit Vorlauf zum Mitspieler – nicht zum Standort.',
+        'Tor-Versuch: Wurfentscheidung früh, dann durchziehen.',
+        'Erste Welle vor der zweiten Welle – Geduld bringt mehr Tore.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Spielplanung & Match-Coaching', duration: '15 min', description: 'Vom Spieler zum Spielführer.', content: {
+      keyPoints: [
+        'Pre-Game-Routine: 60 Min vor Anpfiff strukturiert.',
+        'Time-Out-Strategie: 2 pro Hälfte, gezielt einsetzen.',
+        'Auswechslungen: Frische vs. Erfahrung balancieren.',
+        'Mannschaftsführung: Stimme zwischen den Aktionen.',
+      ],
+    }}),
+  ],
 };
 
 const judo: SportCurriculum = {
@@ -966,7 +1172,28 @@ const judo: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Kansetsu-waza – Waki-gatame', duration: '10 min', description: 'Judobund zur Achselhebel-Technik.', ytVideoId: 'WbyyiFb0HvU', channel: 'Judobund', content: {
+      intro: 'Kansetsu-waza (Hebeltechniken) sind ab Blaugurt (1. Kyu) Teil des Programms. Waki-gatame ist der Achselhebel – effektiv und schnell.',
+      keyPoints: [
+        'Ärmel des Gegners festhalten, Arm strecken.',
+        'Achsel auf den Ellbogen drücken.',
+        'Druckaufbau langsam, sofortige Tap-Out-Akzeptanz.',
+        'Im Wettkampf nur ab Blaugurt erlaubt.',
+      ],
+      safety: ['Niemals ohne erfahrenen Trainer üben.', 'Beim Tap-Out sofort lösen – Bandverletzungen drohen sonst.'],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Wettkampfstrategie & Renking-Aufstieg', duration: '15 min', description: 'Vom Vereins- zum nationalen Niveau.', content: {
+      keyPoints: [
+        'Top-Würfe entwickeln: 2 als Tokui-waza (Lieblingswurf).',
+        'Linkshändige und rechtshändige Variation.',
+        'Wettkampf-Periodisierung: 4–6 Turniere pro Saison.',
+        'Trainingslager mit Bundes- oder Landeskader.',
+      ],
+    }}),
+  ],
 };
 
 const karate: SportCurriculum = {
@@ -1053,7 +1280,27 @@ const karate: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Jion Bunkai – Kata mit Anwendung', duration: '14 min', description: 'Kata-Karate zur klassischen Form mit Bunkai-Vergleich.', ytVideoId: 'L__3YEAFHOA', channel: 'Kata-Karate', content: {
+      intro: 'Jion ist eine fortgeschrittene Shotokan-Kata (ab 2. Kyu). Sie verbindet kraftvolle Techniken mit komplexen Bewegungsmustern. Bunkai zeigt, dass jede Bewegung Kampfanwendung hat.',
+      keyPoints: [
+        'Charakteristische Manji-uke-Position am Anfang.',
+        'Doppelstand Kosa-dachi mit Mehrfachschlägen.',
+        'Bunkai: Verteidigung gegen multiple Angreifer.',
+        '47 Techniken, davon zwei Kiai-Punkte.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Sport-Karate vs. Tradition', duration: '15 min', description: 'WKF-Kumite vs. Karate-do.', content: {
+      keyPoints: [
+        'WKF-Sport: Geschwindigkeit, Punkte, Wettkampf.',
+        'Traditionell: Kata-Bunkai, Selbstverteidigung, Geist.',
+        'Beide Pfade haben Wert – die Wahl ist persönlich.',
+        'Ab 4. Dan unterrichten – Karate weitergeben.',
+      ],
+    }}),
+  ],
 };
 
 const kickboxen: SportCurriculum = {
@@ -1131,7 +1378,28 @@ const kickboxen: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: '7 beste K1-Kombinationen am Pratzen', duration: '11 min', description: 'OYAKATA zu Profi-Combos auf K1-Niveau.', ytVideoId: 'XyYBaXvT_q8', channel: 'OYAKATA', content: {
+      intro: 'K1-Style ist die kompletteste Kickbox-Variante: alle Schläge plus Tritte, kein Clinch. Diese 7 Combos sind die Hauptwaffen der Top-Fighter.',
+      keyPoints: [
+        'Jab-Cross-Low-Kick: die Klassik.',
+        'Doppel-Jab-Cross-Mid-Kick: Distanz schaffen, dann zur Mitte.',
+        'Cross-Hook-Knee: in den Clinch.',
+        'Pendelschritt + Round-Kick: Distanz halten und treten.',
+        'Switch-Kick: Bein wechselt VOR dem Tritt.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'WAKO vs. ISKA – Verbände & Karriere', duration: '12 min', description: 'Welcher Verband, welcher Weg?', content: {
+      keyPoints: [
+        'WAKO: Hauptsächlich Amateurklasse, weltweit anerkannt.',
+        'ISKA / WKA: Profi-Lizenzen, K1-fokussiert.',
+        'Glory / Bellator MMA für Profi-Vollkontakt.',
+        'Karriere-Pfad: Amateur → Semi-Pro → Profi.',
+      ],
+    }}),
+  ],
 };
 
 const badminton: SportCurriculum = {
@@ -1207,7 +1475,27 @@ const badminton: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Doppel-Taktik: Stellungsspiel & Rotation', duration: '14 min', description: 'Diemo Ruhnow zur Profi-Rotation im Doppel.', ytVideoId: 'KWPPyGH1Tbk', channel: "Diemo Ruhnow's Badminton Training", content: {
+      intro: 'Im Doppel auf Profiniveau ist die Rotation alles. Bei jedem Schlag ändert sich die Position beider Spieler – wer das beherrscht, dominiert.',
+      keyPoints: [
+        'Front-Back bei Angriff, Side-Side bei Verteidigung.',
+        'Rotation nach jedem Smash und Drop.',
+        'Kommunikation: kurz, klar, laut.',
+        'Anticipation: Position 1 m vor der erwarteten Schlagrichtung.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'BWF Tour & Ranking', duration: '12 min', description: 'Der Weg zum internationalen Wettkampf.', content: {
+      keyPoints: [
+        'DBV-Ranking nationaler Einstieg.',
+        'BWF-Tour: International Series → Tour Super 100/300/500/750/1000.',
+        'Eigenes Equipment: Yonex / Victor Pro-Modell.',
+        'Spielanalyse mit Video-Software.',
+      ],
+    }}),
+  ],
 };
 
 const tischtennis: SportCurriculum = {
@@ -1284,7 +1572,27 @@ const tischtennis: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Vom Konter zum gefährlichen Topspin', duration: '10 min', description: 'Profi-Tipps zur Übergangstechnik.', ytVideoId: '5g96XIpBfAQ', channel: "Let's play table tennis", content: {
+      intro: 'Auf Profiniveau ist der Konter selten der Schluss – er ist die Vorbereitung für den entscheidenden Topspin. Der Übergang trennt Bundesligaspieler von Verbandsspielern.',
+      keyPoints: [
+        'Konter im Aufprall, Topspin im nächsten Schlag.',
+        'Schläger früh schließen für die Schlagwahl.',
+        'Beinposition vorbereiten: Druck auf das hintere Bein.',
+        'Variation zwingt den Gegner zu Fehlern.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Belag-Kunde für Profis', duration: '12 min', description: 'Das Equipment-Match macht den Unterschied.', content: {
+      keyPoints: [
+        'Tensor-Beläge: Vortrieb durch chemische Spannung.',
+        'Antitop / Noppen außen für Defensive.',
+        'Boostern: einige Profis behandeln Beläge für mehr Tempo.',
+        'Belagwechsel alle 2–4 Wochen für Top-Performance.',
+      ],
+    }}),
+  ],
 };
 
 const squash: SportCurriculum = {
@@ -1355,7 +1663,27 @@ const squash: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Schneller auf dem Squash-Court', duration: '9 min', description: 'Spitzentrainer Bart Wijnhoven zur Court-Bewegung.', ytVideoId: 'weznu3NWonc', channel: 'Squashpoint', content: {
+      intro: 'Auf Profi-Niveau wird Squash mit den Füßen gewonnen. Top-Coach Bart Wijnhoven zeigt, wie du dich effektiver und schneller auf dem Court bewegst.',
+      keyPoints: [
+        'Kleine schnelle Schritte statt großer Sprünge.',
+        'Antritt aus der T mit Cross-Over-Step.',
+        'Bei Volley-Position: leichter Spring-Step.',
+        'Atemrhythmus an Bewegung koppeln.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'PSA-Tour & Profi-Karriere', duration: '12 min', description: 'Der internationale Wettkampfweg.', content: {
+      keyPoints: [
+        'PSA Challenger Tour als Einstieg.',
+        'PSA World Tour für Top-50-Spieler.',
+        'Trainingscenter in Ägypten, Frankreich, England.',
+        'Spielanalyse mit Heatmaps und Bewegungstracker.',
+      ],
+    }}),
+  ],
 };
 
 const rudern: SportCurriculum = {
@@ -1426,7 +1754,27 @@ const rudern: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Der Ruder-Achter: Mythos & Vorbereitung', duration: '15 min', description: 'kicker.tv zur Königsdisziplin des Ruderns.', ytVideoId: 'G4Quy7ShQR8', channel: 'kicker', content: {
+      intro: 'Der Achter (8+) ist die schnellste und prestigereichste Bootsklasse. Acht Ruderer, ein Steuermann, perfekte Synchronisation – auf Olympia-Niveau hart erarbeitet.',
+      keyPoints: [
+        'Synchronisation = entscheidender Faktor.',
+        'Schlagmann gibt Takt vor.',
+        'Steuermann ruft Kommandos und liest die Strecke.',
+        'Trainingslager über Monate vor Olympia.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Vom Skuller zum Riemen', duration: '14 min', description: 'Bootsklassen verstehen und wechseln.', content: {
+      keyPoints: [
+        'Skull (2 Riemen pro Person): 1×, 2×, 4×, 8× (selten).',
+        'Riemen (1 Riemen pro Person): 2-, 4-, 8+ (mit Steuermann).',
+        'Riemen-Übergang verlangt körperliche Asymmetrie-Anpassung.',
+        'Skuller-Achter (8×) gibt es kaum, Riemen-Achter (8+) ist die Königsklasse.',
+      ],
+    }}),
+  ],
 };
 
 const segeln: SportCurriculum = {
@@ -1505,7 +1853,27 @@ const segeln: SportCurriculum = {
       safety: ['Bei Böen über 25 Knoten: defensive Routen wählen.', 'Wetterprognose alle 3 h checken.'],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Regattataktik – 3 wichtige Grundsätze', duration: '11 min', description: 'bessersegeln.at zum strategischen Segeln.', ytVideoId: 'QYIHQZ8HV88', channel: 'bessersegeln at', content: {
+      intro: 'Regattasegeln ist 80 % Taktik und 20 % Boot. Die drei wichtigsten Grundsätze entscheiden über Sieg und Niederlage.',
+      keyPoints: [
+        'Spitze finden: rechtzeitig auf der schneller fahrenden Seite sein.',
+        'Lay-Lines beachten – zu früh ausholen verliert Zeit.',
+        'Andere Boote als Indikator nutzen.',
+        'Wettkampf-Regeln Steuerbord/Backbord kennen.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Match Race & Team Race', duration: '14 min', description: 'Profi-Segeln in besonderen Formaten.', content: {
+      keyPoints: [
+        'Match Race: 1 gegen 1, Punkt für Punkt.',
+        'Team Race: 3 gegen 3, taktisch hochkomplex.',
+        'America\'s Cup als Profi-Königsdisziplin.',
+        'Foiling-Boote: Geschwindigkeit über 50 Knoten.',
+      ],
+    }}),
+  ],
 };
 
 const surfen: SportCurriculum = {
@@ -1578,7 +1946,28 @@ const surfen: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Big Wave Surfing in Nazaré', duration: '12 min', description: 'DER SPIEGEL zur Weltrekordwelle.', ytVideoId: '4mT0DzAY7dQ', channel: 'DER SPIEGEL', content: {
+      intro: 'Big-Wave-Surfing ist der Extremsport, der wenigen Surfern vorbehalten ist. Sebastian Steudtner aus Bayern surfte hier 2020 die Rekordwelle.',
+      keyPoints: [
+        'Tow-In: Per Jet-Ski auf die Welle gezogen.',
+        'Boards: 8–10 ft, schwerer und stabiler.',
+        'Vorbereitung: monatelang Atem trainieren, Workouts unter Wasser.',
+        'Risiko: Wellen über 20 m, Stürze tödlich möglich.',
+      ],
+      safety: ['Big Wave nur mit Sicherheits-Team (Jet-Ski-Rettung) und Erfahrung.', 'Niemals allein – jeder Profi hat einen Spotter.'],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'WSL-Tour & Profi-Karriere', duration: '14 min', description: 'Der Weg ins Welttournee.', content: {
+      keyPoints: [
+        'WSL Qualifying Series für Aufstieg.',
+        'Championship Tour: Top 36 weltweit.',
+        'Sponsor-Kontakte sind essenziell.',
+        'Pipeline, Teahupo\'o, Cloudbreak – die Stops.',
+      ],
+    }}),
+  ],
 };
 
 const crossfit: SportCurriculum = {
@@ -1663,7 +2052,27 @@ const crossfit: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'CrossFit Open & Qualifier', duration: '18 min', description: 'Der Weg zu den CrossFit Games.', content: {
+      intro: 'Die CrossFit Open ist die weltweite Qualifikation für die CrossFit Games – jeder kann mitmachen. Quartersfinals und Semifinals folgen für Top-Athleten.',
+      keyPoints: [
+        'Open: 3 Wochen, jeweils ein WOD – online eingereicht.',
+        'Quartersfinals: Top 10 % weltweit.',
+        'Semifinals: Top 60 pro Region.',
+        'CrossFit Games: Top 40 Männer, 40 Frauen weltweit.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Coaching & Box-Ownership', duration: '15 min', description: 'Vom Athleten zum Coach.', content: {
+      keyPoints: [
+        'CrossFit Level 1 als Einstiegszertifikat.',
+        'Level 2 für Profi-Coaching.',
+        'Eigene Box: Investition 80–200 k€, plus laufende Kosten.',
+        'Athletenbetreuung statt eigene Wettkampf-Karriere.',
+      ],
+    }}),
+  ],
 };
 
 const pilates: SportCurriculum = {
@@ -1733,7 +2142,27 @@ const pilates: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Pilates-Trainer:in werden – ASG-Ausbildung', duration: '10 min', description: 'Akademie für Sport und Gesundheit zu den FAQs.', ytVideoId: 'TVYvwSo_-v0', channel: 'Akademie für Sport und Gesundheit', content: {
+      intro: 'Pilates-Lehrer:in ist ein anerkannter Beruf. Die ASG und andere Akademien bieten strukturierte Ausbildungen mit B- und A-Lizenzen.',
+      keyPoints: [
+        'B-Lizenz: Mat Pilates Basics, ~4 Tage + Eigenstudium.',
+        'A-Lizenz: erweiterte Mat und Geräte-Grundlagen.',
+        'Reformer-Spezialisierung als separate Ausbildung.',
+        'Anatomie- und Methodik-Kenntnisse sind Pflicht.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Apparatus-Spezialisierung', duration: '15 min', description: 'Reformer, Cadillac, Chair, Barrels.', content: {
+      keyPoints: [
+        'Reformer: meistverbreitet, vielseitig.',
+        'Cadillac: ganzkörperlich, viele Aufhängungen.',
+        'Wunda Chair: kleine Fläche, intensive Übungen.',
+        'Spine Corrector / Ladder Barrel: für Rückenkräftigung.',
+      ],
+    }}),
+  ],
 };
 
 const wandern: SportCurriculum = {
@@ -1804,7 +2233,32 @@ const wandern: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Höhenbergsteigen – Akklimatisierung', duration: '12 min', description: 'yourdailymilk zu Vorbereitung & Höhenanpassung.', ytVideoId: 'eLJgn6-vSDY', channel: 'yourdailymilk', content: {
+      intro: 'Oberhalb 2500 m beginnt der Bereich, wo der Körper sich anpassen muss. Auf 5000 m+ ist Akklimatisierung kritisch für Leben und Erfolg.',
+      keyPoints: [
+        'Goldene Regel: nicht über 500 Hm pro Tag schlafen.',
+        '"Climb high, sleep low": Tagesausflüge höher, dann tiefer schlafen.',
+        'Ruhetage alle 3–4 Tage einplanen.',
+        'Symptome: Kopfschmerzen, Übelkeit, Schwindel ernst nehmen.',
+      ],
+      safety: [
+        'Bei HACE oder HAPE (Hirn-/Lungenödem): sofort absteigen!',
+        'Diamox als prophylaktisches Medikament nur mit Arzt.',
+        'Niemals allein in der Todeszone (>8000 m).',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Expedition planen', duration: '20 min', description: 'Von Aufbauzelt bis Sherpa-Auswahl.', content: {
+      keyPoints: [
+        'Klettergebiete: Alpen → Anden → Himalaya in Schritten.',
+        'Genehmigungen: Kilimanjaro frei, Everest 11.000 USD Permit.',
+        'Versicherung: Hubschrauberrettung über 6000 m essentiell.',
+        'Logistik: Trekking-Agenturen vs. Eigenexpedition.',
+      ],
+    }}),
+  ],
 };
 
 const mountainbike: SportCurriculum = {
@@ -1878,7 +2332,27 @@ const mountainbike: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'MTB-Disziplinen erklärt', duration: '10 min', description: 'Marc Diekmann zu Downhill, Enduro, Freeride, Trial.', ytVideoId: 'sJ2KHpQ-60s', channel: 'Weber-Werke', content: {
+      intro: 'Auf Profiniveau spezialisiert man sich. Diekmann erklärt die Unterschiede der MTB-Disziplinen – jede hat eigene Bikes, Tracks und Skills.',
+      keyPoints: [
+        'Downhill: nur bergab, schnellste Disziplin (UCI-Worldcup).',
+        'Enduro: Mehrere Stages, nur bergab gewertet aber alles fahren.',
+        'Freeride: Flow, Stil, große Sprünge (Red Bull Rampage).',
+        'Trial: Hindernisse überwinden ohne Bodenkontakt.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Profi-Karriere & Sponsoring', duration: '15 min', description: 'Vom lokalen Race zur UCI-Lizenz.', content: {
+      keyPoints: [
+        'Deutsche Meisterschaft als nationaler Einstieg.',
+        'UCI Junior, U23, Elite-Lizenzen.',
+        'Sponsoren: Bike-Hersteller, Component-Brands, Versicherung.',
+        'YouTube/Social Media als zusätzlicher Karriere-Pfad.',
+      ],
+    }}),
+  ],
 };
 
 const ski: SportCurriculum = {
@@ -1955,7 +2429,32 @@ const ski: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'DSV-Experten-Tipps: Freeride', duration: '12 min', description: 'Deutscher Skiverband zu Off-Piste-Skifahren.', ytVideoId: 'XwriBehdSGQ', channel: 'Deutscher Skiverband', content: {
+      intro: 'Freeride ist der Weg vom Pistenfahrer zum echten Bergskifahrer. DSV-Experten erklären, was nötig ist, um sicher und stilvoll abseits der Piste zu fahren.',
+      keyPoints: [
+        'Druckpunkt nach hinten verlagern für Auftrieb.',
+        'Längere, runde Schwünge – nicht kantige Bremser.',
+        'Lawinen-Set (LVS, Schaufel, Sonde) immer dabei + Übung.',
+        'Hänge-Beurteilung: Steilheit, Aussetzungen, Auslauf.',
+      ],
+      safety: [
+        'Niemals allein im freien Gelände.',
+        'Lawinenlagebericht jeden Tag.',
+        'Notfall-Rucksack mit LVS-Pieps regelmäßig testen.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Skitouren & Hochalpines', duration: '18 min', description: 'Vom Lift zur Tour.', content: {
+      keyPoints: [
+        'Tourenski mit Pin-Bindung, Felle, Harscheisen.',
+        'Aufstiegstechnik mit Spitzkehren.',
+        'Tourenplanung mit Karte, Höhenmesser, GPS.',
+        'Lawinen-Kompetenz-Module beim DAV.',
+      ],
+    }}),
+  ],
 };
 
 const snowboard: SportCurriculum = {
@@ -2030,7 +2529,28 @@ const snowboard: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Snowboard 360 lernen', duration: '8 min', description: 'snowmagazine zum Klassiker-Trick.', ytVideoId: 'tyd9qfggctI', channel: 'snowmagazine', content: {
+      intro: 'Der 360 ist der ikonische Park-Trick. Wer ihn beherrscht, hat den Schritt vom Park-Hobby zum echten Freestyler gemacht.',
+      keyPoints: [
+        'Anlauf gerade, mit Tempo.',
+        'Drehung beginnt VOR dem Absprung mit Schultern.',
+        'In der Luft kompakt – Knie zur Brust.',
+        'Landung schaut in die Fahrtrichtung, weich.',
+      ],
+      safety: ['Auf Airbag oder Schnee-Landung üben.', 'Helm + Rückenprotektor Pflicht.'],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Slopestyle & Big Air Wettkampf', duration: '15 min', description: 'Von X Games bis Olympia.', content: {
+      keyPoints: [
+        'FIS-Punkte für Wettkampfteilnahmen.',
+        'Slopestyle: mehrere Features mit Tricks.',
+        'Big Air: einzelner riesiger Sprung mit Pro-Tricks.',
+        'Halfpipe: drei Hits pro Run.',
+      ],
+    }}),
+  ],
 };
 
 const eishockey: SportCurriculum = {
@@ -2111,7 +2631,27 @@ const eishockey: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Bully-Tutorial mit der Nationalmannschaft', duration: '8 min', description: "Marcel's Hockey School mit Profi-Tipps.", ytVideoId: 'cNcbZ6mznec', channel: "Marcel's Hockey School", content: {
+      intro: 'Faceoffs (Bullys) entscheiden Punkte. Auf Profiniveau wird hier jede Mikro-Bewegung optimiert.',
+      keyPoints: [
+        'Schläger genau auf Punkt, Augen auf den Linesman.',
+        'Antritt aus den Knien – Power kommt von unten.',
+        'Schläger-Technik: Stick-Lift, Hook, Reverse.',
+        'Mit dem Körper den Gegner blocken.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'DEL & NHL: Der Profi-Weg', duration: '15 min', description: 'Karriere im Eishockey.', content: {
+      keyPoints: [
+        'DNL (Deutsche Nachwuchsliga) als Einstieg.',
+        'Oberliga / DEL2 / DEL als deutsche Liga-Stufen.',
+        'NHL-Draft für junge Talente (Alter 18).',
+        'AHL und ECHL als nordamerikanische Farm-Ligen.',
+      ],
+    }}),
+  ],
 };
 
 const tanzen: SportCurriculum = {
@@ -2191,7 +2731,27 @@ const tanzen: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Tango Argentino – Grundschritt', duration: '8 min', description: 'AO Dance zum traditionellen Profi-Tanz.', ytVideoId: 'AcHFzW9cSts', channel: 'AO Dance - online Tanzen lernen: Flashmob&Paartanz', content: {
+      intro: 'Tango Argentino ist der intimste und ausdrucksstärkste Paartanz. Im Gegensatz zum sportlichen Standard-Tango improvisiert man hier komplett — auf höchstem Niveau eine eigene Sprache zwischen Tänzern.',
+      keyPoints: [
+        '6er-Kachel als Grundmuster, alles improvisiert.',
+        'Führung sehr fein – über Brust und Bauch, nicht Arme.',
+        'Achten auf "Cabeceo": Blickkontakt vor dem Tanz.',
+        'Milongas (Tanzveranstaltungen) als Lerngelegenheit.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Wettkampf-Tanzen WDSF', duration: '15 min', description: 'Vom Hobby zur Turniertanz-Karriere.', content: {
+      keyPoints: [
+        'WDSF Welttanzsport-Verband für Standard und Latein.',
+        'Klassen E, D, C, B, A, S nach Punktesystem.',
+        'Trainingsumfang Top-Paare: 30+ Stunden/Woche.',
+        'Tanzschuhe, Kleidung, Coach – kostenintensiv.',
+      ],
+    }}),
+  ],
 };
 
 const parkour: SportCurriculum = {
@@ -2269,7 +2829,28 @@ const parkour: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Parkour & Freerunning Level 1–6', duration: '14 min', description: 'urbanamadei zur Progression vom Anfänger zum Profi.', ytVideoId: '7pMGl7C4NxU', channel: 'urbanamadei', content: {
+      intro: 'Frontflip, Kong, Backflip, Wallflip — die Profi-Tricks. urbanamadei strukturiert sie nach Schwierigkeitsgraden, damit du verletzungsfrei aufbauen kannst.',
+      keyPoints: [
+        'Level 1–2: Basics (Vault, Roll, Wall Run).',
+        'Level 3–4: Combinations (Kong, Speed Vault).',
+        'Level 5–6: Flips (Front, Back, Wall Flip).',
+        'Niemals Levels überspringen – Verletzungsrisiko explodiert.',
+      ],
+      safety: ['Flips erst nach Bodenturnen-Erfahrung.', 'Erst auf Matten, dann auf Gras, niemals direkt auf Beton.'],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Performance & Stunt-Arbeit', duration: '15 min', description: 'Parkour als Beruf.', content: {
+      keyPoints: [
+        'Stunt-Performer in Film und Fernsehen.',
+        'YouTube/Social Media als Hauptkanal vieler Profis.',
+        'Stunt-Versicherung essentiell.',
+        'Internationale Parkour-Events (Red Bull, NinjaUSA).',
+      ],
+    }}),
+  ],
 };
 
 const reiten: SportCurriculum = {
@@ -2340,7 +2921,27 @@ const reiten: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'S-Klasse Dressur – die Krone', duration: '15 min', description: 'ClipMyHorse.TV zur höchsten Dressurklasse.', ytVideoId: 'mUHmS3u14Ss', channel: 'ClipMyHorse.TV Academy', content: {
+      intro: 'S-Klasse (Schwer) ist die Königsdisziplin der Dressur. Hier zeigen sich die Lektionen, die Reiter ein Leben lang üben: Piaffe, Passage, fliegende Galoppwechsel.',
+      keyPoints: [
+        'Piaffe: Trab auf der Stelle, höchste Versammlung.',
+        'Passage: erhabener Trab mit Schwebephase.',
+        'Fliegende Galoppwechsel: bis zur Einsprung-Sequenz alle 1 Tritt.',
+        'Pirouetten: Wendung im Galopp auf der Hinterhand.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Springreiten & Vielseitigkeit', duration: '18 min', description: 'Die olympischen Disziplinen.', content: {
+      keyPoints: [
+        'Springreiten: Parcours bis 1,60 m im Profibereich.',
+        'Vielseitigkeit: Dressur + Cross-Country + Springreiten.',
+        'Pferdeauswahl & -ausbildung sind 60 % des Erfolgs.',
+        'Profi-Reiter trainieren 6–8 Pferde parallel.',
+      ],
+    }}),
+  ],
 };
 
 const golf: SportCurriculum = {
@@ -2419,7 +3020,28 @@ const golf: SportCurriculum = {
       ],
     }}),
   ],
-  profi: standardProfi,
+  profi: [
+    mod({ id: 'p1', title: 'Kurzer Pitch mit Backspin', duration: '9 min', description: 'Alexander Marx zum Profi-Schlag im kurzen Spiel.', ytVideoId: 'AyuJxHNCj6U', channel: 'Alexander Marx', content: {
+      intro: 'Der kurze Pitch mit viel Backspin ist DER Schlag der Tour-Profis. Der Ball landet, springt einmal und bleibt stehen — pure Magie für Zuschauer.',
+      keyPoints: [
+        'Wedge mit hohem Loft (56°+ Sand Wedge).',
+        'Stand offen, Ball leicht hinter der Mitte.',
+        'Schlagfläche offen halten.',
+        'Beschleunigung durch den Ball – kein Bremsen.',
+        'Boden VOR dem Ball treffen für maximalen Spin.',
+      ],
+    }}),
+    periodisierungModule,
+    mentaltrainingModule,
+    mod({ id: 'p4', title: 'Tour-Karriere: PGA, DP World, LIV', duration: '18 min', description: 'Der Profi-Karriere-Pfad im Golf.', content: {
+      keyPoints: [
+        'Q-School (Qualifying School) als Einstieg.',
+        'Korn Ferry Tour als Sprungbrett zur PGA Tour.',
+        'DP World Tour (früher European Tour) für Europa.',
+        'Mental Coaching, Caddie, Manager – das Team eines Profis.',
+      ],
+    }}),
+  ],
 };
 
 /* -------------------------------------------------------------------------- */
