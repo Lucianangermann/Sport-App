@@ -1,11 +1,12 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getSportById, getClubsForSport, moduleKey } from '../utils/helpers';
 import { useAppStore } from '../store/useAppStore';
 import { CURRICULA, LEVEL_LABELS } from '../data/modules';
 import type { SkillLevel } from '../types';
 import { ProgressBar } from '../components/ProgressBar';
 import { ClubCard } from '../components/ClubCard';
+import { SportCoach } from '../features/ai-coach/SportCoach';
 
 const LEVELS: SkillLevel[] = ['anfaenger', 'fortgeschritten', 'profi'];
 
@@ -16,10 +17,26 @@ export const SportDetailPage = () => {
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
   const progress = useAppStore((s) => s.progress);
+  const [coachOpen, setCoachOpen] = useState(false);
 
   useEffect(() => {
     if (id && sport) setLastSport(id);
   }, [id, sport, setLastSport]);
+
+  // Derive active level + completed modules for coach context
+  const { activeLevel, completedModules } = useMemo(() => {
+    if (!sport) return { activeLevel: 'anfaenger' as SkillLevel, completedModules: [] };
+    const c = CURRICULA[sport.id];
+    const allCompleted = (['anfaenger', 'fortgeschritten', 'profi'] as const).flatMap((lvl) =>
+      c[lvl].filter((m) => progress[moduleKey(sport.id, lvl, m.id)]),
+    );
+    // Active level = furthest level with any progress; default Anfänger
+    let lvl: SkillLevel = 'anfaenger';
+    if (c.profi.some((m) => progress[moduleKey(sport.id, 'profi', m.id)])) lvl = 'profi';
+    else if (c.fortgeschritten.some((m) => progress[moduleKey(sport.id, 'fortgeschritten', m.id)]))
+      lvl = 'fortgeschritten';
+    return { activeLevel: lvl, completedModules: allCompleted };
+  }, [sport, progress]);
 
   if (!sport) return <Navigate to="/discover" replace />;
 
@@ -64,6 +81,35 @@ export const SportDetailPage = () => {
         </div>
         <p className="mt-3 text-sm text-white/90">{sport.description}</p>
       </header>
+
+      <section className="px-5 pt-6">
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={() => setCoachOpen(true)}
+            className="flex items-center gap-2 rounded-2xl bg-white p-3 text-left shadow-card dark:bg-ink-800 dark:shadow-card-dark"
+          >
+            <div className="text-2xl">💬</div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">KI-Chat</div>
+              <div className="truncate font-display text-sm font-bold text-ink-900 dark:text-white">
+                Coach fragen
+              </div>
+            </div>
+          </button>
+          <Link
+            to={`/sport/${sport.id}/plan`}
+            className="flex items-center gap-2 rounded-2xl bg-white p-3 shadow-card dark:bg-ink-800 dark:shadow-card-dark"
+          >
+            <div className="text-2xl">📅</div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">KI-Plan</div>
+              <div className="truncate font-display text-sm font-bold text-ink-900 dark:text-white">
+                Trainingsplan
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
 
       <section className="px-5 pt-6">
         <h2 className="mb-3 font-display text-lg font-bold text-ink-900 dark:text-white">Dein Lernpfad</h2>
@@ -113,6 +159,14 @@ export const SportDetailPage = () => {
           </div>
         </section>
       )}
+
+      <SportCoach
+        sport={sport}
+        level={activeLevel}
+        completedModules={completedModules}
+        open={coachOpen}
+        onClose={() => setCoachOpen(false)}
+      />
     </div>
   );
 };

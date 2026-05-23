@@ -5,6 +5,8 @@ import { CLUBS } from '../data/clubs';
 import { SportCard } from '../components/SportCard';
 import { ClubCard } from '../components/ClubCard';
 import { greeting, getRecommendedSports, getSportById, xpForLevel } from '../utils/helpers';
+import { SmartRecommendations } from '../features/recommendations/SmartRecommendations';
+import { WeeklyInsights } from '../features/insights/WeeklyInsights';
 
 export const HomePage = () => {
   const profile = useAppStore((s) => s.profile);
@@ -52,6 +54,22 @@ export const HomePage = () => {
       </header>
 
       <div className="space-y-7 px-5 pt-7">
+        <SmartRecommendations />
+
+        <Link
+          to="/quiz"
+          className="flex items-center gap-3 rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-600 p-4 text-white shadow-card dark:shadow-card-dark"
+        >
+          <div className="text-3xl">🎯</div>
+          <div className="min-w-0 flex-1">
+            <div className="font-display text-base font-bold">Sport-Match Quiz</div>
+            <div className="text-xs text-white/85">Lass die KI deinen perfekten Sport finden — 8 Fragen, 2 Minuten.</div>
+          </div>
+          <span className="text-white/80">→</span>
+        </Link>
+
+        <WeeklyInsights />
+
         {lastSport && (
           <section>
             <h2 className="mb-2 font-display text-lg font-bold text-ink-900 dark:text-white">Weitermachen</h2>

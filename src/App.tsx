@@ -10,6 +10,8 @@ import { SportDetailPage } from './pages/SportDetailPage';
 import { LevelDetailPage } from './pages/LevelDetailPage';
 import { LessonViewerPage } from './pages/LessonViewerPage';
 import { ClubsPage } from './pages/ClubsPage';
+import { SportMatchQuiz } from './features/sport-quiz/SportMatchQuiz';
+import { TrainingPlanGenerator } from './features/training-plan/TrainingPlanGenerator';
 import { ClubDetailPage } from './pages/ClubDetailPage';
 import { ContactPage } from './pages/ContactPage';
 import { OnboardingPage } from './pages/OnboardingPage';
@@ -24,8 +26,10 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route path="/quiz" element={<RequireOnboarding><SportMatchQuiz /></RequireOnboarding>} />
         <Route element={<RequireOnboarding><AppLayout /></RequireOnboarding>}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/sport/:id/plan" element={<TrainingPlanGenerator />} />
           <Route path="/discover" element={<DiscoverPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/profile" element={<ProfilePage />} />
