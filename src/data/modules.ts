@@ -133,7 +133,15 @@ const fussball: SportCurriculum = {
   fortgeschritten: [
     mod({ id: 'i1', title: '5 Methoden für den Spielaufbau', duration: '12 min', description: 'Räume erkennen, Linien überspielen.', ytVideoId: 'QQt_MQy4cYM', channel: "Sam's Fußball Channel" }),
     mod({ id: 'i2', title: 'Spielaufbau in der Dreierkette', duration: '14 min', description: 'Trainingsformen für eine 3er-Kette.', ytVideoId: 'UqiT1HgEszg', channel: 'Deutsches Fußball Internat' }),
-    mod({ id: 'i3', title: 'Kopfball-Training für Fortgeschrittene', duration: '10 min', description: 'Timing-Übungen mit Sprungkraft.', ytVideoId: 'vN7BefbV8sM', channel: 'Deutsches Fußball Internat' }),
+    mod({ id: 'i3', title: 'Konditionstraining – 4 Wochen Ausdauer', duration: '15 min', description: '360Football zur Saisonvorbereitung.', ytVideoId: 'aKz0A0cuUcM', channel: '360Football', content: {
+      intro: 'Profi-Konditionstraining auf Bundesliga-Niveau läuft strukturiert über mehrere Wochen. Dieser Plan ist auch für Amateurvereine machbar.',
+      keyPoints: [
+        'Woche 1: Grundlagenausdauer, lange Läufe ohne Ball.',
+        'Woche 2: Intervalle, Sprints, Antritte.',
+        'Woche 3: spezifisches Konditions-Training mit Ball.',
+        'Woche 4: spielnahe Belastung, Wettkampftests.',
+      ],
+    }}),
     mod({ id: 'i4', title: 'Regeneration nach Spielen', duration: '8 min', description: 'Auslaufen, Ernährung, Schlaf.' }),
   ],
   profi: [
@@ -204,7 +212,14 @@ const basketball: SportCurriculum = {
   fortgeschritten: [
     mod({ id: 'i1', title: 'Defense Helpside', duration: '7 min', description: 'Wann du herunterhelfen musst.', ytVideoId: 'koNygTlamzQ', channel: 'FC Bayern Basketball' }),
     mod({ id: 'i2', title: 'Pick & Roll lesen', duration: '15 min', description: 'Das wichtigste Muster modernen Basketballs.' }),
-    mod({ id: 'i3', title: 'Konditionstraining', duration: '20 min', description: 'Sprint-Intervalle, Sprungkraft, Beweglichkeit.' }),
+    mod({ id: 'i3', title: 'Sprungkraft mit Profi Luis Figge', duration: '10 min', description: 'MrMike Production zu Sprungkraft-Übungen.', ytVideoId: 'GadVcfKkUB8', channel: 'MrMike Production', content: {
+      keyPoints: [
+        'Plyometrik: Box Jumps, Squat Jumps, Tuck Jumps.',
+        'Kraftbasis: Kniebeuge bis 1,5× Körpergewicht.',
+        'Sprungstabilität: einbeinige Landungen üben.',
+        'Beweglichkeit: Hüfte und Sprunggelenk mobilisieren.',
+      ],
+    }}),
     mod({ id: 'i4', title: 'Spielsysteme verstehen', duration: '18 min', description: 'Motion Offense vs. Pick & Roll Sets.' }),
   ],
   profi: [
@@ -461,7 +476,7 @@ const tennis: SportCurriculum = {
         'Volley-Schritt: Splitstep, dann Vorwärtsschritt mit dem Außenfuß.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Match-Taktik gegen verschiedene Gegner', duration: '12 min', description: 'Spielanalyse und Anpassung.', content: {
+    mod({ id: 'i3', title: 'Tennis Strategie – 5 taktische Grundlagen', duration: '10 min', description: 'Sven Bendlin zu Match-Taktik und Spielanalyse.', ytVideoId: 'dMCbIiHTSAA', channel: 'Tenniswelt von Sven Bendlin', content: {
       keyPoints: [
         'Gegen Topspin-Spieler: tief und mit Slice spielen, Tempo brechen.',
         'Gegen Slicer: hohe Bälle aufnehmen, sofort drücken.',
@@ -558,7 +573,7 @@ const schwimmen: SportCurriculum = {
         'Pull-Buoy zwischen den Beinen für Armarbeit-Fokus.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Wechsel zwischen Lagen üben', duration: '15 min', description: 'Lagenschwimmen aufbauen.', content: {
+    mod({ id: 'i3', title: 'Rollwende perfekt lernen', duration: '10 min', description: 'SWIM Technik – schnellere Wenden im Wettkampf.', ytVideoId: 'YhCe8qJpwxg', channel: 'SWIM | Schwimmen ist mehr als Kachelzählen', content: {
       keyPoints: [
         'Reihenfolge im Wettkampf: Schmetterling → Rücken → Brust → Kraul.',
         'Wendetechnik üben: Rollwende für Kraul/Rücken, Schwimmwende für Brust/Schmetterling.',
@@ -663,7 +678,7 @@ const klettern: SportCurriculum = {
         'Dyno: dynamischer Sprung mit Push aus den Beinen.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Routen lesen & projektieren', duration: '12 min', description: 'Eine Route mental durchgehen.', content: {
+    mod({ id: 'i3', title: 'Boulder-Routen lesen', duration: '12 min', description: 'Grundkurs Bouldern – Strategien für Beta und Sequenz.', ytVideoId: 'fWEKpuoA4yI', channel: 'Grundkurs Bouldern', content: {
       keyPoints: [
         'Crux identifizieren – wo wird es schwer?',
         'Ruheposition zwischen Schlüsselstellen finden.',
@@ -763,7 +778,7 @@ const boxen: SportCurriculum = {
         'Block ist die LETZTE Verteidigung, nicht die erste.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Sandsack-Training', duration: '20 min', description: 'Power und Ausdauer am Sack.', content: {
+    mod({ id: 'i3', title: 'Boxsack-Trainingsplan: 12 Runden', duration: '20 min', description: 'BuschkampBros MMA mit Kickbox- und MMA-Combos.', ytVideoId: 'ttJRcwudx18', channel: 'BuschkampBros. MMA - Fighting as a Lifestyle !', content: {
       keyPoints: [
         '3 Minuten Runden mit 1 Minute Pause.',
         'Verschiedene Höhen: Kopf, Körper, Leber.',
@@ -861,7 +876,7 @@ const radfahren: SportCurriculum = {
         'Aerodynamik bricht ab 40 km/h alles.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Aerodynamik & Positionsoptimierung', duration: '10 min', description: 'Mehr Speed bei gleicher Watt-Leistung.', content: {
+    mod({ id: 'i3', title: 'Ernährungsstrategie für lange Touren', duration: '14 min', description: 'Felix Hentschel zur Verpflegung auf der Strecke.', ytVideoId: 'ooOVyfGvmok', channel: 'Felix Hentschel', content: {
       keyPoints: [
         'Im Aero-Lenker tief und schmal – Rücken flach.',
         'Helm aerodynamisch – ohne Visier verlierst du Watt.',
@@ -958,7 +973,7 @@ const volleyball: SportCurriculum = {
         'Augen auf den Ball UND den Angreifer.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Annahme harter Aufschläge', duration: '10 min', description: 'Floater und Sprungaufschläge sicher annehmen.', content: {
+    mod({ id: 'i3', title: 'Annahmebagger trainieren', duration: '10 min', description: 'Volleyballkompass zur unteren Annahme.', ytVideoId: '2S-sUpZ-0CQ', channel: 'Volleyballkompass', content: {
       keyPoints: [
         'Plattform früh formen – nicht warten.',
         'Knie tief, Schwerpunkt nach vorne.',
@@ -1055,7 +1070,7 @@ const handball: SportCurriculum = {
         'Spielen aus dem Kreuz: Pass diagonal über das Spielfeld.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Verteidigungsformationen', duration: '12 min', description: '6-0, 3-2-1, 5-1.', content: {
+    mod({ id: 'i3', title: '6-0-Deckung erklärt', duration: '8 min', description: 'HSG Schaumburg-Nord zur populärsten Abwehrformation.', ytVideoId: '07NdPRetaxE', channel: 'hsgschaumburgnord', content: {
       keyPoints: [
         '6-0: Alle Verteidiger auf 6-m-Linie – kompakt, gut gegen Rückraum.',
         '3-2-1: dreigliedrig, aggressiv – gut gegen technische Teams.',
@@ -1155,7 +1170,7 @@ const judo: SportCurriculum = {
         'Hebel- und Würgegriffe ab Blaugurt (1. Kyu).',
       ],
     }}),
-    mod({ id: 'i3', title: 'Wettkampftaktik', duration: '12 min', description: 'Auf dem Tatami siegen.', content: {
+    mod({ id: 'i3', title: 'IJF-Wettkampfregeln verstehen', duration: '12 min', description: 'Judo-im-Pott zu den Regeländerungen 2018+.', ytVideoId: 'yLU0xc68FVM', channel: 'Judo-im-Pott [de]', content: {
       keyPoints: [
         'Erste 30 Sekunden: Gegner studieren, Griffe testen.',
         'Bei Führung: kontrollierte Verteidigung, kein Hyper-Risk.',
@@ -1262,7 +1277,7 @@ const karate: SportCurriculum = {
         'Tempo wechselt zwischen schnell und ruhig.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Bunkai – Kata-Anwendung', duration: '15 min', description: 'Was die Bewegungen wirklich bedeuten.', content: {
+    mod({ id: 'i3', title: 'Kihon – Fünf Grundtechniken mit Shuto-Uke', duration: '12 min', description: 'Karate Dojo Sandokan zum Kihon-Training.', ytVideoId: 'G4dQg-EhT94', channel: 'Karate Dojo Sandokan', content: {
       intro: 'Bunkai (分解) heißt "Zerlegung". Jede Kata-Bewegung hat eine konkrete Kampfanwendung – Bunkai macht aus Tanz Kampfkunst.',
       keyPoints: [
         'Jede Bewegung hat mindestens eine direkte Anwendung.',
@@ -1361,7 +1376,7 @@ const kickboxen: SportCurriculum = {
         'Konter funktioniert nur, wenn du erst die Distanz kontrollierst.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Sandsack-Training mit Tritten', duration: '15 min', description: 'Power und Ausdauer am Pratzen und Sack.', content: {
+    mod({ id: 'i3', title: 'Schattenboxen – Solo Training', duration: '12 min', description: 'einfachMMA – Technik, Combos, Visualisierung.', ytVideoId: 'I02Qk12jqyc', channel: 'einfachMMA', content: {
       keyPoints: [
         '3 × 3 Min Runden mit 1 Min Pause.',
         'Jede Runde mit anderer Combo-Fokus.',
@@ -1458,7 +1473,7 @@ const badminton: SportCurriculum = {
         'Kommunikation: "Mein!" oder "Deins!" laut rufen.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Drop, Drive, Lift', duration: '12 min', description: 'Die drei taktischen Schlagvarianten.', content: {
+    mod({ id: 'i3', title: 'Drop, Smash, Drive – Schlagarten', duration: '8 min', description: 'LSB NRW zu den drei taktischen Hauptschlägen.', ytVideoId: 'QGI80pm7NQ4', channel: 'Landessportbund Nordrhein-Westfalen e.V.', content: {
       keyPoints: [
         'Drop: kurze, leise Schläge ans Netz.',
         'Drive: flacher, schneller Schlag parallel zum Netz.',
@@ -1555,7 +1570,7 @@ const tischtennis: SportCurriculum = {
         'Aktive Hand am Treffpunkt – nicht passiv.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Aufschlag-Strategie', duration: '14 min', description: 'Der Aufschlag entscheidet 30 % aller Punkte.', content: {
+    mod({ id: 'i3', title: 'Aufschläge clever variieren', duration: '11 min', description: 'Bojan Besinger zur taktischen Aufschlag-Variation.', ytVideoId: 'nyssU2wp8qA', channel: 'Bojan Besinger', content: {
       keyPoints: [
         'Variation: jede Aufschlagrunde mit anderem Schnitt.',
         'Spin verstecken: Wechsel von Ober- und Unterschnitt mit gleichem Bewegungsablauf.',
@@ -1646,7 +1661,7 @@ const squash: SportCurriculum = {
         'Bei Druck: tiefere Längsschläge ans Hinterfeld.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Volley-Schläge', duration: '12 min', description: 'Den Ball aus der Luft nehmen.', content: {
+    mod({ id: 'i3', title: 'Boast Shot verbessern', duration: '8 min', description: 'Squashpoint zur trickreichsten Schlagvariante.', ytVideoId: 'KqTusUA_JM0', channel: 'Squashpoint', content: {
       keyPoints: [
         'Schneller Eingriff bricht den Rhythmus des Gegners.',
         'Volley-Drive: aus dem Mittelfeld direkt nach hinten.',
@@ -1737,7 +1752,7 @@ const rudern: SportCurriculum = {
         'Negative Splits: zweite 1000 m schneller als erste.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Krafttraining für Ruderer', duration: '15 min', description: 'Kreuzheben, Klimmzug, Beine.', content: {
+    mod({ id: 'i3', title: '30 Minuten Erg-Workout zum Mitmachen', duration: '30 min', description: 'Concept2 Deutschland mit Anna durch die Session.', ytVideoId: 'OC7GMbG13fc', channel: 'Concept2 Deutschland', content: {
       keyPoints: [
         'Kreuzheben 3 × 5 für Hüft- und Beinstreckung.',
         'Klimmzüge für den Endzug.',
@@ -1929,7 +1944,7 @@ const surfen: SportCurriculum = {
         'Re-entry: hinter der Welle wieder einsteigen.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Surfboard-Wahl für Fortgeschrittene', duration: '10 min', description: 'Vom Softboard zum Performance-Board.', content: {
+    mod({ id: 'i3', title: 'Das Surfbrett verstehen', duration: '8 min', description: 'SciBoy zu Surfboard-Anatomie und Wahl.', ytVideoId: 'wU8ZVRgqvSE', channel: 'SciBoy', content: {
       keyPoints: [
         'Volumen reduzieren – mehr Wendigkeit, weniger Stabilität.',
         'Shortboard für schnelle Manöver – ab Surfniveau Stufe 4.',
@@ -2035,7 +2050,7 @@ const crossfit: SportCurriculum = {
       ],
       safety: ['Niemals olympisch heben ohne saubere Frontkniebeuge / Overhead Squat.'],
     }}),
-    mod({ id: 'i3', title: 'Double Unders', duration: '10 min', description: 'Doppelschwung am Seil.', content: {
+    mod({ id: 'i3', title: 'Double Unders – im Handumdrehen', duration: '11 min', description: 'Kernwerk Functional Fitness zur Sprungseil-Skill.', ytVideoId: 'RiVhaRycZlE', channel: 'Kernwerk® Functional Fitness', content: {
       keyPoints: [
         'Hochsprung knapp 5–10 cm – nicht mehr.',
         'Handgelenke kurbeln, nicht die Arme.',
@@ -2125,7 +2140,7 @@ const pilates: SportCurriculum = {
         'Boomerang: kombinierte Sequenz aus Teaser und Roll Over.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Pilates für Sportler', duration: '15 min', description: 'Performance-Booster für andere Sportarten.', content: {
+    mod({ id: 'i3', title: 'Powerhouse – das Kraftzentrum', duration: '10 min', description: 'Jean-Claude Nelson (Bluebird Pilates) zur Pilates-Grundtechnik.', ytVideoId: 'DNdToZk7P-k', channel: 'Lifeline.de', content: {
       keyPoints: [
         'Läufer profitieren von Hüftöffnern und Core.',
         'Skifahrer brauchen Bein- und Rumpfstabilität.',
@@ -2315,7 +2330,7 @@ const mountainbike: SportCurriculum = {
         'S3: technisch schwer, ohne Erfahrung gefährlich.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Sprünge: Tabletops & Doubles', duration: '14 min', description: 'Park-Skills aufbauen.', content: {
+    mod({ id: 'i3', title: 'Tabletop springen lernen', duration: '10 min', description: 'Leo Kast zum klassischen Park-Sprung.', ytVideoId: 'Dqm3DVeX6Zo', channel: 'Leo Kast', content: {
       keyPoints: [
         'Tabletop: flacher Sprung – sicher, gut zum Lernen.',
         'Double: Lücke zwischen Absprung und Landung – nur mit Speed.',
@@ -2411,7 +2426,7 @@ const ski: SportCurriculum = {
         'Linie vor dem Buckel wählen, nicht im Buckel.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Tiefschnee – die Grundlagen', duration: '12 min', description: 'Vom Pisten- zum Off-Piste-Fahrer.', content: {
+    mod({ id: 'i3', title: '8 Tipps fürs Tiefschneefahren', duration: '11 min', description: 'Tirol – Powder lesen und sicher fahren.', ytVideoId: 'PK7gYs0pYFc', channel: 'Tirol', content: {
       keyPoints: [
         'Mit Druck nach hinten (50/50 statt 40/60).',
         'Längere, runde Schwünge statt kurz und kantig.',
@@ -2511,7 +2526,7 @@ const snowboard: SportCurriculum = {
         '50/50: 50 % Switch, 50 % Regular fahren.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Tiefschnee – die ersten Schwünge', duration: '12 min', description: 'Vom Park ins Backcountry.', content: {
+    mod({ id: 'i3', title: 'Freeriden für Einsteiger', duration: '10 min', description: 'bergfex – Off-Piste mit Snowboard sicher starten.', ytVideoId: 'Tjw893sbxck', channel: 'bergfex', content: {
       keyPoints: [
         'Hinteren Fuß stärker belasten – die Nose schwimmt.',
         'Runde, gleichmäßige Schwünge statt kurze Bremser.',
@@ -2614,7 +2629,7 @@ const eishockey: SportCurriculum = {
         'Wechsel-Disziplin: Linien bleiben in Position.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Spielsysteme & Forecheck', duration: '14 min', description: 'Strukturiert offensiv spielen.', content: {
+    mod({ id: 'i3', title: 'Hockey ABC – Taktikschulung', duration: '14 min', description: 'Adler Mannheim zu den Spielsystem-Basics.', ytVideoId: 'yuINzABJ2m4', channel: 'Adler Mannheim', content: {
       keyPoints: [
         '1-2-2 Forecheck: aggressiv, ein Stürmer presst die Scheibe.',
         '2-1-2 Forecheck: zwei Stürmer im Druckspiel.',
@@ -2904,7 +2919,7 @@ const reiten: SportCurriculum = {
         'Bügel etwas kürzer als beim Sitzen.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Dressur-Aufgaben', duration: '15 min', description: 'A-Niveau Aufgaben erkennen und üben.', content: {
+    mod({ id: 'i3', title: 'A-Dressur – alles was du wissen musst', duration: '14 min', description: 'ClipMyHorse.TV Academy zu den A-Aufgaben.', ytVideoId: 'LnF6JPMnSuo', channel: 'ClipMyHorse. TV Academy', content: {
       keyPoints: [
         'Volten in den Ecken sauber reiten.',
         'Tritt-Übergänge: Schritt-Trab-Galopp und zurück.',
@@ -3003,7 +3018,7 @@ const golf: SportCurriculum = {
         'Hände aktiv, Handgelenke locker.',
       ],
     }}),
-    mod({ id: 'i3', title: 'Driver-Schwung verbessern', duration: '15 min', description: 'Längere und präzisere Abschläge.', content: {
+    mod({ id: 'i3', title: 'Golfschwung mit dem Driver', duration: '13 min', description: 'GOLFSTUN.DE zur kompletten Driver-Technik.', ytVideoId: 'PrRNSUTUMys', channel: 'GOLFSTUN.DE - Golf-Training und -Übungen', content: {
       keyPoints: [
         'Schwung breit aufbauen – nicht steil.',
         'Hüfte führt die Bewegung.',
