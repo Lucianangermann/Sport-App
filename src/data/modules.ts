@@ -453,7 +453,7 @@ const tennis: SportCurriculum = {
         'Durchschwung über die andere Schulter, Schwungbahn lang.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Slice und Volleys', duration: '15 min', description: 'Defensive und offensive Netzschläge.', content: {
+    mod({ id: 'i2', title: 'Slice und Volleys', duration: '15 min', description: 'Rückhand-Slice Grundlagen plus Netzschläge.', ytVideoId: 'C5h10u-6CPo', channel: 'MeinTennisGame - Online Tennis Training', content: {
       keyPoints: [
         'Slice: Schlägerkopf öffnet, Schwung von oben nach unten – flacher, schwer zu retournieren.',
         'Vorhand-Volley: Schläger fixiert, kurzer Schwung, Treffpunkt vor dem Körper.',
@@ -550,7 +550,7 @@ const schwimmen: SportCurriculum = {
         'Kopf ruhig, Blick zur Decke.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Kraulen effizienter machen', duration: '12 min', description: 'Wasserlage und Rotation perfektionieren.', content: {
+    mod({ id: 'i2', title: 'Kraulen effizienter machen', duration: '12 min', description: 'Wasserlage und Rotation perfektionieren.', ytVideoId: 'cOUXc07s9M0', channel: 'JORGE - SPORTS & TRAVEL', content: {
       keyPoints: [
         'Rotation aus der Hüfte (45°) – Schultern folgen.',
         'Catch-Up-Übung: ein Arm wartet, bis der andere ankommt.',
@@ -655,7 +655,7 @@ const klettern: SportCurriculum = {
       ],
       safety: ['Niemals mit Halbmastwurf im Vorstieg sichern – Tube/Grigri obligatorisch.', 'Backclipping vermeiden – Seil wird sonst beim Sturz aufgeschnitten.'],
     }}),
-    mod({ id: 'i2', title: 'Fortgeschrittene Klettertechniken', duration: '15 min', description: 'Drop Knee, Heel Hook, Dyno.', content: {
+    mod({ id: 'i2', title: 'Heel Hook richtig legen', duration: '10 min', description: 'Grundkurs Bouldern – Heel Hook, Drop Knee, Dyno.', ytVideoId: 'qeo9tR6iv4I', channel: 'Grundkurs Bouldern', content: {
       keyPoints: [
         'Drop Knee: Knie nach innen drehen, Hüfte zur Wand pressen – riesige Reichweite.',
         'Heel Hook: Ferse einhaken, mit Hamstring ziehen.',
@@ -755,7 +755,7 @@ const boxen: SportCurriculum = {
         'Nach jeder Combo: Defense oder Schritt zurück.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Defense – Slip, Roll, Parry', duration: '12 min', description: 'Verteidigen ohne zu blockieren.', content: {
+    mod({ id: 'i2', title: 'Schläge schneller ausweichen', duration: '8 min', description: 'Coach Ferhat zu Slip, Roll, Parry.', ytVideoId: 'Eg8_bph2ctE', channel: 'Coach Ferhat', content: {
       keyPoints: [
         'Slip: Kopf nach links oder rechts verlagern – nicht mehr.',
         'Roll: rotierende Bewegung unter dem Hook durch.',
@@ -853,7 +853,7 @@ const radfahren: SportCurriculum = {
         'Gewicht reduzieren ist meist effektiver als mehr Training.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Sprint und Antritte', duration: '12 min', description: 'Maximalleistung über 10–30 Sekunden.', content: {
+    mod({ id: 'i2', title: 'Wiegetritt – Aus dem Sattel', duration: '8 min', description: 'GCN auf Deutsch zur Antritt-Technik.', ytVideoId: 'HMJ8tqwGwUs', channel: 'GCN auf Deutsch', content: {
       keyPoints: [
         'Wiegetritt für volle Power – Oberkörper über dem Lenker.',
         'Antritt: erst Sitzen, dann Wiegetritt bei voller Last.',
@@ -950,7 +950,7 @@ const volleyball: SportCurriculum = {
         'Handgelenk-Snap am Schluss für Topspin und Power.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Block-Technik', duration: '12 min', description: 'Über dem Netz Punkte holen.', content: {
+    mod({ id: 'i2', title: 'Einstieg ins Blocktraining', duration: '10 min', description: 'Volleyballkompass zur Block-Technik.', ytVideoId: 'DKbNsPcnUJs', channel: 'Volleyballkompass', content: {
       keyPoints: [
         'Position: nahe am Netz, Hände hoch.',
         'Absprung beidbeinig, ohne Anlauf.',
@@ -1047,7 +1047,7 @@ const handball: SportCurriculum = {
         'Landung in den Wurfkreis vermeiden – außerhalb landen.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Spielzüge & Kreisanspiel', duration: '15 min', description: 'Den Kreis ins Spiel bringen.', content: {
+    mod({ id: 'i2', title: 'Was ist ein Kempa-Trick?', duration: '8 min', description: 'RON TV zur ikonischen Wurfvariante.', ytVideoId: '085nWcWoXjc', channel: 'RON TV', content: {
       keyPoints: [
         'Kempa-Trick: Pass in die Luft zum springenden Kreis.',
         'Stoßen und Anspielen: Position 3 oder 4 stößt durch, KL fängt.',
@@ -1147,7 +1147,7 @@ const judo: SportCurriculum = {
       ],
       safety: ['Bei eingehaktem Arm: sofort lockerlassen.', 'Tap-Out im Bodenkampf wird sofort respektiert.'],
     }}),
-    mod({ id: 'i2', title: 'Bodenkampf-Aufbau (Ne-waza)', duration: '14 min', description: 'Vom Stand in den Boden – und gewinnen.', content: {
+    mod({ id: 'i2', title: 'Übergang Stand-Boden: Verteidigen', duration: '10 min', description: 'Judo-im-Pott – wie du im Bodenkampf nicht passiv wirst.', ytVideoId: '_gmCGERMKrk', channel: 'Judo-im-Pott [de]', content: {
       keyPoints: [
         'Übergang: nach dem Wurf sofort in die Bodenkontrolle.',
         'Vier Grundhaltegriffe: Kesa-gatame, Yoko-shiho-gatame, Kami-shiho-gatame, Tate-shiho-gatame.',
@@ -1253,7 +1253,7 @@ const karate: SportCurriculum = {
         'Sofort Bein zurückziehen – nicht stehenlassen.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Kata Heian Nidan', duration: '10 min', description: 'Die zweite Heian-Kata.', content: {
+    mod({ id: 'i2', title: 'Kata Heian Nidan – 7. Kyu', duration: '10 min', description: 'Kara-Fit zur Orangegurt-Prüfungs-Kata.', ytVideoId: 'jBqH9bT-rcw', channel: 'Kara-Fit', content: {
       intro: 'Heian Nidan ist die Kata für den 7. Kyu (gelb-orange). Sie führt seitwärts gerichtete Bewegungen ein.',
       keyPoints: [
         '26 Techniken in einer komplexen Choreografie.',
@@ -1353,7 +1353,7 @@ const kickboxen: SportCurriculum = {
         'Bein nach dem Tritt sofort zurück in die Deckung.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Defense und Konter', duration: '12 min', description: 'Verteidigen und sofort kontern.', content: {
+    mod({ id: 'i2', title: 'Sandsack-Workout', duration: '15 min', description: 'DieKickboxtrainer – Sandsack-Training für Combos und Defense.', ytVideoId: 'cCgvL6b8Evc', channel: 'DieKickboxtrainer', content: {
       keyPoints: [
         'Auf Jab: Slip + Cross-Konter.',
         'Auf Cross: Roll + Hook-Konter.',
@@ -1547,7 +1547,7 @@ const tischtennis: SportCurriculum = {
         'Durchschwung über die linke Schulter (Rechtshänder).',
       ],
     }}),
-    mod({ id: 'i2', title: 'Schupfball-Variationen', duration: '12 min', description: 'Die defensive Antwort auf Aufschläge.', content: {
+    mod({ id: 'i2', title: 'Vorhand-Schupfen lernen', duration: '8 min', description: "Let's play table tennis zum wichtigsten Defensiv-Schlag.", ytVideoId: '8j0sHuyFQOo', channel: "Let's play table tennis", content: {
       keyPoints: [
         'Kurzer Schupfball: dicht am Netz, schwer anzuspinnen.',
         'Halblanger Schupf: zwingt zum Topspin – kontrollierbar.',
@@ -1638,7 +1638,7 @@ const squash: SportCurriculum = {
         'Nach dem Boast SOFORT zurück zur T-Position.',
       ],
     }}),
-    mod({ id: 'i2', title: 'T-Position halten', duration: '10 min', description: 'Die Mitte des Courts kontrollieren.', content: {
+    mod({ id: 'i2', title: 'T-Position kontrollieren', duration: '8 min', description: 'Squashpoint zur Court-Mitte als taktisches Zentrum.', ytVideoId: 'LbT2aaim68M', channel: 'Squashpoint', content: {
       keyPoints: [
         'Nach jedem Schlag direkt zurück zur T.',
         'Position seitlich verschieben, nicht hin und her laufen.',
@@ -1921,7 +1921,7 @@ const surfen: SportCurriculum = {
         'Knie tief, Blick führt – wohin du schaust, fährst du.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Top Turn & Snaps', duration: '12 min', description: 'Aggressive Manöver auf der Welle.', content: {
+    mod({ id: 'i2', title: 'Bottom & Top Turn – The Chillhouse', duration: '12 min', description: 'Internationale Surfschool zu den Schlüssel-Manövern.', ytVideoId: 'JZTHMS0K32U', channel: 'The Chillhouse - Bali Surf and Yoga Retreat', content: {
       keyPoints: [
         'Top Turn: gleitend nach oben fahren, dann Druck wechseln.',
         'Snap: schnelle Drehung mit Spray-Effekt.',
@@ -2026,7 +2026,7 @@ const crossfit: SportCurriculum = {
       ],
       safety: ['Niemals nur mit Kipping – Schulterprobleme drohen.'],
     }}),
-    mod({ id: 'i2', title: 'Olympische Lifts – Grundlagen', duration: '20 min', description: 'Snatch, Clean, Jerk.', content: {
+    mod({ id: 'i2', title: 'Snatch (Reißen) – Schritt für Schritt', duration: '14 min', description: 'Johannes Kwella zum Olympischen Heben.', ytVideoId: 'kKSBffUmOUg', channel: 'Johannes Kwella', content: {
       keyPoints: [
         'Lernen NUR mit Coach – Verletzungsrisiko sonst hoch.',
         'Snatch: Boden zu Overhead in einer Bewegung.',
@@ -2117,7 +2117,7 @@ const pilates: SportCurriculum = {
       ],
       safety: ['Schlitten kann zurückschnellen – kontrollierte Bewegung Pflicht.'],
     }}),
-    mod({ id: 'i2', title: 'Mat Pilates – fortgeschrittene Übungen', duration: '20 min', description: 'Teaser, Roll Over, Swan, Boomerang.', content: {
+    mod({ id: 'i2', title: 'Pilates für Fortgeschrittene', duration: '25 min', description: "Lena's Health Lab – Control Balance und Boomerang.", ytVideoId: 'kutGV3GZE-w', channel: "Lena's Health Lab", content: {
       keyPoints: [
         'Teaser: V-Sitz aus Liegen – Königsdisziplin der Bauch-Kraft.',
         'Roll Over: aus Liegen Beine über den Kopf.',
@@ -2307,7 +2307,7 @@ const mountainbike: SportCurriculum = {
       ],
       safety: ['Erst kleine Drops (20–30 cm) üben, dann steigern.', 'Erschöpft niemals springen – Konzentration ist alles.'],
     }}),
-    mod({ id: 'i2', title: 'Trail-Schwierigkeiten S1–S3', duration: '12 min', description: 'Die SingleTrail-Skala richtig einschätzen.', content: {
+    mod({ id: 'i2', title: 'Spitzkehren & enge Kurven fahren', duration: '11 min', description: 'VeloTOTAL-MTB zur S2+ Trail-Technik.', ytVideoId: 'oXdPPhzttkc', channel: 'VeloTOTAL-MTB', content: {
       keyPoints: [
         'S0: Forstweg, jeder fährt.',
         'S1: leichter Trail, Wurzeln und Steine.',
@@ -2403,7 +2403,7 @@ const ski: SportCurriculum = {
         'Druckwechsel sauber an der Falllinie.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Buckelpiste fahren', duration: '14 min', description: 'Moguls technisch sauber.', content: {
+    mod({ id: 'i2', title: 'Buckelpiste fahren – Julius Garbe', duration: '10 min', description: 'Weltcupfahrer Julius Garbe zur Moguls-Technik.', ytVideoId: 'knv8K_DhIKg', channel: 'Julian Witting Skiing', content: {
       keyPoints: [
         'Tiefer Stand mit Knien als Stoßdämpfer.',
         'Rhythmus wichtiger als Schwung-Qualität.',
@@ -2503,7 +2503,7 @@ const snowboard: SportCurriculum = {
       ],
       safety: ['Helm und Protektoren bei jedem Park-Tag.', 'Erst kleine Kicker (Knee-Level), dann steigern.'],
     }}),
-    mod({ id: 'i2', title: 'Switch Riding', duration: '12 min', description: 'Mit dem "falschen" Fuß vorne fahren.', content: {
+    mod({ id: 'i2', title: 'Switch fahren leicht gemacht', duration: '8 min', description: 'BPM Proshop zur Kontrolle des "falschen" Fuß.', ytVideoId: '5pgVobrpJnU', channel: 'BPM Proshop', content: {
       keyPoints: [
         'Switch ist Pflicht für jeden Park-Snowboarder.',
         'Anfangs auf flacher Piste in der Falllinie üben.',
@@ -2706,7 +2706,7 @@ const tanzen: SportCurriculum = {
         'Dann Drehungen einbauen.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Standardtänze vertiefen', duration: '15 min', description: 'Walzer, Tango, Foxtrott.', content: {
+    mod({ id: 'i2', title: 'Wiener Walzer Rechtsdrehung', duration: '10 min', description: 'AO Dance – die Königsdrehung Step by Step.', ytVideoId: 'aqtWhEGWOrs', channel: 'AO Dance - online Tanzen lernen: Flashmob&Paartanz', content: {
       keyPoints: [
         'Langsamer Walzer: 3/4-Takt, eleganter Stil.',
         'Wiener Walzer: schneller, viele Drehungen.',
@@ -2896,7 +2896,7 @@ const reiten: SportCurriculum = {
         'Rechter Handgalopp und linker Handgalopp gleich üben.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Springen – Grundlagen', duration: '15 min', description: 'Vom Cavaletti zum ersten Sprung.', content: {
+    mod({ id: 'i2', title: 'Springreiten? Aber sicher! Cavaletti', duration: '12 min', description: 'Pferdesport Deutschland zur Cavaletti-Arbeit.', ytVideoId: 'cACofYNRsaA', channel: 'Pferdesport Deutschland', content: {
       keyPoints: [
         'Leichter Sitz (Vorgehalten) für Sprünge.',
         'Cavaletti-Reihen für Rhythmus und Distanz.',
@@ -2995,7 +2995,7 @@ const golf: SportCurriculum = {
         'Sand 5 cm vor dem Ball treffen – Ball wird vom Sand mitgetragen.',
       ],
     }}),
-    mod({ id: 'i2', title: 'Pitch- und Chip-Schläge', duration: '14 min', description: 'Das kurze Spiel beherrschen.', content: {
+    mod({ id: 'i2', title: 'Der Chip – einfachste Technik', duration: '8 min', description: 'Florian Raggl Golf zum entscheidenden Short Game.', ytVideoId: '-pLDZLWMxRU', channel: 'Florian Raggl Golf', content: {
       keyPoints: [
         'Chip: kurzer Schlag, läuft viel.',
         'Pitch: höherer Schlag mit mehr Stop.',
