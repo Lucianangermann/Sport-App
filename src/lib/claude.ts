@@ -1,11 +1,13 @@
 /**
  * Shared Claude API helper.
  *
- * The API key is injected by a proxy — we POST to api.anthropic.com directly
- * with no Authorization header. The proxy handles auth.
+ * In dev, calls go through the Vite proxy (/api/anthropic/* → api.anthropic.com/*)
+ * which injects the x-api-key from .env.local. In production, set
+ * VITE_CLAUDE_ENDPOINT to point at your own server-side proxy.
  */
 
-const ENDPOINT = 'https://api.anthropic.com/v1/messages';
+const ENDPOINT =
+  (import.meta.env.VITE_CLAUDE_ENDPOINT as string | undefined) ?? '/api/anthropic/v1/messages';
 export const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
 
 export type ChatRole = 'user' | 'assistant';
@@ -24,9 +26,6 @@ export interface ClaudeOptions {
 const baseHeaders = (): HeadersInit => ({
   'Content-Type': 'application/json',
   'anthropic-version': '2023-06-01',
-  // Required for direct browser calls when no Authorization header is sent.
-  // The proxy still injects the API key server-side.
-  'anthropic-dangerous-direct-browser-access': 'true',
 });
 
 const buildBody = ({ system, messages, maxTokens = 1024, temperature }: ClaudeOptions) => ({
