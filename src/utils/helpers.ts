@@ -1,10 +1,18 @@
 import { SPORTS } from '../data/sports';
 import { CLUBS } from '../data/clubs';
-import type { OnboardingAnswers, SkillLevel, Sport } from '../types';
+import { lookupClub } from '../lib/clubRegistry';
+import type { Club, OnboardingAnswers, SkillLevel, Sport } from '../types';
 
 export const getSportById = (id: string): Sport | undefined => SPORTS.find((s) => s.id === id);
 
 export const getClubsForSport = (sportId: string) => CLUBS.filter((c) => c.sportId === sportId);
+
+/** Resolve a club ID against curated mock data first, then the OSM registry. */
+export const findClubById = (id: string): Club | undefined => {
+  const mock = CLUBS.find((c) => c.id === id);
+  if (mock) return mock;
+  return lookupClub(id) ?? undefined;
+};
 
 export const getRecommendedSports = (answers: OnboardingAnswers, limit = 5): Sport[] => {
   const score = (s: Sport): number => {

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { SPORTS } from '../data/sports';
-import { CLUBS } from '../data/clubs';
 import { SportCard } from '../components/SportCard';
 import { ClubCard } from '../components/ClubCard';
 import { greeting, getRecommendedSports, getSportById, xpForLevel } from '../utils/helpers';
 import { SmartRecommendations } from '../features/recommendations/SmartRecommendations';
 import { WeeklyInsights } from '../features/insights/WeeklyInsights';
+import { useNearbyClubs } from '../hooks/useNearbyClubs';
 
 export const HomePage = () => {
   const profile = useAppStore((s) => s.profile);
@@ -15,7 +15,12 @@ export const HomePage = () => {
   const lastSport = lastSportId ? getSportById(lastSportId) : null;
   const recommendations = getRecommendedSports(profile.onboarding, 6);
   const trending = [...SPORTS].sort((a, b) => b.popularity - a.popularity).slice(0, 6);
-  const nearby = [...CLUBS].sort((a, b) => a.distanceKm - b.distanceKm).slice(0, 3);
+  const previewSportId = favorites[0] ?? lastSportId ?? 'fussball';
+  const { clubs: nearbyAll, loading: nearbyLoading } = useNearbyClubs({
+    sportId: previewSportId,
+    radiusKm: 5,
+  });
+  const nearby = nearbyAll.slice(0, 3);
   const { level, progress } = xpForLevel(profile.xp);
 
   return (
@@ -63,7 +68,7 @@ export const HomePage = () => {
           <div className="text-3xl">🎯</div>
           <div className="min-w-0 flex-1">
             <div className="font-display text-base font-bold">Sport-Match Quiz</div>
-            <div className="text-xs text-white/85">Lass die KI deinen perfekten Sport finden — 8 Fragen, 2 Minuten.</div>
+            <div className="text-xs text-white/85">Finde deinen perfekten Sport — 8 Fragen, 2 Minuten.</div>
           </div>
           <span className="text-white/80">→</span>
         </Link>
@@ -122,10 +127,23 @@ export const HomePage = () => {
           <div className="mb-2 flex items-center justify-between">
             <h2 className="font-display text-lg font-bold text-ink-900 dark:text-white">Vereine in deiner Nähe</h2>
             <Link to="/clubs" className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-              Karte →
+              Alle →
             </Link>
           </div>
           <div className="space-y-2">
+            {nearbyLoading && nearby.length === 0 && (
+              <div className="rounded-2xl bg-white p-4 text-xs text-slate-500 shadow-card dark:bg-ink-800 dark:text-slate-400 dark:shadow-card-dark">
+                Suche nach Vereinen läuft…
+              </div>
+            )}
+            {!nearbyLoading && nearby.length === 0 && (
+              <Link
+                to="/clubs"
+                className="block rounded-2xl bg-white p-4 text-xs text-slate-500 shadow-card dark:bg-ink-800 dark:text-slate-400 dark:shadow-card-dark"
+              >
+                Keine Vereine im 5-km-Radius gefunden — Tippen, um den Radius zu erweitern.
+              </Link>
+            )}
             {nearby.map((c) => (
               <ClubCard key={c.id} club={c} />
             ))}

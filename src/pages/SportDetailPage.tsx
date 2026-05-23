@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
-import { getSportById, getClubsForSport, moduleKey } from '../utils/helpers';
+import { getSportById, moduleKey } from '../utils/helpers';
+import { useNearbyClubs } from '../hooks/useNearbyClubs';
 import { useAppStore } from '../store/useAppStore';
 import { CURRICULA, LEVEL_LABELS } from '../data/modules';
 import type { SkillLevel } from '../types';
@@ -42,7 +43,7 @@ export const SportDetailPage = () => {
 
   const curriculum = CURRICULA[sport.id];
   const isFav = favorites.includes(sport.id);
-  const clubs = getClubsForSport(sport.id);
+  const { clubs, loading: clubsLoading } = useNearbyClubs({ sportId: sport.id, radiusKm: 10 });
 
   const levelProgress = (level: SkillLevel) => {
     const modules = curriculum[level];
@@ -144,21 +145,32 @@ export const SportDetailPage = () => {
         </div>
       </section>
 
-      {clubs.length > 0 && (
-        <section className="px-5 pt-7 pb-6">
-          <div className="mb-2 flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold text-ink-900 dark:text-white">Vereine in deiner Nähe</h2>
-            <Link to={`/sport/${sport.id}/clubs`} className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-              Alle →
+      <section className="px-5 pt-7 pb-6">
+        <div className="mb-2 flex items-center justify-between">
+          <h2 className="font-display text-lg font-bold text-ink-900 dark:text-white">Vereine in deiner Nähe</h2>
+          <Link to={`/sport/${sport.id}/clubs`} className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+            Alle →
+          </Link>
+        </div>
+        <div className="space-y-2">
+          {clubsLoading && clubs.length === 0 && (
+            <div className="rounded-2xl bg-white p-4 text-xs text-slate-500 shadow-card dark:bg-ink-800 dark:text-slate-400 dark:shadow-card-dark">
+              Suche nach Vereinen läuft…
+            </div>
+          )}
+          {!clubsLoading && clubs.length === 0 && (
+            <Link
+              to={`/sport/${sport.id}/clubs`}
+              className="block rounded-2xl bg-white p-4 text-xs text-slate-500 shadow-card dark:bg-ink-800 dark:text-slate-400 dark:shadow-card-dark"
+            >
+              Keine Vereine im 10-km-Radius — Tippen, um den Radius zu erweitern.
             </Link>
-          </div>
-          <div className="space-y-2">
-            {clubs.slice(0, 3).map((c) => (
-              <ClubCard key={c.id} club={c} />
-            ))}
-          </div>
-        </section>
-      )}
+          )}
+          {clubs.slice(0, 3).map((c) => (
+            <ClubCard key={c.id} club={c} />
+          ))}
+        </div>
+      </section>
 
       <SportCoach
         sport={sport}

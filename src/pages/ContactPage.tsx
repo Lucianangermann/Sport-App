@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { CLUBS } from '../data/clubs';
+import { findClubById } from '../utils/helpers';
 import { PageHeader } from '../components/PageHeader';
 import { useAppStore } from '../store/useAppStore';
 
@@ -8,7 +8,8 @@ const todayISO = () => new Date().toISOString().slice(0, 10);
 
 export const ContactPage = () => {
   const { id } = useParams<{ id: string }>();
-  const club = CLUBS.find((c) => c.id === id);
+  const clubId = id ? decodeURIComponent(id) : '';
+  const club = clubId ? findClubById(clubId) : undefined;
   const profile = useAppStore((s) => s.profile);
   const addInquiry = useAppStore((s) => s.addInquiry);
 
@@ -24,7 +25,7 @@ export const ContactPage = () => {
 
   const submit = () => {
     if (!valid) return;
-    addInquiry({ clubId: club.id, name, email, message, preferredDate: date });
+    addInquiry({ clubId: club.id, clubName: club.name, name, email, message, preferredDate: date });
     setSent(true);
   };
 

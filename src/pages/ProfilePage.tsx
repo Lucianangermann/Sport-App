@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import { useAppStore } from '../store/useAppStore';
-import { CLUBS } from '../data/clubs';
-import { getSportById, xpForLevel, moduleKey } from '../utils/helpers';
+import { findClubById, getSportById, xpForLevel, moduleKey } from '../utils/helpers';
 import { ProgressBar } from '../components/ProgressBar';
 import { CURRICULA } from '../data/modules';
 import { SPORTS } from '../data/sports';
@@ -160,8 +159,9 @@ export const ProfilePage = () => {
             <h2 className="mb-2 font-display text-lg font-bold text-ink-900 dark:text-white">Meine Anfragen</h2>
             <div className="space-y-2">
               {inquiries.map((inq) => {
-                const club = CLUBS.find((c) => c.id === inq.clubId);
+                const club = findClubById(inq.clubId);
                 const sport = club && getSportById(club.sportId);
+                const clubName = club?.name ?? inq.clubName ?? 'Verein';
                 return (
                   <div key={inq.id} className="rounded-2xl bg-white p-3 shadow-card dark:bg-ink-800 dark:shadow-card-dark">
                     <div className="flex items-start gap-3">
@@ -174,7 +174,7 @@ export const ProfilePage = () => {
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
                           <div className="font-display text-sm font-bold text-ink-900 dark:text-white">
-                            {club?.name}
+                            {clubName}
                           </div>
                           <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
                             Gesendet

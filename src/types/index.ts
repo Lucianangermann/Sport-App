@@ -70,14 +70,23 @@ export interface Club {
   name: string;
   sportId: string;
   distanceKm: number;
-  rating: number;
-  memberCount: number;
   address: string;
+  /** Whether this club explicitly offers trial training (only known for curated mock data). */
   trialAvailable: boolean;
-  description: string;
-  trainingTimes: string[];
-  contactEmail: string;
-  contactPhone: string;
+  /** Origin of the data: 'mock' = curated fixture, 'osm' = fetched from OpenStreetMap. */
+  source?: 'mock' | 'osm';
+  // Curated fields — present for mock data, usually missing for OSM.
+  rating?: number;
+  memberCount?: number;
+  description?: string;
+  trainingTimes?: string[];
+  // Contact / OSM-friendly fields.
+  contactEmail?: string;
+  contactPhone?: string;
+  website?: string;
+  openingHours?: string;
+  lat?: number;
+  lon?: number;
 }
 
 export type FitnessLevel = 'couch' | 'occasional' | 'regular';
@@ -117,6 +126,8 @@ export interface SportProgress {
 export interface Inquiry {
   id: string;
   clubId: string;
+  /** Snapshot of the club name at inquiry time — survives OSM cache eviction. */
+  clubName?: string;
   name: string;
   email: string;
   message: string;
