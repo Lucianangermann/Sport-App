@@ -15,6 +15,14 @@ import { TrainingPlanGenerator } from './features/training-plan/TrainingPlanGene
 import { ClubDetailPage } from './pages/ClubDetailPage';
 import { ContactPage } from './pages/ContactPage';
 import { OnboardingPage } from './pages/OnboardingPage';
+import { CommunityHubPage } from './pages/CommunityHubPage';
+import { FeedPage } from './pages/community/FeedPage';
+import { ChallengesPage } from './pages/community/ChallengesPage';
+import { BuddyFinderPage } from './pages/community/BuddyFinderPage';
+import { MentorsPage } from './pages/community/MentorsPage';
+import { LiveSessionsPage } from './pages/community/LiveSessionsPage';
+import { SportMapPage } from './pages/community/SportMapPage';
+import { ClubCommunityPage } from './pages/community/ClubCommunityPage';
 
 const RequireOnboarding = ({ children }: { children: JSX.Element }) => {
   const done = useAppStore((s) => s.profile.onboardingComplete);
@@ -40,6 +48,14 @@ export default function App() {
           <Route path="/clubs" element={<ClubsPage />} />
           <Route path="/club/:id" element={<ClubDetailPage />} />
           <Route path="/club/:id/contact" element={<ContactPage />} />
+          <Route path="/club/:id/community" element={<ClubCommunityPage />} />
+          <Route path="/community" element={<CommunityHubPage />} />
+          <Route path="/community/feed" element={<FeedPage />} />
+          <Route path="/community/challenges" element={<ChallengesPage />} />
+          <Route path="/community/buddies" element={<BuddyFinderPage />} />
+          <Route path="/community/mentors" element={<MentorsPage />} />
+          <Route path="/community/live" element={<LiveSessionsPage />} />
+          <Route path="/community/map" element={<SportMapPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

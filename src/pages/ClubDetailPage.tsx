@@ -125,7 +125,16 @@ export const ClubDetailPage = () => {
           </div>
         </section>
 
-        <div className="my-6">
+        <div className="mb-3 mt-5">
+          <Link
+            to={`/club/${encodeURIComponent(club.id)}/community`}
+            className="flex items-center justify-center gap-2 w-full rounded-2xl bg-violet-100 py-3.5 text-center font-semibold text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
+          >
+            👥 Vereins-Community
+          </Link>
+        </div>
+
+        <div className="my-3">
           {club.trialAvailable ? (
             <Link
               to={`/club/${encodeURIComponent(club.id)}/contact`}
