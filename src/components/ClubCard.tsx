@@ -38,6 +38,16 @@ export const ClubCard = ({ club }: Props) => {
             <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:bg-ink-700 dark:text-slate-300">
               {formatDistance(club.distanceKm)}
             </span>
+            {club.kind && (
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:bg-ink-700 dark:text-slate-300">
+                {club.kind}
+              </span>
+            )}
+            {club.multiSport && (
+              <span className="rounded-full bg-violet-100 px-2 py-0.5 text-[11px] font-semibold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+                Mehrsparten
+              </span>
+            )}
             {club.memberCount != null && (
               <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:bg-ink-700 dark:text-slate-300">
                 {club.memberCount} Mitglieder
@@ -50,7 +60,7 @@ export const ClubCard = ({ club }: Props) => {
             )}
             {club.source === 'osm' && (club.website || club.contactPhone) && (
               <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-medium text-sky-700 dark:bg-sky-900/40 dark:text-sky-300">
-                Kontakt verfügbar
+                Kontakt
               </span>
             )}
           </div>

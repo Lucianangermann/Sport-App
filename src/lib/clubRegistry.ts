@@ -49,9 +49,9 @@ export const lookupClub = (id: string): Club | null => {
 };
 
 const CACHE_KEY = (sportId: string, lat: number, lon: number, radiusKm: number) =>
-  `osm_clubs_${sportId}_${lat.toFixed(2)}_${lon.toFixed(2)}_${radiusKm}`;
+  `osm_clubs_v3_${sportId}_${lat.toFixed(2)}_${lon.toFixed(2)}_${radiusKm}`;
 
-const CACHE_TTL_MS = 1000 * 60 * 60 * 24;
+const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 interface CachedResult {
   ts: number;

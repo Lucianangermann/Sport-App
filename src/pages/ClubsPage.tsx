@@ -6,6 +6,7 @@ import { EmptyState } from '../components/EmptyState';
 import { useAppStore } from '../store/useAppStore';
 import { getSportById } from '../utils/helpers';
 import { useNearbyClubs } from '../hooks/useNearbyClubs';
+import { isNicheSport } from '../lib/overpass';
 import { SPORTS } from '../data/sports';
 
 const LoadingDots = () => (
@@ -34,10 +35,12 @@ export const ClubsPage = () => {
   );
   const sport = selectedSportId ? getSportById(selectedSportId) : undefined;
 
-  const { clubs, loading, error, position, refresh } = useNearbyClubs({
+  const { clubs, loading, error, position, effectiveRadiusKm, requestedRadiusKm, refresh } = useNearbyClubs({
     sportId: selectedSportId,
     radiusKm,
   });
+  const expanded = effectiveRadiusKm > requestedRadiusKm;
+  const isNiche = selectedSportId ? isNicheSport(selectedSportId) : false;
 
   const popularSports = useMemo(
     () => [...SPORTS].sort((a, b) => b.popularity - a.popularity).slice(0, 12),
@@ -48,7 +51,13 @@ export const ClubsPage = () => {
     <div>
       <PageHeader
         title={sport ? `${sport.name} in der Nähe` : 'Vereine in der Nähe'}
-        subtitle={loading ? 'wird geladen…' : `${clubs.length} Treffer im Umkreis von ${radiusKm} km`}
+        subtitle={
+          loading
+            ? 'wird geladen…'
+            : expanded
+              ? `${clubs.length} Treffer im erweiterten Umkreis von ${effectiveRadiusKm} km`
+              : `${clubs.length} Treffer im Umkreis von ${requestedRadiusKm} km`
+        }
         back={!!sportIdFromRoute}
       />
 
@@ -133,14 +142,22 @@ export const ClubsPage = () => {
           </div>
         )}
 
+        {!loading && expanded && clubs.length > 0 && (
+          <div className="rounded-2xl bg-violet-50 p-3 text-xs text-violet-900 dark:bg-violet-900/15 dark:text-violet-200">
+            Im Umkreis von {requestedRadiusKm} km gab es keine Treffer — wir zeigen die nächsten bis {effectiveRadiusKm} km.
+          </div>
+        )}
+
         {!loading && !error && clubs.length === 0 && (
           <EmptyState
             emoji="📍"
             title="Keine Vereine im Umkreis"
             body={
-              radiusKm < 25
-                ? 'Erweitere den Radius oder probiere einen anderen Sport.'
-                : 'In dieser Region scheinen keine Vereine bei OpenStreetMap registriert zu sein.'
+              isNiche
+                ? `${sport?.name ?? 'Diese Sportart'} wird selten als Verein in OpenStreetMap erfasst. Probier es mit Mehrsparten-Vereinen oder Sportzentren in der Nähe.`
+                : effectiveRadiusKm >= 50
+                  ? 'Auch im 50-km-Radius wurden keine passenden POIs gefunden. Möglicherweise ist die Region in OSM noch nicht erfasst.'
+                  : 'Erweitere den Radius oder probiere einen anderen Sport.'
             }
           />
         )}

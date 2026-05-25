@@ -87,6 +87,11 @@ export interface Club {
   openingHours?: string;
   lat?: number;
   lon?: number;
+  /** Human-readable POI type label ("Verein", "Studio", "Halle", "Platz", …). */
+  kind?: string;
+  /** True when the venue is sport-agnostic (matched via club=sport or sports_centre
+   *  without explicit sport tag — typical for German multi-section clubs). */
+  multiSport?: boolean;
 }
 
 export type FitnessLevel = 'couch' | 'occasional' | 'regular';
