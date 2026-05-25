@@ -32,6 +32,8 @@ export interface PlanInput {
   time: PreferredTime;
 }
 
+type DayType = 'technique' | 'conditioning' | 'strength' | 'play' | 'recovery' | 'mixed' | 'long';
+
 const STORAGE_KEY = (sportId: string) => `training_plan_${sportId}`;
 const LEVEL_DE: Record<SkillLevel, string> = {
   anfaenger: 'Anfänger',
@@ -41,7 +43,6 @@ const LEVEL_DE: Record<SkillLevel, string> = {
 
 const WEEKDAYS = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
-/** For N days/week, pick a spread that maximizes recovery. */
 const pickDays = (n: number): string[] => {
   const presets: Record<number, number[]> = {
     1: [0],
@@ -56,7 +57,6 @@ const pickDays = (n: number): string[] => {
   return idx.map((i) => WEEKDAYS[i]);
 };
 
-/** Per-week focus by goal. */
 const FOCUS_BY_GOAL: Record<Goal, string[]> = {
   Abnehmen: ['Grundlagenausdauer aufbauen', 'Volumen steigern', 'Intervalle einführen', 'Peak — Maximalverbrennung'],
   Muskelaufbau: ['Technik & Bewegungsmuster', 'Volumen aufbauen', 'Intensität steigern', 'Deload & Peak'],
@@ -65,222 +65,581 @@ const FOCUS_BY_GOAL: Record<Goal, string[]> = {
   Wettkampf: ['Grundlage festigen', 'Spezifische Intensität', 'Wettkampf-Simulation', 'Taper & Peak'],
 };
 
-/** Exercise libraries — keep ~6–8 per sport so we can rotate without repeats. */
-const EX_LIB: Record<string, Record<SkillLevel, string[]>> = {
+const DAY_TYPE_LABEL: Record<DayType, string> = {
+  technique: 'Technik',
+  conditioning: 'Kondition',
+  strength: 'Kraft & Athletik',
+  play: 'Spielform',
+  recovery: 'Regeneration',
+  mixed: 'Gemischt',
+  long: 'Volumen',
+};
+
+const DAY_TYPE_INTENSITY: Record<DayType, Intensity> = {
+  technique: 'medium',
+  conditioning: 'high',
+  strength: 'medium',
+  play: 'high',
+  recovery: 'low',
+  mixed: 'medium',
+  long: 'medium',
+};
+
+/** Per-goal × daysPerWeek base sequence of day types. */
+const DAY_PATTERNS: Record<Goal, Record<number, DayType[]>> = {
+  Muskelaufbau: {
+    1: ['strength'],
+    2: ['strength', 'strength'],
+    3: ['strength', 'strength', 'technique'],
+    4: ['strength', 'conditioning', 'strength', 'recovery'],
+    5: ['strength', 'conditioning', 'strength', 'technique', 'recovery'],
+    6: ['strength', 'conditioning', 'strength', 'technique', 'strength', 'recovery'],
+    7: ['strength', 'conditioning', 'strength', 'recovery', 'strength', 'technique', 'recovery'],
+  },
+  Abnehmen: {
+    1: ['conditioning'],
+    2: ['conditioning', 'conditioning'],
+    3: ['conditioning', 'strength', 'conditioning'],
+    4: ['conditioning', 'strength', 'conditioning', 'recovery'],
+    5: ['conditioning', 'strength', 'conditioning', 'mixed', 'recovery'],
+    6: ['conditioning', 'strength', 'conditioning', 'mixed', 'long', 'recovery'],
+    7: ['conditioning', 'strength', 'conditioning', 'mixed', 'long', 'strength', 'recovery'],
+  },
+  Ausdauer: {
+    1: ['long'],
+    2: ['conditioning', 'long'],
+    3: ['conditioning', 'technique', 'long'],
+    4: ['conditioning', 'technique', 'strength', 'long'],
+    5: ['conditioning', 'technique', 'strength', 'recovery', 'long'],
+    6: ['conditioning', 'technique', 'conditioning', 'strength', 'recovery', 'long'],
+    7: ['conditioning', 'technique', 'conditioning', 'strength', 'recovery', 'long', 'recovery'],
+  },
+  Spaß: {
+    1: ['play'],
+    2: ['play', 'mixed'],
+    3: ['play', 'technique', 'mixed'],
+    4: ['play', 'technique', 'mixed', 'play'],
+    5: ['play', 'technique', 'conditioning', 'mixed', 'play'],
+    6: ['play', 'technique', 'conditioning', 'mixed', 'play', 'recovery'],
+    7: ['play', 'technique', 'conditioning', 'mixed', 'play', 'strength', 'recovery'],
+  },
+  Wettkampf: {
+    1: ['play'],
+    2: ['technique', 'play'],
+    3: ['technique', 'conditioning', 'play'],
+    4: ['technique', 'conditioning', 'strength', 'play'],
+    5: ['technique', 'conditioning', 'strength', 'play', 'recovery'],
+    6: ['technique', 'conditioning', 'strength', 'play', 'technique', 'recovery'],
+    7: ['technique', 'conditioning', 'strength', 'play', 'technique', 'conditioning', 'recovery'],
+  },
+};
+
+/** Sport-specific drill pool (carried over from previous version, used for technique/play days). */
+const SPORT_DRILLS: Record<string, Record<SkillLevel, string[]>> = {
   fussball: {
-    anfaenger: ['Lockeres Einlaufen 10 Min', 'Ballannahme rechts/links 3×10', 'Passübung gegen die Wand 3×15', 'Dribbling-Slalom 4×30 Sek', 'Torschuss-Form (kein Anlauf) 2×8', 'Ausdauerlauf 15 Min'],
-    fortgeschritten: ['Sprintserie 6×30 m', 'Ballannahme in Bewegung 4×10', '1-vs-1 Coaching-Drill 4×2 Min', 'Direktpass-Quadrat 4×3 Min', 'Torschuss aus Bewegung 3×10', 'Conditioning-Run 20 Min'],
-    profi: ['HIIT-Sprints 10×20 m mit Ball', 'Positionsspezifisches Drilling 4×4 Min', 'Set-Piece-Training 30 Min', 'Spielform 4v4 3×8 Min', 'Plyo-Box-Sprünge 4×8', 'Aktive Regeneration 15 Min'],
+    anfaenger: ['Ballannahme rechts/links 3×10', 'Passübung gegen die Wand 3×15', 'Dribbling-Slalom 4×30 Sek', 'Torschuss-Form (kein Anlauf) 2×8', 'Innenseiten-Pass im Quadrat 4×3 Min'],
+    fortgeschritten: ['Ballannahme in Bewegung 4×10', '1-vs-1 Coaching-Drill 4×2 Min', 'Direktpass-Quadrat 4×3 Min', 'Torschuss aus Bewegung 3×10', 'Set-Piece-Übung 4×5'],
+    profi: ['Positionsspezifisches Drilling 4×4 Min', 'Set-Piece-Training 30 Min', 'Spielform 4v4 3×8 Min', 'Pass-Kombination unter Druck 6×3 Min', 'Torschuss nach Kombination 5×10'],
   },
   basketball: {
-    anfaenger: ['Dribbling links/rechts 5 Min', 'Lay-Up-Reihen 3×10', 'Stand-Wurf 3×15', 'Pivot-Drill 3×10', 'Defensive-Slides 3×30 Sek', 'Free Throws 50'],
-    fortgeschritten: ['Crossover-Drills 4×30 Sek', 'Pull-Up-Jumper 4×10', 'Pick-&-Roll-Form 4×8', 'Reboundtechnik 3×10', 'Suicides 4×', 'Free Throws 100'],
-    profi: ['Game-Speed Ball-Handling 10 Min', 'Catch-&-Shoot aus Bewegung 5×15', 'Hedge-&-Recover Defense 4×4 Min', 'Iso-Spielsituationen 4×5', 'Conditioning 17er 6×', 'Free Throws unter Belastung 100'],
+    anfaenger: ['Dribbling links/rechts 5 Min', 'Lay-Up-Reihen 3×10', 'Stand-Wurf 3×15', 'Pivot-Drill 3×10', 'Free Throws 50'],
+    fortgeschritten: ['Crossover-Drills 4×30 Sek', 'Pull-Up-Jumper 4×10', 'Pick-&-Roll-Form 4×8', 'Reboundtechnik 3×10', 'Free Throws 100'],
+    profi: ['Game-Speed Ball-Handling 10 Min', 'Catch-&-Shoot aus Bewegung 5×15', 'Hedge-&-Recover Defense 4×4 Min', 'Iso-Spielsituationen 4×5', 'Free Throws unter Belastung 100'],
   },
   tennis: {
-    anfaenger: ['Schattenschläge 5 Min', 'Vorhand cross 3×20', 'Rückhand cross 3×20', 'Aufschlagform 4×10', 'Volley-Übung 3×15', 'Lockeres Auslaufen 5 Min'],
-    fortgeschritten: ['Topspin-Vorhand 4×20', 'Slice-Rückhand 4×15', 'Aufschlag + erster Ball 4×10', 'Punkt-Pattern (3 Bälle) 5×6', 'Footwork-Drill 4×30 Sek', 'Match-Tiebreak'],
-    profi: ['Cross-Linie-Wechsel 5×8 Bälle', 'Aufschlag-Serve+1 Pattern 6×8', 'Return-Drill 5×10', 'Live-Ball-Punkte (4 Aufschläge auf jede Seite)', 'Sprint-Footwork 6×20 Sek', 'Match-Simulation 1 Satz'],
+    anfaenger: ['Schattenschläge 5 Min', 'Vorhand cross 3×20', 'Rückhand cross 3×20', 'Aufschlagform 4×10', 'Volley-Übung 3×15'],
+    fortgeschritten: ['Topspin-Vorhand 4×20', 'Slice-Rückhand 4×15', 'Aufschlag + erster Ball 4×10', 'Punkt-Pattern (3 Bälle) 5×6', 'Footwork-Drill 4×30 Sek'],
+    profi: ['Cross-Linie-Wechsel 5×8 Bälle', 'Aufschlag-Serve+1 Pattern 6×8', 'Return-Drill 5×10', 'Live-Ball-Punkte (4 Aufschläge auf jede Seite)', 'Match-Simulation 1 Satz'],
   },
   schwimmen: {
-    anfaenger: ['200 m lockeres Einschwimmen', '4×50 m Kraul mit Pull-Buoy', '4×25 m Beine mit Brett', '100 m Rücken locker', '4×25 m Atem-Drill', '100 m Ausschwimmen'],
-    fortgeschritten: ['400 m Einschwimmen', '6×100 m Kraul auf Zeit', '4×50 m Brust technisch', '200 m Beinarbeit', '6×25 m Sprint', '200 m Ausschwimmen'],
-    profi: ['600 m Einschwimmen + Drill-Mix', '10×100 m Kraul progressiv', '4×200 m Lagen', '8×50 m Sprint mit Pause', 'Atem-Hypoxie-Set 8×25 m', '300 m Cooldown'],
+    anfaenger: ['4×50 m Kraul mit Pull-Buoy', '4×25 m Beine mit Brett', '100 m Rücken locker', '4×25 m Atem-Drill', '4×50 m Brust-Technik'],
+    fortgeschritten: ['6×100 m Kraul auf Zeit', '4×50 m Brust technisch', '200 m Beinarbeit', '6×25 m Sprint', '4×100 m Lagen'],
+    profi: ['10×100 m Kraul progressiv', '4×200 m Lagen', '8×50 m Sprint mit Pause', 'Atem-Hypoxie-Set 8×25 m', '4×400 m negative Splits'],
   },
   klettern: {
-    anfaenger: ['Mobility 10 Min', '2× Aufwärmrouten leicht', '4 Boulder leichtes Grade', 'Trittpräzisions-Drill', 'Hängen am Griff 4×10 Sek', 'Dehnen 10 Min'],
-    fortgeschritten: ['Mobility 10 Min', '3 Routen onsight im Grenzbereich', '4×4 Boulder-Pyramide', 'Hangboard 6×7 Sek', 'Core (Frontlever-Progression) 4×30 Sek', 'Stretching'],
-    profi: ['Projektroute 3 Versuche', 'System-Board Drills', 'Hangboard Max-Hangs 5×7 Sek', 'Campus-Board Sets', 'Antagonist-Training', 'Foam-Roll-Recovery'],
+    anfaenger: ['2× Aufwärmrouten leicht', '4 Boulder leichtes Grade', 'Trittpräzisions-Drill', 'Hängen am Griff 4×10 Sek', 'Statische Position-Drill 5×30 Sek'],
+    fortgeschritten: ['3 Routen onsight im Grenzbereich', '4×4 Boulder-Pyramide', 'Hangboard 6×7 Sek', 'Routenlesen-Übung', 'System-Board Lock-Off 4×'],
+    profi: ['Projektroute 3 Versuche', 'System-Board Drills', 'Hangboard Max-Hangs 5×7 Sek', 'Campus-Board Sets', 'Komplexe Onsight-Vorbereitung'],
   },
   yoga: {
-    anfaenger: ['Atem-Übung 5 Min', 'Sonnengruß A 3×', 'Krieger I/II 5 Min', 'Vorbeuge & Twist 5 Min', 'Balance-Posen 5 Min', 'Endentspannung 10 Min'],
-    fortgeschritten: ['Pranayama 8 Min', 'Sonnengruß A & B je 3×', 'Krieger-Flow 10 Min', 'Hüftöffner 10 Min', 'Inversions-Vorbereitung 5 Min', 'Savasana 8 Min'],
-    profi: ['Pranayama mit Bandhas 10 Min', 'Advanced Sun Salutations', 'Arm-Balances Sequenz', 'Tiefe Hüftöffner + Twists', 'Inversionen 10 Min', 'Meditation 10 Min'],
+    anfaenger: ['Sonnengruß A 3×', 'Krieger I/II 5 Min', 'Vorbeuge & Twist 5 Min', 'Balance-Posen 5 Min', 'Brücke + Schulterstand-Vorbereitung'],
+    fortgeschritten: ['Sonnengruß A & B je 3×', 'Krieger-Flow 10 Min', 'Hüftöffner 10 Min', 'Inversions-Vorbereitung 5 Min', 'Twist-Sequenz 8 Min'],
+    profi: ['Advanced Sun Salutations', 'Arm-Balances Sequenz', 'Tiefe Hüftöffner + Twists', 'Inversionen 10 Min', 'Backbend-Flow 12 Min'],
   },
   boxen: {
-    anfaenger: ['Seilspringen 3×2 Min', 'Schattenboxen 3×2 Min', 'Geradenfolge Sackarbeit 4×2 Min', 'Beinarbeit-Drill 3×1 Min', 'Bauch & Liegestütz 3×15', 'Stretching'],
-    fortgeschritten: ['Seil 4×3 Min', 'Schatten mit Kombi 4×3 Min', 'Sackarbeit Kombinationen 6×3 Min', 'Pratzentraining mit Partner', 'HIIT-Bodyweight 4×4 Min', 'Cool-down'],
-    profi: ['Seil 5×3 Min progressive', 'Schatten mit Defense 5×3 Min', 'Sparring 4–6 Runden', 'Pratzen Highspeed 6×3 Min', 'Konditionssatz 8×30 Sek all-out', 'Stretch + Foam-Roll'],
+    anfaenger: ['Schattenboxen 3×2 Min', 'Geradenfolge Sackarbeit 4×2 Min', 'Beinarbeit-Drill 3×1 Min', 'Jab-Cross-Hook Kombi 3×10', 'Doppeljab 3×20'],
+    fortgeschritten: ['Schatten mit Kombi 4×3 Min', 'Sackarbeit Kombinationen 6×3 Min', 'Pratzentraining mit Partner', 'Konter-Drill 4×3 Min', 'Footwork-Pattern 4×2 Min'],
+    profi: ['Schatten mit Defense 5×3 Min', 'Sparring 4–6 Runden', 'Pratzen Highspeed 6×3 Min', 'Konter-Sequenzen unter Druck 5×3 Min', 'Body-Punch-Drill 5×3 Min'],
   },
   laufen: {
-    anfaenger: ['Walk 5 Min', '4×3 Min lockeres Joggen / 1 Min gehen', 'Lauf-ABC 6×20 m', 'Cool-down-Walk 5 Min', 'Dehnen Beine 8 Min'],
-    fortgeschritten: ['Warm-up 10 Min', 'Tempolauf 4×5 Min @ Schwelle', '2 Min Trabpause', 'Strides 4×100 m', 'Cooldown 10 Min'],
-    profi: ['Warm-up 15 Min + Drills', 'Intervall 6×1000 m @ VO2max', '90 Sek Pause', 'Plyo-Set 3×10', 'Cooldown 15 Min'],
+    anfaenger: ['Lauf-ABC 6×20 m', 'Strides 4×80 m', '4×3 Min lockeres Joggen / 1 Min gehen', '15 Min Dauerlauf', 'Bergan-Walks 6×30 Sek'],
+    fortgeschritten: ['Tempolauf 4×5 Min @ Schwelle', 'Strides 4×100 m', 'Fartlek 25 Min', 'Hügelsprints 8×60 m', 'Pyramide 1-2-3-2-1 Min'],
+    profi: ['Intervall 6×1000 m @ VO2max', 'Tempo-Dauerlauf 30 Min', 'Plyo-Set 3×10', 'Bahnintervalle 10×400 m', 'Progression-Run 45 Min'],
   },
   radfahren: {
-    anfaenger: ['Lockere Ausfahrt 30 Min Zone 2', 'Trittfrequenz-Drill 6×1 Min 90 rpm', 'Cooldown 5 Min'],
-    fortgeschritten: ['Warm-up 15 Min', 'Sweet-Spot-Intervalle 3×10 Min', '5 Min locker zwischen', 'Cooldown 10 Min'],
-    profi: ['Warm-up 20 Min', 'Threshold 2×20 Min', 'Sprints 6×15 Sek max', 'Cooldown 15 Min'],
+    anfaenger: ['Trittfrequenz-Drill 6×1 Min 90 rpm', 'Lockere Ausfahrt Zone 2', 'Wiegetritt 4×30 Sek', 'Cleat-Position-Check', 'Bergan-Sitting 4×2 Min'],
+    fortgeschritten: ['Sweet-Spot-Intervalle 3×10 Min', 'VO2-Intervalle 5×3 Min', 'Sprints 6×20 Sek', 'Bergan-Stehend 5×3 Min', 'Tempo-Block 2×20 Min'],
+    profi: ['Threshold 2×20 Min', 'Sprints 6×15 Sek max', 'Microbursts 30/15 Sek 4×5 Min', 'FTP-Test', 'Race-Pace-Block 3×15 Min'],
   },
   volleyball: {
-    anfaenger: ['Pritsche-Übung an die Wand 5 Min', 'Bagger-Form 3×15', 'Aufschlag von unten 3×10', 'Sprung-Drill 4×8', 'Lauf-ABC 5 Min', 'Stretching'],
-    fortgeschritten: ['Pritsch-Bagger-Pritsch 4×3 Min', 'Aufschlag Tennis-Aufschlag 4×10', 'Angriffsschlag aus dem Stand 4×8', 'Block-Footwork 4×30 Sek', 'Plyo-Box 4×8', 'Cool-down'],
-    profi: ['Spielnaher Pass-Drill 5×3 Min', 'Sprungaufschlag 5×10', 'Angriffsschlag aus Anlauf 6×8', 'Block-Sprung-Reihe 6×4', 'Vertical-Jump-Training', 'Mobility'],
+    anfaenger: ['Pritsche-Übung an die Wand 5 Min', 'Bagger-Form 3×15', 'Aufschlag von unten 3×10', 'Sprung-Drill 4×8', 'Block-Footwork 4×30 Sek'],
+    fortgeschritten: ['Pritsch-Bagger-Pritsch 4×3 Min', 'Aufschlag Tennis-Aufschlag 4×10', 'Angriffsschlag aus dem Stand 4×8', 'Block-Footwork 4×30 Sek', 'Annahme-Verteidigung 4×3 Min'],
+    profi: ['Spielnaher Pass-Drill 5×3 Min', 'Sprungaufschlag 5×10', 'Angriffsschlag aus Anlauf 6×8', 'Block-Sprung-Reihe 6×4', 'Komplex-Pattern 6×3 Min'],
   },
   handball: {
-    anfaenger: ['Warm-up Ballkontakt 5 Min', 'Pass-Übung 3×15', 'Stand-Wurf 3×10', 'Sprungwurf-Form 3×8', 'Lauf-ABC 5 Min', 'Stretching'],
-    fortgeschritten: ['Pass-Schritt-Wurf 4×10', 'Sprungwurf 4×10', 'Kreisspieler-Aktion 4×6', '3-2 Verteidigung Drill', 'Sprintserien 6×20 m', 'Cool-down'],
-    profi: ['Spielsituationen 5×3 Min', 'Sprungwurf unter Belastung 5×8', 'Gegenstoß-Sequenzen 6×', 'Set-Plays üben 30 Min', 'HIIT 6×30 Sek', 'Mobility'],
+    anfaenger: ['Pass-Übung 3×15', 'Stand-Wurf 3×10', 'Sprungwurf-Form 3×8', 'Lauf-ABC 5 Min', 'Wurf-Kombination 3×10'],
+    fortgeschritten: ['Pass-Schritt-Wurf 4×10', 'Sprungwurf 4×10', 'Kreisspieler-Aktion 4×6', '3-2 Verteidigung Drill', 'Gegenstoß-Sequenz 5×'],
+    profi: ['Spielsituationen 5×3 Min', 'Sprungwurf unter Belastung 5×8', 'Gegenstoß-Sequenzen 6×', 'Set-Plays üben 30 Min', 'Komplex-Spielform 4×4 Min'],
   },
   judo: {
-    anfaenger: ['Ukemi (Fallschule) 10 Min', 'Standgrund-Übung mit Partner', 'O-Goshi Form 3×10', 'Newaza Basics 10 Min', 'Bauch & Rücken 3×15', 'Stretching'],
-    fortgeschritten: ['Ukemi schnell 5 Min', 'Uchikomi 5×20', 'Nage-Komi mit Wurf 4×10', 'Randori am Boden 4×3 Min', 'Conditioning 4×30 Sek', 'Cool-down'],
-    profi: ['Uchikomi maximal 6×20', 'Nage-Komi mit Wurf 6×10', 'Randori Stand 4×4 Min', 'Randori Boden 4×3 Min', 'Sport-spezifisches Konditionssatz', 'Mobility & Atemarbeit'],
+    anfaenger: ['Ukemi (Fallschule) 10 Min', 'Standgrund-Übung mit Partner', 'O-Goshi Form 3×10', 'Newaza Basics 10 Min', 'Uchikomi 5×10'],
+    fortgeschritten: ['Uchikomi 5×20', 'Nage-Komi mit Wurf 4×10', 'Randori am Boden 4×3 Min', 'Wurfkombination 4×8', 'Kuzushi-Drill 5 Min'],
+    profi: ['Uchikomi maximal 6×20', 'Nage-Komi mit Wurf 6×10', 'Randori Stand 4×4 Min', 'Randori Boden 4×3 Min', 'Wettkampf-Simulation 3×5 Min'],
   },
   karate: {
-    anfaenger: ['Kihon Stand-Techniken 10 Min', 'Tsuki-Reihe 5×10', 'Geri-Übung am Sandsack 4×10', 'Kata Heian Shodan 3×', 'Conditioning 3×30 Sek', 'Dehnen 10 Min'],
-    fortgeschritten: ['Kihon im Stand-Wechsel 15 Min', 'Kumite-Drills 4×3 Min', 'Kata 2×', 'Sandsack-Kombinationen 4×2 Min', 'Plyo-Set 4×8', 'Cool-down'],
-    profi: ['Schnellkraft-Kihon 15 Min', 'Kumite Live 5×3 Min', 'Kata Wettkampfniveau 3×', 'Sandsack High-Speed 6×2 Min', 'Reaktions-Drill mit Partner', 'Mobility'],
+    anfaenger: ['Kihon Stand-Techniken 10 Min', 'Tsuki-Reihe 5×10', 'Geri-Übung am Sandsack 4×10', 'Kata Heian Shodan 3×', 'Stand-Wechsel-Drill 5 Min'],
+    fortgeschritten: ['Kihon im Stand-Wechsel 15 Min', 'Kumite-Drills 4×3 Min', 'Kata 2×', 'Sandsack-Kombinationen 4×2 Min', 'Renraku-Übung 5×10'],
+    profi: ['Schnellkraft-Kihon 15 Min', 'Kumite Live 5×3 Min', 'Kata Wettkampfniveau 3×', 'Sandsack High-Speed 6×2 Min', 'Konter-Drills 6×3 Min'],
   },
   kickboxen: {
-    anfaenger: ['Seil 3×2 Min', 'Schatten mit Tritten 3×2 Min', 'Sackarbeit Kicks 4×2 Min', 'Beinarbeit 3×1 Min', 'Bauch 3×15', 'Stretching'],
-    fortgeschritten: ['Seil 4×3 Min', 'Schatten Hand + Bein 4×3 Min', 'Pratzentraining', 'Sandsack-Kombis 5×3 Min', 'Conditioning 4×4 Min', 'Cool-down'],
-    profi: ['Seil 5×3 Min', 'Sparring 5×3 Min', 'Pratzen High-Speed 6×3 Min', 'Sandsack Kombi-Marathon 5×3 Min', 'HIIT 8×30 Sek', 'Foam-Roll-Recovery'],
+    anfaenger: ['Schatten mit Tritten 3×2 Min', 'Sackarbeit Kicks 4×2 Min', 'Beinarbeit 3×1 Min', 'Jab-Cross-Lowkick 3×10', 'Knee-Strike-Drill 3×15'],
+    fortgeschritten: ['Schatten Hand + Bein 4×3 Min', 'Pratzentraining', 'Sandsack-Kombis 5×3 Min', 'Slip-and-Kick-Drill 4×3 Min', 'Clinch-Knee 4×2 Min'],
+    profi: ['Sparring 5×3 Min', 'Pratzen High-Speed 6×3 Min', 'Sandsack Kombi-Marathon 5×3 Min', 'Defense-Reaktions-Drill 6×3 Min', 'Body-Kick-Pattern 5×3 Min'],
   },
   badminton: {
-    anfaenger: ['Schattenschritte 5 Min', 'Clear-Übung 3×20', 'Drop-Übung 3×15', 'Aufschlag kurz/lang 4×10', 'Volley-Drill 3×15', 'Stretching'],
-    fortgeschritten: ['Footwork 6 Ecken 5×30 Sek', 'Clear-Drop-Smash-Pattern 4×3 Min', 'Aufschlag-Empfang 4×10', 'Doppel-Stellung 4×3 Min', 'Plyo 4×8', 'Cool-down'],
-    profi: ['Multi-Shuttle-Drill 5×3 Min', 'Spielnahe Patterns 5×4 Min', 'Smash-Defense Live 4×3 Min', 'Match-Set 1×', 'Sprung-Squats 5×10', 'Mobility'],
+    anfaenger: ['Schattenschritte 5 Min', 'Clear-Übung 3×20', 'Drop-Übung 3×15', 'Aufschlag kurz/lang 4×10', 'Volley-Drill 3×15'],
+    fortgeschritten: ['Footwork 6 Ecken 5×30 Sek', 'Clear-Drop-Smash-Pattern 4×3 Min', 'Aufschlag-Empfang 4×10', 'Doppel-Stellung 4×3 Min', 'Smash-Verteidigung 4×3 Min'],
+    profi: ['Multi-Shuttle-Drill 5×3 Min', 'Spielnahe Patterns 5×4 Min', 'Smash-Defense Live 4×3 Min', 'Match-Set 1×', 'Speed-Drill 6 Ecken 5×30 Sek'],
   },
   tischtennis: {
-    anfaenger: ['Schattenschläge 5 Min', 'Vorhand Konter 5 Min', 'Rückhand Konter 5 Min', 'Aufschlag-Form 4×10', 'Konter-Wechsel 5 Min', 'Stretching'],
-    fortgeschritten: ['Topspin-Vorhand 5×30', 'Topspin-Rückhand 5×30', 'Block-Topspin-Pattern 5×3 Min', 'Aufschlag + 3. Ball 4×10', 'Beinarbeit 5×30 Sek', 'Match-Sätze'],
-    profi: ['Spinaufschlag-Variation 6×10', 'Topspin Long-Rally 6×3 Min', 'Block-Konter mit Footwork', 'Live-Punkte 6×6', 'Reaktionsdrill', 'Mobility'],
+    anfaenger: ['Schattenschläge 5 Min', 'Vorhand Konter 5 Min', 'Rückhand Konter 5 Min', 'Aufschlag-Form 4×10', 'Konter-Wechsel 5 Min'],
+    fortgeschritten: ['Topspin-Vorhand 5×30', 'Topspin-Rückhand 5×30', 'Block-Topspin-Pattern 5×3 Min', 'Aufschlag + 3. Ball 4×10', 'Beinarbeit 5×30 Sek'],
+    profi: ['Spinaufschlag-Variation 6×10', 'Topspin Long-Rally 6×3 Min', 'Block-Konter mit Footwork', 'Live-Punkte 6×6', 'Reaktionsdrill 5×3 Min'],
   },
   squash: {
-    anfaenger: ['Geistschläge 5 Min', 'Vorhand longline 3×20', 'Rückhand longline 3×20', 'Aufschlag-Form 3×10', 'T-Position-Drill 3×1 Min', 'Cool-down'],
-    fortgeschritten: ['Ghosting 6×30 Sek', 'Boast-Drive-Pattern 4×3 Min', 'Volley-Drill 4×20', 'Conditioned Game (3 Bälle) 4×5 Min', 'Sprintserien 6×', 'Stretching'],
-    profi: ['Ghosting High-Speed 8×30 Sek', 'Pressure-Drill 5×3 Min', 'Match-Spiel 2 Sätze', 'Solo-Hitting 10 Min', 'Court-Sprints 8×', 'Cool-down'],
+    anfaenger: ['Vorhand longline 3×20', 'Rückhand longline 3×20', 'Aufschlag-Form 3×10', 'T-Position-Drill 3×1 Min', 'Geister-Schläge 5 Min'],
+    fortgeschritten: ['Boast-Drive-Pattern 4×3 Min', 'Volley-Drill 4×20', 'Conditioned Game (3 Bälle) 4×5 Min', 'Lob-und-Drop-Drill 5×', 'Ecken-Drill 4×3 Min'],
+    profi: ['Pressure-Drill 5×3 Min', 'Match-Spiel 2 Sätze', 'Solo-Hitting 10 Min', 'Court-Sprints 8×', 'Komplex-Pattern 6×3 Min'],
   },
   rudern: {
-    anfaenger: ['Erg-Einrudern 5 Min', 'Technik-Drill (Beine-Rumpf-Arme) 10 Min', 'Steady-State 15 Min Zone 2', 'Stretching 10 Min'],
-    fortgeschritten: ['Erg 10 Min Warm-up', '4×1000 m mit 3 Min Pause', 'Beinpressen-Form 3×15', 'Stretching'],
-    profi: ['Erg 15 Min Warm-up + Drills', '5×1500 m Wettkampftempo', 'Krafttraining Beine + Rücken', 'Cool-down 15 Min'],
+    anfaenger: ['Erg Technik-Drill 10 Min', 'Steady-State 15 Min Zone 2', '10er-Spurts 5×', 'Beine-only-Drill 5 Min', 'Pause-Drill 3×5 Min'],
+    fortgeschritten: ['Erg 4×1000 m mit 3 Min Pause', 'Beinpressen-Form 3×15', 'Power-10 Intervalle 5×', '2k-Pace-Test', '20-Minute-Test'],
+    profi: ['Erg 5×1500 m Wettkampftempo', '6×500 m all-out', '60-Minute Threshold', '4×2000 m Race-Pace', '10×250 m Sprint'],
   },
   segeln: {
-    anfaenger: ['Knoten lernen 15 Min', 'Trimm-Theorie 10 Min', 'Auf dem Boot: Wenden 30 Min', 'Halsen 15 Min', 'Sicherheitsübung Mensch über Bord', 'Boot aufklaren'],
-    fortgeschritten: ['Trim-Setup-Check', 'Kursfahren mit Variationen 30 Min', 'Manöver-Übungen 20 Min', 'Spinnaker-Setzen üben', 'Boot säubern'],
-    profi: ['Regatta-Start-Sequenz 20 Min', 'Kurslesen & Taktik 30 Min', 'Manöver auf Zeit', 'Krafttraining (Pullups, Pull-Y, Core)', 'Mental-Routine'],
+    anfaenger: ['Knoten lernen 15 Min', 'Trimm-Theorie 10 Min', 'Wenden 30 Min', 'Halsen 15 Min', 'Sicherheitsübung Mensch über Bord'],
+    fortgeschritten: ['Kursfahren mit Variationen 30 Min', 'Manöver-Übungen 20 Min', 'Spinnaker-Setzen üben', 'Trim-Optimierung', 'Boot-Check & Wartung'],
+    profi: ['Regatta-Start-Sequenz 20 Min', 'Kurslesen & Taktik 30 Min', 'Manöver auf Zeit', 'Speed-Trim 20 Min', 'Mental-Routine'],
   },
   surfen: {
-    anfaenger: ['Paddel-Technik am Land 10 Min', 'Pop-Up am Land 3×15', 'Whitewater 30 Min', 'Stand-Übung im Wasser', 'Rückenmuskel-Stärkung'],
-    fortgeschritten: ['Paddeln 30 Min', 'Green Waves angehen', 'Bottom-Turn-Form üben', 'Cutback-Form 3×', 'Krafttraining Schultern + Core'],
-    profi: ['Heat-Simulation 20 Min', 'Aerial-Vorbereitung am Trampolin', 'Wave-Selection-Drill', 'Power-Endurance Schwimm-Set', 'Mobility-Flow'],
+    anfaenger: ['Paddel-Technik am Land 10 Min', 'Pop-Up am Land 3×15', 'Whitewater 30 Min', 'Stand-Übung im Wasser', 'Brett-Balance-Drill 10 Min'],
+    fortgeschritten: ['Paddeln 30 Min', 'Green Waves angehen', 'Bottom-Turn-Form üben', 'Cutback-Form 3×', 'Wellen-Selektion-Drill 30 Min'],
+    profi: ['Heat-Simulation 20 Min', 'Aerial-Vorbereitung am Trampolin', 'Wave-Selection-Drill', 'Power-Endurance Schwimm-Set', 'Manöver-Repertoire 30 Min'],
   },
   krafttraining: {
-    anfaenger: ['Goblet-Squat 3×10', 'Romanian Deadlift 3×10', 'Liegestütz 3×8', 'Rudern Maschine 3×10', 'Plank 3×30 Sek', 'Stretching'],
-    fortgeschritten: ['Kniebeuge 4×8', 'Bankdrücken 4×8', 'Klimmzüge 4×6', 'Schulterdrücken 3×10', 'Bauch-Komplex', 'Cool-down'],
-    profi: ['Kniebeuge 5×5 @ 80 %', 'Kreuzheben 5×3 @ 85 %', 'Bankdrücken 5×5', 'Pull-Ups gewichtet 4×6', 'Accessoires (Hip-Thrust, Face-Pull)', 'Mobility'],
+    anfaenger: ['Goblet-Squat 3×10', 'Romanian Deadlift 3×10', 'Liegestütz 3×8', 'Rudern Maschine 3×10', 'Plank 3×30 Sek'],
+    fortgeschritten: ['Kniebeuge 4×8', 'Bankdrücken 4×8', 'Klimmzüge 4×6', 'Schulterdrücken 3×10', 'Hip-Thrust 4×10'],
+    profi: ['Kniebeuge 5×5 @ 80 %', 'Kreuzheben 5×3 @ 85 %', 'Bankdrücken 5×5', 'Pull-Ups gewichtet 4×6', 'Power Clean 5×3'],
   },
   crossfit: {
-    anfaenger: ['Skill: Air-Squat & Push-Up', 'WOD: AMRAP 10 Min — 10 Squats / 10 Push-Ups / 10 Sit-Ups', 'Cool-down'],
-    fortgeschritten: ['Strength: Back-Squat 5×5', 'WOD: 4 Rounds — 400 m Lauf / 15 KB-Swings / 10 Burpees', 'Mobility'],
-    profi: ['Olympic Lift: Clean & Jerk 6×2', 'WOD "Fran": 21-15-9 Thruster + Pull-Ups for time', 'Accessoire Gymnastics', 'Cool-down'],
+    anfaenger: ['Skill: Air-Squat & Push-Up', 'WOD: AMRAP 10 Min — 10 Squats / 10 Push-Ups / 10 Sit-Ups', 'Box Jumps 4×8', 'Kettlebell Swings 3×15', 'Mobility-Block 10 Min'],
+    fortgeschritten: ['Strength: Back-Squat 5×5', 'WOD: 4 Rounds — 400 m Lauf / 15 KB-Swings / 10 Burpees', 'Power Clean 5×3', 'Pull-Up-Skill 4×5', 'Double-Unders 3×50'],
+    profi: ['Olympic Lift: Clean & Jerk 6×2', 'WOD "Fran": 21-15-9 Thruster + Pull-Ups for time', 'Snatch-Technik 5×3', 'Muscle-Up-Skill', 'EMOM 16 Min'],
   },
   pilates: {
-    anfaenger: ['Hundred-Vorbereitung', 'Roll-Up 3×8', 'Single-Leg-Stretch 3×10', 'Bridging 3×10', 'Schwan vorbereiten', 'Stretching'],
-    fortgeschritten: ['Hundred volle Form', 'Roll-Over 3×8', 'Teaser-Vorbereitung 3×8', 'Side-Plank-Reihe', 'Schwan-Tauchen', 'Cool-down'],
-    profi: ['Reformer-Sequenz 30 Min', 'Teaser komplett 5×', 'Boomerang 3×', 'Control Balance', 'Magic-Circle-Block', 'Mobility'],
+    anfaenger: ['Hundred-Vorbereitung', 'Roll-Up 3×8', 'Single-Leg-Stretch 3×10', 'Bridging 3×10', 'Cat-Cow-Flow 3 Min'],
+    fortgeschritten: ['Hundred volle Form', 'Roll-Over 3×8', 'Teaser-Vorbereitung 3×8', 'Side-Plank-Reihe', 'Swan-Dive 3×8'],
+    profi: ['Reformer-Sequenz 30 Min', 'Teaser komplett 5×', 'Boomerang 3×', 'Control Balance', 'Jackknife 3×8'],
   },
   wandern: {
-    anfaenger: ['Aufwärm-Walk 5 Min', '90 Min Wanderung Flachland', 'Trinkpause integrieren', 'Stretching nach Tour'],
-    fortgeschritten: ['Warm-up 10 Min', '3 h Tour mit 400 hm', 'Stockeinsatz üben', 'Snack-Rhythmus halten', 'Cool-down-Stretch'],
-    profi: ['Warm-up 15 Min', '5–6 h Bergtour mit 1000 hm+', 'Tempo-Variation', 'Kraft-Tour mit Gewicht im Rucksack', 'Erholungsdehnen'],
+    anfaenger: ['90 Min Wanderung Flachland', 'Trinkpause integrieren', 'Stockeinsatz lernen', 'Rucksack-Packtipp', 'Karten lesen'],
+    fortgeschritten: ['3 h Tour mit 400 hm', 'Stockeinsatz üben', 'Snack-Rhythmus halten', 'Höhenmeter-Block 600 hm', 'Geschwindigkeitsvariation'],
+    profi: ['5–6 h Bergtour mit 1000 hm+', 'Tempo-Variation', 'Kraft-Tour mit Gewicht im Rucksack', 'Gratwanderung', 'Wettervorhersage planen'],
   },
   mountainbike: {
-    anfaenger: ['Grundposition üben 10 Min', 'Bremstechnik 10 Min', 'Trail leicht 60 Min', 'Cool-down'],
-    fortgeschritten: ['Sprünge bis 50 cm', 'Anlieger-Kurven trainieren', 'Trail mittel 90 Min mit Tempowechsel', 'Stretching'],
-    profi: ['Drop-Training', 'Race-Pace-Intervalle auf Trail', 'Technik-Sektion auf Zeit', 'Krafttraining Beine + Core', 'Cool-down'],
+    anfaenger: ['Grundposition üben 10 Min', 'Bremstechnik 10 Min', 'Trail leicht 60 Min', 'Kurventechnik 5×Anlieger', 'Steile Auffahrt 5×'],
+    fortgeschritten: ['Sprünge bis 50 cm', 'Anlieger-Kurven trainieren', 'Trail mittel 90 Min mit Tempowechsel', 'Drop-Vorbereitung', 'Technische Sektion 4×'],
+    profi: ['Drop-Training', 'Race-Pace-Intervalle auf Trail', 'Technik-Sektion auf Zeit', 'Manualling 5×', 'Steile Auffahrt all-out 6×'],
   },
   ski: {
-    anfaenger: ['Pflug-Bogen üben', 'Carving-Vorbereitung leichter Hang', 'Schwung-Wechsel-Drill', 'Pisten-Etikette'],
-    fortgeschritten: ['Carving sauber auf roter Piste', 'Buckelpiste leicht', 'Tiefschnee-Versuch', 'Krafttraining Beine'],
-    profi: ['Variantenfahrt', 'Tiefschnee-Technik', 'Touren-Aufstieg', 'Carving-Speed', 'Trockenübungen Mobilität'],
+    anfaenger: ['Pflug-Bogen üben', 'Carving-Vorbereitung leichter Hang', 'Schwung-Wechsel-Drill', 'Pisten-Etikette', 'Stockeinsatz-Drill'],
+    fortgeschritten: ['Carving sauber auf roter Piste', 'Buckelpiste leicht', 'Tiefschnee-Versuch', 'Speed-Variation', 'Slalom-Stangenfahrt'],
+    profi: ['Variantenfahrt', 'Tiefschnee-Technik', 'Touren-Aufstieg', 'Carving-Speed', 'Renn-Slalom-Drills'],
   },
   snowboard: {
-    anfaenger: ['Front- und Backside-Edge wechseln', 'Slow-Turn-Drill', 'Anfänger-Pist 60 Min', 'Falltechnik'],
-    fortgeschritten: ['Carving üben', 'Park-Basics (Boxes, kleine Kicker)', 'Switch-Riding 30 Min', 'Krafttraining'],
-    profi: ['Park-Tricks (180/360)', 'Tiefschnee-Carving', 'Boardercross-Sektion', 'Krafttraining Beine + Core'],
+    anfaenger: ['Front- und Backside-Edge wechseln', 'Slow-Turn-Drill', 'Anfänger-Pist 60 Min', 'Falltechnik', 'Stop-and-Go-Drill'],
+    fortgeschritten: ['Carving üben', 'Park-Basics (Boxes, kleine Kicker)', 'Switch-Riding 30 Min', 'Ollie-Drill 5×', 'Trick-Vorbereitung'],
+    profi: ['Park-Tricks (180/360)', 'Tiefschnee-Carving', 'Boardercross-Sektion', 'Switch-Tricks', 'Halfpipe-Vorbereitung'],
   },
   eishockey: {
-    anfaenger: ['Schlittschuh-Stride 10 Min', 'Stick-Handling auf Eis 15 Min', 'Passen mit Partner 10 Min', 'Stand-Schuss 4×10', 'Cool-down'],
-    fortgeschritten: ['Power-Skating 15 Min', 'Stick-Handling mit Tempo', 'One-Timer-Schuss 4×10', 'Spielform 3vs3 4×3 Min', 'Cool-down'],
-    profi: ['Speed-Skating-Intervalle', 'Live-Drills 4×4 Min', 'Schuss-Kombi-Übungen', 'Spielzüge üben 30 Min', 'Off-Ice Conditioning'],
+    anfaenger: ['Schlittschuh-Stride 10 Min', 'Stick-Handling auf Eis 15 Min', 'Passen mit Partner 10 Min', 'Stand-Schuss 4×10', 'Kreis-Skating-Drill'],
+    fortgeschritten: ['Power-Skating 15 Min', 'Stick-Handling mit Tempo', 'One-Timer-Schuss 4×10', 'Spielform 3vs3 4×3 Min', 'Backwards-Skating 10 Min'],
+    profi: ['Speed-Skating-Intervalle', 'Live-Drills 4×4 Min', 'Schuss-Kombi-Übungen', 'Spielzüge üben 30 Min', 'Forecheck-Drills 4×3 Min'],
   },
   tanzen: {
-    anfaenger: ['Warm-up zur Musik 8 Min', 'Grundschritte 20 Min', 'Rhythmus-Übung 10 Min', 'Choreo-Block 15 Min', 'Stretching'],
-    fortgeschritten: ['Warm-up 10 Min', 'Drehungen & Spins 15 Min', 'Choreo lernen 25 Min', 'Improvisations-Block 10 Min', 'Cool-down'],
-    profi: ['Warm-up 15 Min', 'Technik-Repertoire', 'Voll-Choreo 30 Min', 'Performance-Block mit Ausdruck', 'Mobility'],
+    anfaenger: ['Grundschritte 20 Min', 'Rhythmus-Übung 10 Min', 'Choreo-Block 15 Min', 'Isolations-Drill 10 Min', 'Pivot-Drehung 5 Min'],
+    fortgeschritten: ['Drehungen & Spins 15 Min', 'Choreo lernen 25 Min', 'Improvisations-Block 10 Min', 'Partnerführung 10 Min', 'Across-the-Floor 15 Min'],
+    profi: ['Technik-Repertoire', 'Voll-Choreo 30 Min', 'Performance-Block mit Ausdruck', 'Improvisations-Showcase', 'Master-Class-Style Drills'],
   },
   parkour: {
-    anfaenger: ['Mobility + Springgelenke 10 Min', 'Präzisionssprünge auf der Stelle', 'Roll-Übung 3×10', 'Speed-Vault leicht 4×10', 'Hangeln 3×30 Sek', 'Stretching'],
-    fortgeschritten: ['Mobility 10 Min', 'Präzisionssprünge mittlere Distanz', 'Kong-Vault 5×5', 'Wall-Run 5×', 'Klettern auf Mauern', 'Cool-down'],
-    profi: ['Flow-Line 4×3 Min', 'Komplexe Vaults', 'Cat-Leap + Climb-Up', 'Drop & Roll aus 2 m', 'Strength-Block (Frontlever, Muscle-Up)', 'Mobility'],
+    anfaenger: ['Präzisionssprünge auf der Stelle', 'Roll-Übung 3×10', 'Speed-Vault leicht 4×10', 'Hangeln 3×30 Sek', 'Cat-Leap-Form'],
+    fortgeschritten: ['Präzisionssprünge mittlere Distanz', 'Kong-Vault 5×5', 'Wall-Run 5×', 'Klettern auf Mauern', 'Lazy-Vault 4×5'],
+    profi: ['Flow-Line 4×3 Min', 'Komplexe Vaults', 'Cat-Leap + Climb-Up', 'Drop & Roll aus 2 m', 'Dash-Vault 5×5'],
   },
   reiten: {
-    anfaenger: ['Putzen & Satteln', 'Schritt 15 Min', 'Trab 10 Min angetrabt', 'Galopp leicht angaloppieren', 'Versorgen'],
-    fortgeschritten: ['Aufwärmprogramm Dressur', 'Trabverstärkung & Schenkelweichen', 'Galopp-Wechsel üben', 'Cavaletti-Reihe', 'Cool-down'],
-    profi: ['Lektionen Dressur M-Niveau', 'Springen Parcours', 'Cross-Country-Sequenz', 'Krafttraining Reiter', 'Mental-Routine'],
+    anfaenger: ['Schritt 15 Min', 'Trab 10 Min angetrabt', 'Galopp leicht angaloppieren', 'Putzen & Satteln', 'Reitersitz-Drill'],
+    fortgeschritten: ['Aufwärmprogramm Dressur', 'Trabverstärkung & Schenkelweichen', 'Galopp-Wechsel üben', 'Cavaletti-Reihe', 'Dressur-Lektion E'],
+    profi: ['Lektionen Dressur M-Niveau', 'Springen Parcours', 'Cross-Country-Sequenz', 'Fliegende Wechsel', 'Galopp-Pirouette'],
   },
   golf: {
-    anfaenger: ['Setup-Drill 10 Min', 'Putten 30 Bälle aus 1 m', 'Chipping 20 Bälle', 'Iron-Schlag 7er Eisen 30 Bälle', 'Driver leicht'],
-    fortgeschritten: ['Putten 50 Bälle aus 2–5 m', 'Bunker-Training 20 Schläge', 'Mid-Iron-Block 30 Bälle', 'Driver Vollkraft 20 Bälle', '9 Loch Runde'],
-    profi: ['Putten Drill mit Druck-Situation', 'Wedge-Distanzkontrolle 50 Bälle', 'Driver Spin-Optimierung', 'Course-Management üben', '18 Loch Runde'],
+    anfaenger: ['Putten 30 Bälle aus 1 m', 'Chipping 20 Bälle', 'Iron-Schlag 7er Eisen 30 Bälle', 'Driver leicht', 'Setup-Drill 10 Min'],
+    fortgeschritten: ['Putten 50 Bälle aus 2–5 m', 'Bunker-Training 20 Schläge', 'Mid-Iron-Block 30 Bälle', 'Driver Vollkraft 20 Bälle', 'Approach-Distanzen 50 Bälle'],
+    profi: ['Putten Drill mit Druck-Situation', 'Wedge-Distanzkontrolle 50 Bälle', 'Driver Spin-Optimierung', 'Course-Management üben', 'Mental-Routine'],
   },
 };
 
-const fallbackExercises = (level: SkillLevel): string[] =>
-  ({
-    anfaenger: ['10 Min Aufwärmen', 'Technik-Grundlagen 20 Min', 'Sportartspezifisches Üben 20 Min', 'Cool-down 10 Min'],
-    fortgeschritten: ['Warm-up 10 Min', 'Technik-Block 20 Min', 'Intensitäts-Block 20 Min', 'Cool-down 10 Min'],
-    profi: ['Warm-up + Drills 15 Min', 'Spezifische Belastung 30 Min', 'High-Intensity 20 Min', 'Mobility 15 Min'],
-  }[level]);
-
-const intensityForWeek = (week: number, goal: Goal): Intensity => {
-  if (goal === 'Spaß') return week === 4 ? 'high' : 'medium';
-  if (week === 1) return 'low';
-  if (week === 2) return 'medium';
-  if (week === 3) return 'high';
-  return goal === 'Muskelaufbau' ? 'medium' : 'high'; // deload for hypertrophy, peak for others
+/** Generic, sport-agnostic blocks that get mixed in based on day type. */
+const WARMUP_BY_INTENSITY: Record<Intensity, string[][]> = {
+  low: [
+    ['5 Min sanftes Mobilisationsprogramm', 'Atem-Aktivierung 3 Min'],
+    ['10 Min lockerer Spaziergang', 'Kreisende Bewegungen 5 Min'],
+    ['Cat-Cow + Hüftöffner 8 Min', 'Atem-Routine 4 Min'],
+    ['Sanfte Yoga-Sequenz 10 Min', 'Aktivierungs-Drill 3 Min'],
+  ],
+  medium: [
+    ['Dynamische Mobilisation 8 Min', 'Lauf-ABC 6 Übungen × 20m'],
+    ['Aktivierung Beinkette 6 Min', 'Sprungvariation 3×10'],
+    ['Hip-Mobility-Flow 5 Min', '5 Min lockeres Cardio'],
+    ['Schultern + Wirbelsäule mobilisieren 7 Min', 'Aktivierungs-Sprünge 4×10'],
+    ['World\'s Greatest Stretch 4× pro Seite', 'Lockeres Einlaufen 5 Min'],
+  ],
+  high: [
+    ['Progressives Warm-up 12 Min', 'Sprintsteigerungen 4×60m'],
+    ['RAMP-Protokoll 10 Min', 'Plyo-Aktivierung 3×8'],
+    ['Dynamic Stretch 6 Min', 'Sprint-Drill 4×40m'],
+    ['Mobility + Cardio-Boost 8 Min', 'Reaktions-Drill 3×30 Sek'],
+    ['Aktivierungssatz 6 Min', 'Sprung-ABC 4 Übungen'],
+  ],
 };
 
-const titleForDay = (sport: Sport, week: number, goal: Goal, level: SkillLevel): string => {
-  const focus = FOCUS_BY_GOAL[goal][week - 1];
-  return `${sport.name}: ${focus} (${LEVEL_DE[level]})`;
+const STRENGTH_POOL: Record<SkillLevel, string[]> = {
+  anfaenger: [
+    'Goblet-Squat 3×10',
+    'Liegestütz 3×8',
+    'Romanian Deadlift mit Kurzhanteln 3×10',
+    'Rudern (Kurzhantel oder Band) 3×10',
+    'Bird-Dog 3×10 pro Seite',
+    'Glute Bridge 3×12',
+    'Side-Plank 3×30 Sek pro Seite',
+    'Dead-Bug 3×10 pro Seite',
+    'Step-Ups 3×10 pro Bein',
+    'Schulterdrücken (KH) 3×10',
+  ],
+  fortgeschritten: [
+    'Kniebeuge 4×8',
+    'Bankdrücken (KH) 4×10',
+    'Rumänisches Kreuzheben 4×8',
+    'Klimmzüge oder Lat-Pull 4×6',
+    'Bulgarian Split Squat 3×8 pro Bein',
+    'Hip-Thrust 4×10',
+    'Push-Press 4×6',
+    'Hanging Knee-Raise 3×10',
+    'Walking Lunges 3×12 pro Bein',
+    'Pallof-Press 3×12 pro Seite',
+  ],
+  profi: [
+    'Back-Squat 5×5 @ 80 %',
+    'Kreuzheben 5×3 @ 85 %',
+    'Bankdrücken 5×5',
+    'Weighted Pull-Ups 4×5',
+    'Front-Squat 4×6',
+    'Power Clean 5×3',
+    'Push-Jerk 5×3',
+    'Dragon-Flag-Progression 4×6',
+    'Single-Leg-Deadlift 3×8 pro Bein',
+    'Ring-Dips 4×8',
+  ],
+};
+
+const CONDITIONING_POOL: Record<SkillLevel, string[]> = {
+  anfaenger: [
+    'Intervalle 5×1 Min schnell / 1 Min Pause',
+    'Treppenläufe 4×30 Sek',
+    '15 Min Dauerlauf locker',
+    'Tabata-Set 4 Min (Squat-Jumps)',
+    'Hügel-Walks 5×60 Sek',
+    'Kettlebell-Swings 4×15',
+    'Box-Step-Ups 4×40 Sek',
+    'Skipping 5×1 Min',
+  ],
+  fortgeschritten: [
+    'HIIT 8×30 Sek all-out / 30 Sek Pause',
+    'Tempolauf 4×5 Min @ Schwelle',
+    'Hügelsprints 6×60 m',
+    'Tabata 8×20/10 (Burpees)',
+    'EMOM 12 Min (10 Squats + 10 Push-Ups)',
+    'Rope Skipping 4×3 Min',
+    'Pyramide 1-2-3-2-1 Min',
+    'Sled-Pushes 6×30 m',
+  ],
+  profi: [
+    'VO2max Intervalle 6×3 Min',
+    'Tabata 8×20/10 mit Kettlebell',
+    'Lactate Threshold 3×10 Min',
+    'Sprint-Pyramide 100/200/300/200/100 m',
+    'Sled-Pushes 8×40 m',
+    'Assault-Bike Intervalle 8×40 Sek',
+    'Hill-Repeats 10×60 m all-out',
+    'Microburst-Block 30/15 Sek × 12',
+  ],
+};
+
+const RECOVERY_POOL = [
+  'Foam-Rolling Beinrückseite & Quadrizeps 10 Min',
+  'Yoga-Flow für Hüfte & Rücken 15 Min',
+  'Stretching Brust & Schultern 10 Min',
+  'Atemarbeit Box-Breathing 8 Min',
+  'Spaziergang locker 30 Min',
+  'Mobility-Routine Wirbelsäule 12 Min',
+  'Lockeres Schwimmen 20 Min',
+  'Yin-Yoga 20 Min',
+];
+
+const COOLDOWN_POOL = [
+  '5 Min lockeres Auslaufen',
+  'Statisches Stretching 8 Min',
+  'Mobility-Cool-down 6 Min',
+  'Atemberuhigung 4 Min',
+  'Foam-Rolling 8 Min',
+];
+
+/** Coach hints per day type — adds a personalized touch each day. */
+const DAY_HINTS: Record<DayType, string[]> = {
+  technique: [
+    'Heute Tempo runter — Saubere Technik schlägt Geschwindigkeit.',
+    'Filme dich kurz mit dem Handy und vergleiche mit einem Pro-Clip.',
+    'Achte auf jedes Detail — Wiederholung mit Fokus macht den Unterschied.',
+  ],
+  conditioning: [
+    'Bei den Intervallen wirklich pushen — die Pause ist die Belohnung.',
+    'Atmung in der Pause kontrollieren, nicht durch die Belastung hetzen.',
+    'Gefühlsskala 7–8/10 in den harten Phasen, sonst zu früh leer.',
+  ],
+  strength: [
+    'Technik vor Gewicht — auch wenn der Kollege mehr drauf hat.',
+    'Letzte 2 Wiederholungen sollten richtig anstrengend sein, nicht easy.',
+    '60–90 Sek Pause zwischen Sätzen, das ist Teil des Trainings.',
+  ],
+  play: [
+    'Heute Spielform-Fokus: aus Fehlern lernen, weniger über Ergebnis.',
+    'Wenn möglich mit besseren Partnern — du lernst am meisten dort.',
+    'Sprich mit deinem Trainer/Team — Feedback ist Gold wert.',
+  ],
+  recovery: [
+    'Keine Leistung heute — Schlaf, Wasser und Bewegung sind das Training.',
+    'Höre auf deinen Körper, weniger ist heute mehr.',
+    'Mobility-Tag heißt: zwischendurch lange dehnen, nicht hetzen.',
+  ],
+  mixed: [
+    'Kombi-Tag: leicht starten, dann steigern, am Ende auslaufen.',
+    'Wechsel zwischen Belastungsformen hält den Körper wach.',
+    'Heute geht es um Vielfalt — keine Übung dominiert.',
+  ],
+  long: [
+    'Lang heißt: locker beginnen, durchziehen, nicht überdrehen.',
+    'Trink- und Snack-Strategie im Voraus klären.',
+    'Mentale Ausdauer ist heute genauso wichtig wie körperliche.',
+  ],
+};
+
+const intensityForDay = (dayType: DayType, week: number, goal: Goal): Intensity => {
+  const base = DAY_TYPE_INTENSITY[dayType];
+  // Week 4: Deload for hypertrophy/strength/competition; peak for others.
+  if (week === 4) {
+    if (goal === 'Muskelaufbau' || goal === 'Wettkampf') {
+      if (base === 'high') return 'medium';
+      if (base === 'medium') return 'low';
+    } else {
+      if (base === 'medium') return 'high';
+    }
+  }
+  // Week 1: take it slower
+  if (week === 1) {
+    if (base === 'high' && goal !== 'Wettkampf') return 'medium';
+  }
+  return base;
+};
+
+const titleForDay = (sport: Sport, dayType: DayType): string => {
+  return `${DAY_TYPE_LABEL[dayType]} · ${sport.name}`;
+};
+
+const seededPick = <T,>(arr: T[], seed: number): T => arr[((seed % arr.length) + arr.length) % arr.length];
+
+const seededPickN = <T,>(arr: T[], n: number, seed: number): T[] => {
+  if (!arr.length) return [];
+  const result: T[] = [];
+  for (let i = 0; i < n; i++) {
+    result.push(arr[((seed + i * 3) % arr.length + arr.length) % arr.length]);
+  }
+  return result;
+};
+
+const sportDrills = (sport: Sport, level: SkillLevel): string[] =>
+  SPORT_DRILLS[sport.id]?.[level] ?? [];
+
+interface BuildDayArgs {
+  sport: Sport;
+  level: SkillLevel;
+  dayType: DayType;
+  week: number;
+  dayIdxInWeek: number;
+  duration: Duration;
+  goal: Goal;
+}
+
+const buildDay = ({ sport, level, dayType, week, dayIdxInWeek, duration, goal }: BuildDayArgs): TrainingDay => {
+  const intensity = intensityForDay(dayType, week, goal);
+  const seed = week * 7 + dayIdxInWeek + dayType.length;
+
+  const drills = sportDrills(sport, level);
+  const warmup = seededPick(WARMUP_BY_INTENSITY[intensity], seed);
+  const cooldown = seededPick(COOLDOWN_POOL, seed + 1);
+  const hint = seededPick(DAY_HINTS[dayType], seed + 2);
+
+  // How many "main" exercises depending on duration
+  const mainCount = duration <= 20 ? 2 : duration <= 45 ? 3 : duration <= 60 ? 4 : 5;
+
+  const main: string[] = [];
+
+  switch (dayType) {
+    case 'technique':
+      main.push(...seededPickN(drills, mainCount, seed));
+      break;
+    case 'play':
+      // Play day: 1-2 drills + open play
+      if (drills.length) main.push(...seededPickN(drills, Math.min(2, mainCount), seed));
+      main.push(duration >= 60 ? 'Freies Spiel / Live-Situationen 30 Min' : 'Freies Spiel / Live-Situationen 15 Min');
+      while (main.length < mainCount && drills.length) {
+        main.push(seededPick(drills, seed + main.length));
+      }
+      break;
+    case 'conditioning': {
+      const sportSpecific = drills.filter((d) =>
+        /sprint|interval|HIIT|Tabata|Lauf|Bahn|Ausfahrt|km|Sweet-Spot|Threshold|all-out|Tempolauf|Pyramide/i.test(d),
+      );
+      // Prefer sport-specific conditioning if available, else generic
+      if (sportSpecific.length >= mainCount - 1) {
+        main.push(...seededPickN(sportSpecific, mainCount, seed));
+      } else {
+        if (sportSpecific.length) main.push(seededPick(sportSpecific, seed));
+        const generic = seededPickN(CONDITIONING_POOL[level], mainCount - main.length, seed);
+        main.push(...generic);
+      }
+      break;
+    }
+    case 'strength': {
+      // 1-2 sport-specific (if relevant) + generic strength
+      const sportRelevantStrength = drills.filter((d) =>
+        /Kraft|Plyo|Sprung|Squat|Pull|Push|Klimmzug|Hip|Kettlebell|Liegestütz|Plank|Stand|Stand-/i.test(d),
+      );
+      if (sportRelevantStrength.length) main.push(seededPick(sportRelevantStrength, seed));
+      const generic = seededPickN(STRENGTH_POOL[level], mainCount - main.length, seed);
+      main.push(...generic);
+      break;
+    }
+    case 'recovery':
+      main.push(...seededPickN(RECOVERY_POOL, mainCount, seed));
+      break;
+    case 'mixed': {
+      // 1 technique + 1 conditioning + 1 strength
+      if (drills.length) main.push(seededPick(drills, seed));
+      main.push(seededPick(CONDITIONING_POOL[level], seed + 1));
+      if (mainCount >= 3) main.push(seededPick(STRENGTH_POOL[level], seed + 2));
+      while (main.length < mainCount) {
+        main.push(seededPick(drills.length ? drills : STRENGTH_POOL[level], seed + main.length + 5));
+      }
+      break;
+    }
+    case 'long': {
+      // Long day: one main long exercise + supporting
+      const sportSpecific = drills.length
+        ? seededPick(drills, seed)
+        : `${sport.name}: lange Einheit ${duration} Min`;
+      main.push(`${sportSpecific} (langer Block)`);
+      if (mainCount >= 3) main.push(seededPick(CONDITIONING_POOL[level], seed + 1));
+      while (main.length < mainCount && drills.length) {
+        main.push(seededPick(drills, seed + main.length));
+      }
+      break;
+    }
+  }
+
+  // Dedup exercises while preserving order
+  const seen = new Set<string>();
+  const uniqueMain = main.filter((m) => {
+    if (seen.has(m)) return false;
+    seen.add(m);
+    return true;
+  });
+
+  const exercises: string[] = [];
+  // Warm-up first
+  exercises.push(...warmup);
+  exercises.push(...uniqueMain);
+  // Cool-down
+  exercises.push(cooldown);
+  // Coach hint at the end so it stands out
+  exercises.push(`💡 ${hint}`);
+
+  return {
+    day: WEEKDAYS[0],
+    title: titleForDay(sport, dayType),
+    duration,
+    intensity,
+    exercises,
+  };
 };
 
 const buildTemplatePlan = (sport: Sport, level: SkillLevel, input: PlanInput): TrainingPlan => {
   const dayNames = pickDays(input.daysPerWeek);
-  const lib = EX_LIB[sport.id]?.[level] ?? fallbackExercises(level);
+  const basePattern =
+    DAY_PATTERNS[input.goal]?.[input.daysPerWeek] ?? DAY_PATTERNS[input.goal]?.[3] ?? ['technique', 'conditioning', 'recovery'];
 
   const weeks: TrainingWeek[] = [];
   for (let w = 1; w <= 4; w++) {
+    // Rotate pattern slightly per week so the same weekday isn't always the same type.
+    const offset = (w - 1) % basePattern.length;
+    const rotated = [...basePattern.slice(offset), ...basePattern.slice(0, offset)];
+
     const days: TrainingDay[] = dayNames.map((d, idx) => {
-      const start = ((w - 1) * 3 + idx) % lib.length;
-      const count = Math.min(lib.length, input.duration <= 20 ? 3 : input.duration <= 45 ? 4 : input.duration <= 60 ? 5 : 6);
-      const exercises: string[] = [];
-      for (let i = 0; i < count; i++) {
-        exercises.push(lib[(start + i) % lib.length]);
-      }
-      return {
-        day: d,
-        title: titleForDay(sport, w, input.goal, level),
+      const dayType = rotated[idx] ?? basePattern[idx % basePattern.length] ?? 'technique';
+      const day = buildDay({
+        sport,
+        level,
+        dayType,
+        week: w,
+        dayIdxInWeek: idx,
         duration: input.duration,
-        intensity: intensityForWeek(w, input.goal),
-        exercises,
-      };
+        goal: input.goal,
+      });
+      return { ...day, day: d };
     });
+
     weeks.push({ week: w, focus: FOCUS_BY_GOAL[input.goal][w - 1], days });
   }
 
   const coachNote = (() => {
-    const base = `4 Wochen ${sport.name} mit Fokus ${input.goal.toLowerCase()}, ${input.daysPerWeek}× pro Woche je ${input.duration} Min.`;
-    const time = input.time === 'Morgens'
-      ? 'Morgens trainiert es sich nüchtern besonders fokussiert — leichtes Frühstück danach.'
-      : input.time === 'Mittags'
-        ? 'Mittagseinheiten geben den ganzen Nachmittag Energie — achte auf gute Mahlzeiten-Abstände.'
-        : 'Abends ist Stress raus — lass dem Körper nach der Einheit Zeit zum Runterfahren.';
-    return `${base} ${time}`;
+    const base = `4 Wochen ${sport.name} mit Fokus ${input.goal.toLowerCase()}, ${input.daysPerWeek}× pro Woche je ${input.duration} Min auf Level ${LEVEL_DE[level]}.`;
+    const time =
+      input.time === 'Morgens'
+        ? 'Morgens trainiert es sich nüchtern besonders fokussiert — leichtes Frühstück danach.'
+        : input.time === 'Mittags'
+          ? 'Mittagseinheiten geben den ganzen Nachmittag Energie — achte auf gute Mahlzeiten-Abstände.'
+          : 'Abends ist Stress raus — lass dem Körper nach der Einheit Zeit zum Runterfahren.';
+    const variety =
+      'Jeder Tag hat einen eigenen Schwerpunkt (Technik, Kondition, Kraft, Spielform, Regeneration) — folge der Reihenfolge für beste Erholung.';
+    return `${base} ${variety} ${time}`;
   })();
 
   return { weeks, coachNote };
@@ -319,7 +678,6 @@ export function useTrainingPlan({ sport, level }: UseTrainingPlanArgs) {
   const generate = useCallback(
     async (input: PlanInput) => {
       setLoading(true);
-      // Brief artificial delay so the UI's "wird erstellt..." feels real.
       await new Promise((r) => window.setTimeout(r, 600));
       const result = buildTemplatePlan(sport, level, input);
       setPlan(result);
