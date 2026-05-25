@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Club } from '../types';
 import { getSportById, formatDistance } from '../utils/helpers';
+import { emojiForClub } from '../utils/clubVisuals';
 
 interface Props {
   club: Club;
@@ -8,6 +9,7 @@ interface Props {
 
 export const ClubCard = ({ club }: Props) => {
   const sport = getSportById(club.sportId);
+  const emoji = emojiForClub(club, sport);
   return (
     <Link
       to={`/club/${encodeURIComponent(club.id)}`}
@@ -18,7 +20,7 @@ export const ClubCard = ({ club }: Props) => {
           className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl text-3xl"
           style={{ background: `${sport?.color ?? '#0B0F14'}1a` }}
         >
-          {sport?.emoji ?? '🏅'}
+          {emoji}
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">

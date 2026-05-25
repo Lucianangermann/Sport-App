@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import { useAppStore } from '../store/useAppStore';
 import { findClubById, getSportById, xpForLevel, moduleKey } from '../utils/helpers';
+import { emojiForClub } from '../utils/clubVisuals';
 import { ProgressBar } from '../components/ProgressBar';
 import { CURRICULA } from '../data/modules';
 import { SPORTS } from '../data/sports';
@@ -169,7 +170,7 @@ export const ProfilePage = () => {
                         className="flex h-10 w-10 items-center justify-center rounded-xl text-xl"
                         style={{ background: `${sport?.color ?? '#0B0F14'}1a` }}
                       >
-                        {sport?.emoji ?? '🏅'}
+                        {club ? emojiForClub(club, sport) : sport?.emoji ?? '🏅'}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">

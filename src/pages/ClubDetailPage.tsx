@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { findClubById, getSportById, formatDistance } from '../utils/helpers';
+import { emojiForClub } from '../utils/clubVisuals';
 import { PageHeader } from '../components/PageHeader';
 
 export const ClubDetailPage = () => {
@@ -9,6 +10,7 @@ export const ClubDetailPage = () => {
   if (!club) return <Navigate to="/clubs" replace />;
   const sport = getSportById(club.sportId);
   const accent = sport?.color ?? '#0B0F14';
+  const emoji = emojiForClub(club, sport);
 
   const stats: Array<{ label: string; value: string }> = [
     { label: 'Entfernung', value: formatDistance(club.distanceKm) },
@@ -36,7 +38,7 @@ export const ClubDetailPage = () => {
           className="flex h-40 items-center justify-center rounded-2xl text-6xl"
           style={{ background: `${accent}1a`, color: accent }}
         >
-          {sport?.emoji ?? '🏅'}
+          {emoji}
         </div>
 
         <div
