@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "autoprefixer": "^10.5.0",
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^12.40.0",
     "postcss": "^8.5.15",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

@@ -23,19 +23,41 @@ import { MentorsPage } from './pages/community/MentorsPage';
 import { LiveSessionsPage } from './pages/community/LiveSessionsPage';
 import { SportMapPage } from './pages/community/SportMapPage';
 import { ClubCommunityPage } from './pages/community/ClubCommunityPage';
+import { GamificationHubPage } from './features/gamification/pages/GamificationHubPage';
+import { PassportPage } from './features/gamification/pages/PassportPage';
+import { DuellPage } from './features/gamification/pages/DuellPage';
+import { SeasonPage } from './features/gamification/pages/SeasonPage';
+import { LootBoxPage } from './features/gamification/pages/LootBoxPage';
+import { InventoryPage } from './features/gamification/pages/InventoryPage';
+import { QuestsPage } from './features/gamification/pages/QuestsPage';
+import { BadgeUnlockModal } from './features/gamification/components/BadgeUnlockModal';
+import { useGameEvents } from './features/gamification/hooks/useGameEvents';
 
 const RequireOnboarding = ({ children }: { children: JSX.Element }) => {
   const done = useAppStore((s) => s.profile.onboardingComplete);
   return done ? children : <Navigate to="/onboarding" replace />;
 };
 
+const GameLayer = () => {
+  useGameEvents();
+  return <BadgeUnlockModal />;
+};
+
 export default function App() {
   return (
     <BrowserRouter>
+      <GameLayer />
       <Routes>
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/quiz" element={<RequireOnboarding><SportMatchQuiz /></RequireOnboarding>} />
         <Route element={<RequireOnboarding><AppLayout /></RequireOnboarding>}>
+          <Route path="/gamification" element={<GamificationHubPage />} />
+          <Route path="/gamification/passport" element={<PassportPage />} />
+          <Route path="/gamification/duels" element={<DuellPage />} />
+          <Route path="/gamification/season" element={<SeasonPage />} />
+          <Route path="/gamification/lootbox" element={<LootBoxPage />} />
+          <Route path="/gamification/inventory" element={<InventoryPage />} />
+          <Route path="/gamification/quests" element={<QuestsPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/sport/:id/plan" element={<TrainingPlanGenerator />} />
           <Route path="/discover" element={<DiscoverPage />} />
@@ -57,6 +79,7 @@ export default function App() {
           <Route path="/community/live" element={<LiveSessionsPage />} />
           <Route path="/community/map" element={<SportMapPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+
         </Route>
       </Routes>
     </BrowserRouter>

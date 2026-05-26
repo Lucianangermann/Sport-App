@@ -3,10 +3,14 @@ import { useAppStore } from '../store/useAppStore';
 import { SPORTS } from '../data/sports';
 import { SportCard } from '../components/SportCard';
 import { ClubCard } from '../components/ClubCard';
-import { greeting, getRecommendedSports, getSportById, xpForLevel } from '../utils/helpers';
+import { greeting, getRecommendedSports, getSportById } from '../utils/helpers';
 import { SmartRecommendations } from '../features/recommendations/SmartRecommendations';
 import { WeeklyInsights } from '../features/insights/WeeklyInsights';
 import { useNearbyClubs } from '../hooks/useNearbyClubs';
+import { useXpStore } from '../features/gamification/store/xpStore';
+import { useBadgeStore } from '../features/gamification/store/badgeStore';
+import { useQuestStore } from '../features/gamification/store/questStore';
+import { useLootStore } from '../features/gamification/store/lootStore';
 
 export const HomePage = () => {
   const profile = useAppStore((s) => s.profile);
@@ -21,7 +25,14 @@ export const HomePage = () => {
     radiusKm: 5,
   });
   const nearby = nearbyAll.slice(0, 3);
-  const { level, progress } = xpForLevel(profile.xp);
+  const level = useXpStore((s) => s.level);
+  const xp = useXpStore((s) => s.xp);
+  const xpProgress = useXpStore((s) => s.xpProgress);
+  const levelTitle = useXpStore((s) => s.levelTitle);
+  const unlockedBadges = useBadgeStore((s) => s.unlockedBadges);
+  const dailyQuests = useQuestStore((s) => s.dailyQuests);
+  const completedQuests = dailyQuests.filter((q) => q.completed).length;
+  const availableCrates = useLootStore((s) => s.availableCrates);
 
   return (
     <div>
@@ -37,13 +48,14 @@ export const HomePage = () => {
         </div>
 
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <div className="rounded-2xl bg-white/10 p-3">
+          <Link to="/gamification" className="rounded-2xl bg-white/10 p-3 active:bg-white/20">
             <div className="text-[11px] uppercase text-white/60">Level</div>
             <div className="font-display text-xl font-bold">{level}</div>
-          </div>
+            <div className="text-[10px] text-white/50">{levelTitle}</div>
+          </Link>
           <div className="rounded-2xl bg-white/10 p-3">
             <div className="text-[11px] uppercase text-white/60">XP</div>
-            <div className="font-display text-xl font-bold">{profile.xp}</div>
+            <div className="font-display text-xl font-bold">{xp.toLocaleString('de-DE')}</div>
           </div>
           <div className="rounded-2xl bg-white/10 p-3">
             <div className="text-[11px] uppercase text-white/60">Streak</div>
@@ -53,7 +65,7 @@ export const HomePage = () => {
         <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
           <div
             className="h-full rounded-full bg-white transition-all"
-            style={{ width: `${Math.round(progress * 100)}%` }}
+            style={{ width: `${Math.round(xpProgress)}%` }}
           />
         </div>
       </header>
@@ -72,6 +84,25 @@ export const HomePage = () => {
           </div>
           <span className="text-white/80">→</span>
         </Link>
+
+        <div className="grid grid-cols-2 gap-2">
+          <Link
+            to="/gamification"
+            className="flex flex-col rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 p-4 text-white shadow-card"
+          >
+            <div className="text-2xl">🏆</div>
+            <div className="mt-1 font-display text-sm font-bold">Achievements</div>
+            <div className="mt-0.5 text-[11px] text-white/70">{unlockedBadges.length} Badges</div>
+          </Link>
+          <Link
+            to="/gamification/quests"
+            className="flex flex-col rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 p-4 text-white shadow-card"
+          >
+            <div className="text-2xl">📋</div>
+            <div className="mt-1 font-display text-sm font-bold">Quests</div>
+            <div className="mt-0.5 text-[11px] text-white/70">{completedQuests}/3 heute{availableCrates > 0 ? ' · 📦' : ''}</div>
+          </Link>
+        </div>
 
         <WeeklyInsights />
 
