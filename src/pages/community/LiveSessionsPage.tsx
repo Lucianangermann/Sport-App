@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { LiveSession } from '../../data/community';
 import { PageHeader } from '../../components/PageHeader';
+import { DemoDataNotice } from '../../components/DemoDataNotice';
 import { useCommunityStore } from '../../features/community/store/communityStore';
 import { UserAvatar } from '../../features/community/components/UserAvatar';
 import { LiveBadge } from '../../features/community/components/LiveBadge';
@@ -59,6 +60,7 @@ export const LiveSessionsPage = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-ink-900 pb-24">
       <PageHeader title="Live Sessions" back />
+      <DemoDataNotice className="mx-5 mt-3" />
 
       <div className="px-5 space-y-8 pt-4">
         {liveSession && (

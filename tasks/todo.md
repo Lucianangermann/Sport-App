@@ -28,9 +28,22 @@ Legitime Effekt-State-Machines (begründetes scoped disable):
       als eigene Chunks; 500-kB-Warnung weg
 - [x] Verifiziert: build (viele Chunks), eslint exit 0, Dev-Boot HTTP 200
 
-## 4.4 — Community-Fixtures ehrlich kennzeichnen
-- [ ] Statische Demo-Inhalte als „Beispieldaten" markieren statt als „live"
-- [ ] Verifizieren: build + sinnvolle, unaufdringliche Kennzeichnung
+## 4.4 — Community-Fixtures ehrlich kennzeichnen ← ABGESCHLOSSEN
+- [x] Wiederverwendbare `DemoDataNotice` (dezent, gestrichelt, ℹ️)
+- [x] Auf Community-Hub + 6 Unterseiten (Feed, Challenges, Buddies, Mentoren,
+      Live, Map) platziert
+- [x] Verifiziert: build ✓, eslint exit 0, 20 Tests ✓, Dev-Boot HTTP 200
 
-## Review
-(wird gefüllt)
+## Review (Phase 4)
+- 4.1 Badge-Demo-Seed entfernt — neue Nutzer starten ehrlich bei 0.
+- 4.2 Lint von 24 Problemen → 0. Zwei echte rules-of-hooks-Bugs strukturell
+  behoben (Wrapper/Inner-Split). Übrige als saubere Wertfixes oder begründete,
+  gezielte Disables für legitime Effekt-Sync-Fälle.
+- 4.3 Code-Splitting: Haupt-Bundle 987 kB → 440 kB; Inhalte laden per Route.
+- 4.4 Community-Demo-Inhalte ehrlich als „Beispieldaten" gekennzeichnet.
+- Jede Teilaufgabe einzeln verifiziert (build/lint/test/boot) und committet+gepusht.
+
+### Bewusst nicht geändert
+- lootStore `availableCrates: 1` = Willkommensgeschenk (kein Fake-Fortschritt).
+- DuellPage/Community-Stores enthalten Mock-Gegner/Inhalte — als Feature-Demo
+  nötig; jetzt durch DemoDataNotice transparent.

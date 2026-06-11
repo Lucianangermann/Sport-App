@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { CommunityUser } from '../../data/community';
 import { PageHeader } from '../../components/PageHeader';
+import { DemoDataNotice } from '../../components/DemoDataNotice';
 import { UserAvatar } from '../../features/community/components/UserAvatar';
 import { MatchScoreBadge } from '../../features/community/components/MatchScoreBadge';
 import { SportBadge } from '../../features/community/components/SportBadge';
@@ -325,6 +326,7 @@ export const BuddyFinderPage = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-ink-900">
       <PageHeader title="Trainingspartner" subtitle="Finde deinen perfect Match" back />
+      <DemoDataNotice className="mx-5 mt-3" />
 
       <div className="space-y-3 pt-4 pb-24">
         <div className="no-scrollbar overflow-x-auto px-5">

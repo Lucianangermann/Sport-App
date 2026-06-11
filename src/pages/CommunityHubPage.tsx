@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
+import { DemoDataNotice } from '../components/DemoDataNotice';
 import { useCommunityStore } from '../features/community/store/communityStore';
 import { StoryRing } from '../features/community/components/StoryRing';
 
@@ -81,6 +82,7 @@ export const CommunityHubPage = () => {
       <PageHeader title="Community" subtitle="Trainiere mit anderen" />
 
       <div className="space-y-6 px-5 pt-5 pb-8">
+        <DemoDataNotice />
         {activeUsers.length > 0 && (
           <section>
             <h2 className="mb-3 font-display text-base font-bold text-ink-900 dark:text-white">

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Mentor } from '../../data/community';
 import { mockMentors } from '../../data/community';
 import { PageHeader } from '../../components/PageHeader';
+import { DemoDataNotice } from '../../components/DemoDataNotice';
 import { UserAvatar } from '../../features/community/components/UserAvatar';
 
 const getNextDates = (): string[] => {
@@ -240,6 +241,7 @@ export const MentorsPage = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-ink-900">
       <PageHeader title="Mentoren" subtitle="Lerne von den Besten" back />
+      <DemoDataNotice className="mx-5 mt-3" />
 
       <div className="space-y-4 pt-4 pb-24">
         <div className="no-scrollbar overflow-x-auto px-5">

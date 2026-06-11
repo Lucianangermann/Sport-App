@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
 import { PageHeader } from '../../components/PageHeader';
+import { DemoDataNotice } from '../../components/DemoDataNotice';
 import { useCommunityStore } from '../../features/community/store/communityStore';
 import { LeaderboardRow } from '../../features/community/components/LeaderboardRow';
 import type { Challenge } from '../../data/community';
@@ -342,6 +343,7 @@ export const ChallengesPage = () => {
   return (
     <div className="pb-24">
       <PageHeader title="Challenges" back />
+      <DemoDataNotice className="mx-5 mt-3" />
 
       <div className="space-y-6 pt-4">
         {activeChallenges.length > 0 && (

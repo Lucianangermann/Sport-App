@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { PageHeader } from '../../components/PageHeader';
+import { DemoDataNotice } from '../../components/DemoDataNotice';
 import { useCommunityStore } from '../../features/community/store/communityStore';
 import { UserAvatar } from '../../features/community/components/UserAvatar';
 import { ReactionBar } from '../../features/community/components/ReactionBar';
@@ -299,6 +300,7 @@ export const FeedPage = () => {
   return (
     <div className="relative pb-24">
       <PageHeader title="Community Feed" back />
+      <DemoDataNotice className="mx-5 mt-3" />
 
       <div className="space-y-6 px-4 pt-4">
         <section>

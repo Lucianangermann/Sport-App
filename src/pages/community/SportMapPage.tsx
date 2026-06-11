@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Spot } from '../../data/community';
 import { useCommunityStore } from '../../features/community/store/communityStore';
 import { PageHeader } from '../../components/PageHeader';
+import { DemoDataNotice } from '../../components/DemoDataNotice';
 
 // Leaflet is loaded from a CDN as an untyped global — no @types/leaflet installed.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,6 +115,7 @@ export const SportMapPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-ink-900">
       <PageHeader title="Sportkarte" subtitle="München & Umgebung" back />
+      <DemoDataNotice className="mx-5 mt-3" />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="px-4 pt-3">
