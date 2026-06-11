@@ -2,22 +2,25 @@
 
 Reihenfolge (jeder Punkt einzeln verifiziert + committet):
 
-## 4.1 — Badge-Demo-Seed entfernen
-- [ ] `badgeStore`: `DEMO_UNLOCKED` + Showcase-Seed raus (neue Nutzer starten leer)
-- [ ] prüfen, ob weitere Stores Demo-Seeds haben (quest/duel/season/loot)
-- [ ] Verifizieren: build + UI-Logik (leere Zustände brechen nicht)
+## 4.1 — Badge-Demo-Seed entfernen ← ABGESCHLOSSEN
+- [x] `badgeStore`: `DEMO_UNLOCKED` + Showcase-Seed raus (neue Nutzer starten leer)
+- [x] geprüft: lootStore availableCrates:1 = bewusstes Willkommensgeschenk, bleibt
+- [x] Verifiziert: build + tests grün
 
-## 4.2 — Lint vollständig grün (`npm run lint` exit 0)
-ECHTE Bugs zuerst:
-- [ ] TrainingPlanGenerator.tsx: Hooks bedingt aufgerufen (rules-of-hooks)
-- [ ] SportDetailPage.tsx: useNearbyClubs bedingt aufgerufen (rules-of-hooks)
-Dann Rest:
-- [ ] LiveSessionsPage.tsx: Math.random im Render (purity)
-- [ ] SportMapPage.tsx: any-Typen + exhaustive-deps
-- [ ] MentorsPage.tsx: prefer-const
-- [ ] overpass.ts: useless-assignment + unused var
-- [ ] useRecommendations.ts: var-before-declared / memoization
-- [ ] useCoach.ts, LootBoxPage.tsx, SportMatchQuiz.tsx, useNearbyClubs.ts: Rest
+## 4.2 — Lint vollständig grün (`npm run lint` exit 0) ← ABGESCHLOSSEN
+ECHTE Bugs (Wrapper/Inner-Split, Hooks jetzt unbedingt):
+- [x] TrainingPlanGenerator.tsx: rules-of-hooks behoben
+- [x] SportDetailPage.tsx: rules-of-hooks behoben
+Saubere Wertfixes:
+- [x] LiveSessionsPage.tsx: Math.random/Date.now → Modul-Helper, left im State
+- [x] SportMapPage.tsx: Leaflet-any begründet disabled (CDN-Global), deps-Hinweis
+- [x] MentorsPage.tsx: let→const
+- [x] overpass.ts: definite assignment + varsIgnorePattern '^_' in eslint config
+- [x] SportMatchQuiz.tsx: animKey-Effect → key={currentIdx} (Effect entfernt)
+- [x] useRecommendations.ts: lazy-init + generate vor Effect (3 Fehler weg)
+Legitime Effekt-State-Machines (begründetes scoped disable):
+- [x] useNearbyClubs / LootBoxPage / useCoach: set-state-in-effect Sync-Fälle
+- [x] Verifiziert: eslint exit 0, build ✓, 20 Tests ✓, Dev-Boot HTTP 200 ✓
 
 ## 4.3 — Route-basiertes Code-Splitting
 - [ ] App.tsx: Routen via React.lazy + Suspense (Bundle ~987 kB aufteilen)

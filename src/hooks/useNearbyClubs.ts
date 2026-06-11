@@ -47,9 +47,13 @@ export const useNearbyClubs = ({ sportId, radiusKm }: UseNearbyClubsArgs): UseNe
 
   useEffect(() => {
     if (!sportId) {
+      // Reset derived state when there's no sport to query. This effect is the
+      // canonical geolocation+network sync, so synchronous resets here are fine.
+      /* eslint-disable react-hooks/set-state-in-effect */
       setClubs([]);
       setPosition(null);
       setEffectiveRadiusKm(radiusKm);
+      /* eslint-enable react-hooks/set-state-in-effect */
       return;
     }
 

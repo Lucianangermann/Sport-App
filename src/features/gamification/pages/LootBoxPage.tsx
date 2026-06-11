@@ -150,6 +150,8 @@ export const LootBoxPage = () => {
     }
     if (phase === 'revealing') {
       if (recentOpening) {
+        // Part of the timer-driven open/reveal phase machine.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setRevealedItem(recentOpening);
         if (recentOpening.rarity === 'epic') triggerConfetti('medium');
         if (recentOpening.rarity === 'legendary') triggerConfetti('large');

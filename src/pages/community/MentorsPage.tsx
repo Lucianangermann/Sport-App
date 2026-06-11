@@ -7,7 +7,7 @@ import { UserAvatar } from '../../features/community/components/UserAvatar';
 const getNextDates = (): string[] => {
   const result: string[] = [];
   const base = new Date('2026-05-25T00:00:00Z');
-  let current = new Date(base);
+  const current = new Date(base);
   while (result.length < 3) {
     current.setDate(current.getDate() + 1);
     const day = current.getDay();

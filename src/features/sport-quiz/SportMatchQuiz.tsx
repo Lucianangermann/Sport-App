@@ -67,12 +67,6 @@ export const SportMatchQuiz = () => {
     retry,
   } = useQuiz();
 
-  // Re-trigger animations on question change
-  const [animKey, setAnimKey] = useState(0);
-  useEffect(() => {
-    setAnimKey((k) => k + 1);
-  }, [currentIdx]);
-
   return (
     <div className="app-shell">
       <div className="flex-1 overflow-y-auto px-5 pb-10 pt-8">
@@ -138,7 +132,7 @@ export const SportMatchQuiz = () => {
         )}
 
         {step === 'questions' && currentQuestion && (
-          <div key={animKey} className="animate-slide-up space-y-5">
+          <div key={currentIdx} className="animate-slide-up space-y-5">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Frage {currentIdx + 1} von {totalQuestions}
             </div>

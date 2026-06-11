@@ -139,8 +139,9 @@ const classify = (tags: Record<string, string>, cfg: SportQuery): Classification
   const isSportsCentre = leisure === 'sports_centre' || leisure === 'sport_centre';
   const isPitchLike = leisure === 'pitch' || leisure === 'stadium' || leisure === 'track';
 
-  let score = 0;
-  let kind = 'Verein';
+  // Assigned in every branch below (the final `else` returns), so no init.
+  let score: number;
+  let kind: string;
   let multiSport = false;
 
   if (sportMatch && isClub) {

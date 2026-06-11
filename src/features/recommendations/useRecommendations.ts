@@ -180,30 +180,31 @@ const EMOJI_MAP: Record<string, string> = {
   tanzen: '💃', parkour: '🤸', reiten: '🐎', golf: '⛳️',
 };
 
+/** Read this hour's cached recommendation (or decide we must generate one).
+ *  Lives at module scope so its impure reads (localStorage, clock) stay out of
+ *  the component's render path and can seed state lazily. */
+function readInitialRecState(): {
+  rec: Recommendation | null;
+  dismissed: boolean;
+  shouldGenerate: boolean;
+} {
+  const cached = loadCache();
+  const now = hourBucket(new Date());
+  if (cached) {
+    if (cached.dismissedHourBucket === now) return { rec: null, dismissed: true, shouldGenerate: false };
+    if (cached.hourBucket === now) return { rec: cached.rec, dismissed: false, shouldGenerate: false };
+  }
+  return { rec: null, dismissed: false, shouldGenerate: true };
+}
+
 export function useRecommendations() {
   const favorites = useAppStore((s) => s.favorites);
   const locationEnabled = useAppStore((s) => s.profile.settings.locationEnabled);
-  const [rec, setRec] = useState<Recommendation | null>(null);
-  const [dismissed, setDismissed] = useState(false);
+  const [initial] = useState(readInitialRecState);
+  const [rec, setRec] = useState<Recommendation | null>(initial.rec);
+  const [dismissed, setDismissed] = useState(initial.dismissed);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const cached = loadCache();
-    const now = hourBucket(new Date());
-    if (cached) {
-      if (cached.dismissedHourBucket === now) {
-        setDismissed(true);
-        return;
-      }
-      if (cached.hourBucket === now) {
-        setRec(cached.rec);
-        return;
-      }
-    }
-    void generate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const generate = useCallback(async () => {
     setLoading(true);
@@ -244,6 +245,16 @@ export function useRecommendations() {
       setLoading(false);
     }
   }, [favorites, locationEnabled]);
+
+  // On mount: if no fresh cache was found, generate a recommendation. State for
+  // a cache hit is already seeded via readInitialRecState, so the effect does no
+  // synchronous setState of its own.
+  useEffect(() => {
+    // Canonical fetch-on-mount; generate() flips its own loading flag.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (initial.shouldGenerate) void generate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const dismiss = useCallback(() => {
     setDismissed(true);

@@ -3,6 +3,8 @@ import type { Spot } from '../../data/community';
 import { useCommunityStore } from '../../features/community/store/communityStore';
 import { PageHeader } from '../../components/PageHeader';
 
+// Leaflet is loaded from a CDN as an untyped global — no @types/leaflet installed.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const L: any;
 
 const TYPE_EMOJI_MAP: Record<string, string> = {
@@ -35,6 +37,7 @@ export const SportMapPage = () => {
   const { spots, checkInSpot, addSpot } = useCommunityStore();
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInitialized = useRef(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped Leaflet map instance
   const mapInstanceRef = useRef<any>(null);
 
   const [selectedFilter, setSelectedFilter] = useState<string>('Alle');
@@ -75,6 +78,8 @@ export const SportMapPage = () => {
     });
 
     mapInstanceRef.current = map;
+    // Map is initialised once; later `spots` changes are handled elsewhere.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSpotCardClick = (spot: Spot) => {

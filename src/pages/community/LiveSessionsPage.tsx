@@ -9,9 +9,17 @@ import { SportBadge } from '../../features/community/components/SportBadge';
 interface FloatingEmoji {
   id: number;
   emoji: string;
+  /** Horizontal position in % — fixed once when the emoji is spawned. */
+  left: number;
 }
 
 const REACTIONS = ['🔥', '❤️', '💪', '👏', '🙌'];
+
+// Kept at module scope so the impure id/position generation happens outside the
+// component body (React components must be pure during render).
+let emojiIdSeq = 0;
+const nextEmojiId = () => (emojiIdSeq += 1);
+const randomLeftPct = () => 20 + Math.random() * 60;
 
 const formatSessionDate = (iso: string): string => {
   const date = new Date(iso);
@@ -36,8 +44,8 @@ export const LiveSessionsPage = () => {
   const upcoming = liveSessions.filter((s) => s.id !== liveSession?.id);
 
   const handleReaction = (emoji: string) => {
-    const id = Date.now() + Math.random();
-    setFloatingEmojis((prev) => [...prev, { id, emoji }]);
+    const id = nextEmojiId();
+    setFloatingEmojis((prev) => [...prev, { id, emoji, left: randomLeftPct() }]);
     setTimeout(() => {
       setFloatingEmojis((prev) => prev.filter((e) => e.id !== id));
     }, 1000);
@@ -225,7 +233,7 @@ export const LiveSessionsPage = () => {
                 <span
                   key={fe.id}
                   className="absolute bottom-32 left-1/2 -translate-x-1/2 text-3xl animate-bounce"
-                  style={{ left: `${20 + Math.random() * 60}%` }}
+                  style={{ left: `${fe.left}%` }}
                 >
                   {fe.emoji}
                 </span>

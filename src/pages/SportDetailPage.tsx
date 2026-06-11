@@ -4,7 +4,7 @@ import { getSportById, moduleKey } from '../utils/helpers';
 import { useNearbyClubs } from '../hooks/useNearbyClubs';
 import { useAppStore } from '../store/useAppStore';
 import { CURRICULA, LEVEL_LABELS } from '../data/modules';
-import type { SkillLevel } from '../types';
+import type { SkillLevel, Sport } from '../types';
 import { ProgressBar } from '../components/ProgressBar';
 import { ClubCard } from '../components/ClubCard';
 import { SportCoach } from '../features/ai-coach/SportCoach';
@@ -14,6 +14,13 @@ const LEVELS: SkillLevel[] = ['anfaenger', 'fortgeschritten', 'profi'];
 export const SportDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const sport = id ? getSportById(id) : undefined;
+  // Guard here, before any feature hooks, so the content component can call all
+  // its hooks unconditionally with a guaranteed `sport`.
+  if (!sport) return <Navigate to="/discover" replace />;
+  return <SportDetailContent sport={sport} />;
+};
+
+const SportDetailContent = ({ sport }: { sport: Sport }) => {
   const setLastSport = useAppStore((s) => s.setLastSport);
   const favorites = useAppStore((s) => s.favorites);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
@@ -21,12 +28,11 @@ export const SportDetailPage = () => {
   const [coachOpen, setCoachOpen] = useState(false);
 
   useEffect(() => {
-    if (id && sport) setLastSport(id);
-  }, [id, sport, setLastSport]);
+    setLastSport(sport.id);
+  }, [sport.id, setLastSport]);
 
   // Derive active level + completed modules for coach context
   const { activeLevel, completedModules } = useMemo(() => {
-    if (!sport) return { activeLevel: 'anfaenger' as SkillLevel, completedModules: [] };
     const c = CURRICULA[sport.id];
     const allCompleted = (['anfaenger', 'fortgeschritten', 'profi'] as const).flatMap((lvl) =>
       c[lvl].filter((m) => progress[moduleKey(sport.id, lvl, m.id)]),
@@ -38,8 +44,6 @@ export const SportDetailPage = () => {
       lvl = 'fortgeschritten';
     return { activeLevel: lvl, completedModules: allCompleted };
   }, [sport, progress]);
-
-  if (!sport) return <Navigate to="/discover" replace />;
 
   const curriculum = CURRICULA[sport.id];
   const isFav = favorites.includes(sport.id);

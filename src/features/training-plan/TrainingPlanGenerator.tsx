@@ -4,7 +4,7 @@ import { PageHeader } from '../../components/PageHeader';
 import { CURRICULA } from '../../data/modules';
 import { getSportById, moduleKey } from '../../utils/helpers';
 import { useAppStore } from '../../store/useAppStore';
-import type { SkillLevel } from '../../types';
+import type { SkillLevel, Sport } from '../../types';
 import {
   useTrainingPlan,
   type Duration,
@@ -94,10 +94,15 @@ const DayCard = ({ day, sportColor }: { day: TrainingDay; sportColor: string }) 
 
 export const TrainingPlanGenerator = () => {
   const { id } = useParams<{ id: string }>();
-  const progress = useAppStore((s) => s.progress);
   const sport = id ? getSportById(id) : undefined;
-
+  // Guard before any feature hooks; the content component then calls all its
+  // hooks unconditionally with a guaranteed `sport`.
   if (!sport) return <Navigate to="/discover" replace />;
+  return <TrainingPlanContent sport={sport} />;
+};
+
+const TrainingPlanContent = ({ sport }: { sport: Sport }) => {
+  const progress = useAppStore((s) => s.progress);
   const level = deriveLevel(sport.id, progress);
   const { plan, lastInput, loading, error, generate, reset } = useTrainingPlan({ sport, level });
 

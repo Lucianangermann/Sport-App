@@ -241,8 +241,11 @@ export function useCoach({ sport, level, completedModules }: UseCoachArgs) {
   const abortRef = useRef<{ aborted: boolean } | null>(null);
 
   useEffect(() => {
+    // Re-sync chat history from localStorage when the sport changes.
+    /* eslint-disable react-hooks/set-state-in-effect */
     setHistory(loadHistory(sport.id));
     setStreamingText('');
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [sport.id]);
 
   const send = useCallback(
