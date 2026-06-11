@@ -85,7 +85,9 @@ interface XpState {
   setMultiplier: (m: number) => void;
 }
 
-const INITIAL_XP = 2340;
+// New users start at level 1. (Previously seeded to a demo value of 2340,
+// which dropped real first-time users in around level 5.)
+const INITIAL_XP = 0;
 const initialLevelInfo = calcLevel(INITIAL_XP);
 
 export const useXpStore = create<XpState>()(

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/PageHeader';
 import { useAppStore } from '../store/useAppStore';
-import { findClubById, getSportById, xpForLevel, moduleKey } from '../utils/helpers';
+import { findClubById, getSportById, moduleKey } from '../utils/helpers';
+import { useXpStore } from '../features/gamification/store/xpStore';
 import { emojiForClub } from '../utils/clubVisuals';
 import { ProgressBar } from '../components/ProgressBar';
 import { CURRICULA } from '../data/modules';
@@ -32,7 +33,11 @@ export const ProfilePage = () => {
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(profile.name);
 
-  const { level, progress: levelPct, nextThreshold } = xpForLevel(profile.xp);
+  const level = useXpStore((s) => s.level);
+  const xp = useXpStore((s) => s.xp);
+  const xpProgress = useXpStore((s) => s.xpProgress);
+  const xpToNextLevel = useXpStore((s) => s.xpToNextLevel);
+  const levelPct = xpProgress / 100; // ProgressBar expects 0–1
 
   const sportsInProgress = SPORTS.filter((s) => {
     const c = CURRICULA[s.id];
@@ -74,14 +79,14 @@ export const ProfilePage = () => {
                 <div className="font-display text-xl font-bold">{profile.name}</div>
               )}
               <div className="text-xs text-white/70">
-                Level {level} · {profile.xp} XP
+                Level {level} · {xp.toLocaleString('de-DE')} XP
               </div>
             </div>
           </div>
           <div className="mt-4">
             <ProgressBar value={levelPct} color="rgba(255,255,255,0.95)" />
             <div className="mt-1 text-[11px] text-white/70">
-              {nextThreshold - profile.xp} XP bis Level {level + 1}
+              {xpToNextLevel.toLocaleString('de-DE')} XP bis Level {level + 1}
             </div>
           </div>
           {editing && (

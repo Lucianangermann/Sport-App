@@ -8,6 +8,7 @@ import type {
   UserProfile,
 } from '../types';
 import { moduleKey } from '../utils/helpers';
+import { emit } from '../lib/events';
 
 interface AppState {
   profile: UserProfile;
@@ -20,7 +21,7 @@ interface AppState {
   setProfileName: (name: string) => void;
   setAvatar: (emoji: string) => void;
   toggleFavorite: (sportId: string) => void;
-  toggleModule: (sportId: string, level: SkillLevel, moduleId: string, xpDelta?: number) => void;
+  toggleModule: (sportId: string, level: SkillLevel, moduleId: string) => void;
   setLastSport: (sportId: string) => void;
   completeOnboarding: (answers: OnboardingAnswers) => void;
   resetOnboarding: () => void;
@@ -32,7 +33,6 @@ interface AppState {
 const defaultProfile: UserProfile = {
   name: 'Sportler:in',
   avatarEmoji: '🏃',
-  xp: 0,
   streakDays: 0,
   lastActivityDate: null,
   onboardingComplete: false,
@@ -77,21 +77,18 @@ export const useAppStore = create<AppState>()(
             : [...s.favorites, sportId],
         })),
 
-      toggleModule: (sportId, level, moduleId, xpDelta = 25) => {
+      toggleModule: (sportId, level, moduleId) => {
         const key = moduleKey(sportId, level, moduleId);
         const { progress, profile } = get();
         const wasCompleted = !!progress[key];
         const nextProgress = { ...progress };
-        let nextXp = profile.xp;
         let nextStreak = profile.streakDays;
         let nextLast = profile.lastActivityDate;
 
         if (wasCompleted) {
           delete nextProgress[key];
-          nextXp = Math.max(0, nextXp - xpDelta);
         } else {
           nextProgress[key] = { completedAt: new Date().toISOString() };
-          nextXp += xpDelta;
           const today = todayISO();
           if (!profile.lastActivityDate) {
             nextStreak = 1;
@@ -106,17 +103,31 @@ export const useAppStore = create<AppState>()(
 
         set({
           progress: nextProgress,
-          profile: { ...profile, xp: nextXp, streakDays: nextStreak, lastActivityDate: nextLast },
+          profile: { ...profile, streakDays: nextStreak, lastActivityDate: nextLast },
           lastSportId: sportId,
         });
+
+        // Emit *after* committing state, so subscribers (gamification, quests)
+        // see the new world. XP/level/streak rewards now live entirely in the
+        // event subscribers — see useGameEvents.
+        if (wasCompleted) {
+          emit('module.uncompleted', { sportId, level, moduleId });
+        } else {
+          emit('module.completed', { sportId, level, moduleId });
+          if (nextStreak > profile.streakDays) {
+            emit('streak.advanced', { days: nextStreak });
+          }
+        }
       },
 
       setLastSport: (sportId) => set({ lastSportId: sportId }),
 
-      completeOnboarding: (answers) =>
+      completeOnboarding: (answers) => {
         set((s) => ({
           profile: { ...s.profile, onboarding: answers, onboardingComplete: true },
-        })),
+        }));
+        emit('onboarding.completed', {});
+      },
 
       resetOnboarding: () =>
         set((s) => ({
@@ -131,6 +142,7 @@ export const useAppStore = create<AppState>()(
           status: 'sent',
         };
         set((s) => ({ inquiries: [full, ...s.inquiries] }));
+        emit('inquiry.sent', { clubId: full.clubId });
         return full;
       },
 

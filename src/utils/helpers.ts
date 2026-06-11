@@ -32,19 +32,6 @@ export const getRecommendedSports = (answers: OnboardingAnswers, limit = 5): Spo
 export const moduleKey = (sportId: string, level: SkillLevel, moduleId: string) =>
   `${sportId}:${level}:${moduleId}`;
 
-export const xpForLevel = (xp: number) => {
-  // Each level threshold: 0, 100, 250, 500, 1000, 2000, ...
-  const thresholds = [0, 100, 250, 500, 1000, 2000, 4000, 8000];
-  let level = 1;
-  for (let i = 0; i < thresholds.length; i++) {
-    if (xp >= thresholds[i]) level = i + 1;
-  }
-  const nextThreshold = thresholds[level] ?? thresholds[thresholds.length - 1];
-  const prevThreshold = thresholds[level - 1] ?? 0;
-  const progress = Math.min(1, (xp - prevThreshold) / Math.max(1, nextThreshold - prevThreshold));
-  return { level, nextThreshold, prevThreshold, progress };
-};
-
 export const formatDistance = (km: number) => (km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`);
 
 export const greeting = (name: string) => {

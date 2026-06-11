@@ -106,7 +106,7 @@ export interface OnboardingAnswers {
 export interface UserProfile {
   name: string;
   avatarEmoji: string;
-  xp: number;
+  // XP/level live in the gamification xpStore — the single source of truth.
   streakDays: number;
   lastActivityDate: string | null;
   onboardingComplete: boolean;

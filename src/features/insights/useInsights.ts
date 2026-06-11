@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { getSportById, xpForLevel } from '../../utils/helpers';
+import { getSportById } from '../../utils/helpers';
+import { useXpStore, XP_SOURCES } from '../gamification/store/xpStore';
 
 export interface InsightCard {
   icon: string;
@@ -58,6 +59,8 @@ const buildStats = (
   progress: Record<string, { completedAt: string }>,
   streak: number,
   xp: number,
+  level: number,
+  nextLevelThreshold: number,
 ): WeeklyStats => {
   const now = new Date();
   const day = (now.getDay() + 6) % 7;
@@ -85,8 +88,6 @@ const buildStats = (
     }
   }
 
-  const { level, nextThreshold } = xpForLevel(xp);
-
   return {
     modulesThisWeek,
     activeDaysThisWeek: activeDays.size,
@@ -94,7 +95,7 @@ const buildStats = (
     totalCompleted: Object.keys(progress).length,
     streak,
     level,
-    nextLevelThreshold: nextThreshold,
+    nextLevelThreshold,
     xp,
     modulesLastWeek,
   };
@@ -103,7 +104,7 @@ const buildStats = (
 const buildPrognose = (stats: WeeklyStats): InsightCard => {
   const { xp, level, nextLevelThreshold, modulesThisWeek } = stats;
   const xpToNext = Math.max(1, nextLevelThreshold - xp);
-  const modulesNeeded = Math.ceil(xpToNext / 25);
+  const modulesNeeded = Math.ceil(xpToNext / XP_SOURCES.COMPLETE_MODULE);
   if (modulesThisWeek === 0) {
     return {
       icon: '🎯',
@@ -170,23 +171,25 @@ const buildStreakInsight = (stats: WeeklyStats): InsightCard => {
 
 export function useInsights() {
   const progress = useAppStore((s) => s.progress);
-  const profile = useAppStore((s) => s.profile);
-  const [insights, setInsights] = useState<InsightCard[]>([]);
-  const [prognose, setPrognose] = useState<InsightCard | null>(null);
+  const streakDays = useAppStore((s) => s.profile.streakDays);
+  const xp = useXpStore((s) => s.xp);
+  const level = useXpStore((s) => s.level);
+  const xpToNextLevel = useXpStore((s) => s.xpToNextLevel);
+  // Rehydrate this week's cached insight cards once, lazily, on first render.
+  const [insights, setInsights] = useState<InsightCard[]>(() => {
+    const cached = loadCache();
+    return cached && cached.isoWeek === isoWeek(new Date()) ? cached.insights : [];
+  });
   const [loading, setLoading] = useState(false);
   const [error] = useState<string | null>(null);
-  const [stats, setStats] = useState<WeeklyStats | null>(null);
 
-  useEffect(() => {
-    const s = buildStats(progress, profile.streakDays, profile.xp);
-    setStats(s);
-    setPrognose(buildPrognose(s));
-
-    const cached = loadCache();
-    if (cached && cached.isoWeek === isoWeek(new Date())) {
-      setInsights(cached.insights);
-    }
-  }, [progress, profile.streakDays, profile.xp]);
+  // Stats and the prognosis are pure derivations of the user's progress and
+  // XP — memoize them rather than mirroring into state inside an effect.
+  const stats = useMemo(
+    () => buildStats(progress, streakDays, xp, level, xp + xpToNextLevel),
+    [progress, streakDays, xp, level, xpToNextLevel],
+  );
+  const prognose = useMemo(() => buildPrognose(stats), [stats]);
 
   const generate = useCallback(async () => {
     if (!stats) return;
