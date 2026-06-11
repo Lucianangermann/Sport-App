@@ -9,6 +9,18 @@ import {
   mockLiveSessions,
 } from '../../../data/community';
 
+/**
+ * Union fresh seed items into a saved array by `id`: existing (saved) entries
+ * are kept as-is, seed items the user hasn't seen yet are appended. Lets newly
+ * shipped demo content reach returning users without dropping their stored
+ * interactions. Exported for testing.
+ */
+export const unionById = <T extends { id: string }>(saved: T[] | undefined, seed: T[]): T[] => {
+  const arr = saved ?? seed;
+  const have = new Set(arr.map((x) => x.id));
+  return [...arr, ...seed.filter((x) => !have.has(x.id))];
+};
+
 interface CommunityState {
   posts: Post[];
   challenges: Challenge[];
@@ -208,6 +220,23 @@ export const useCommunityStore = create<CommunityState>()(
     }),
     {
       name: 'community-store-v1',
+      // Seed content lives in code, but persisting the whole arrays would
+      // freeze a returning user on the seed they first saw. On rehydrate, union
+      // any newly shipped seed items (by id) into their saved state — all of
+      // their interactions (reactions, joins, follows, own posts/spots) survive.
+      merge: (persisted, current) => {
+        const saved = persisted as Partial<CommunityState> | undefined;
+        if (!saved) return current;
+        return {
+          ...current,
+          ...saved,
+          posts: unionById(saved.posts, mockPosts),
+          challenges: unionById(saved.challenges, mockChallenges),
+          buddies: unionById(saved.buddies, mockUsers),
+          spots: unionById(saved.spots, mockSpots),
+          liveSessions: unionById(saved.liveSessions, mockLiveSessions),
+        };
+      },
     },
   ),
 );
