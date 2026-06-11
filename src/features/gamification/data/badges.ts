@@ -617,17 +617,3 @@ export const BADGES: Badge[] = [
 
 export const getBadgeById = (id: string) => BADGES.find((b) => b.id === id);
 
-export const DEMO_UNLOCKED: string[] = [
-  'first_steps',
-  'streak_7',
-  'first_sport',
-  'first_buddy',
-  'quiz_master',
-  'plan_creator',
-  'first_post',
-  'first_challenge',
-  'xp_1000',
-  'level_5',
-  'week_warrior',
-  'early_bird',
-];

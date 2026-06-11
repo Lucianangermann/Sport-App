@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Badge } from '../data/badges';
-import { BADGES, DEMO_UNLOCKED, getBadgeById } from '../data/badges';
+import { BADGES, getBadgeById } from '../data/badges';
 
 interface BadgeState {
   unlockedBadges: string[];
@@ -17,8 +17,10 @@ interface BadgeState {
 export const useBadgeStore = create<BadgeState>()(
   persist(
     (set, get) => ({
-      unlockedBadges: DEMO_UNLOCKED,
-      showcaseBadges: ['streak_7', 'first_buddy', 'week_warrior'],
+      // New users start with no badges — they earn them. (Showcase keeps three
+      // empty slots so the picker indexes cleanly.)
+      unlockedBadges: [],
+      showcaseBadges: ['', '', ''],
       newBadges: [],
       pendingBadge: null,
 
