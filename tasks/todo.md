@@ -22,9 +22,11 @@ Legitime Effekt-State-Machines (begründetes scoped disable):
 - [x] useNearbyClubs / LootBoxPage / useCoach: set-state-in-effect Sync-Fälle
 - [x] Verifiziert: eslint exit 0, build ✓, 20 Tests ✓, Dev-Boot HTTP 200 ✓
 
-## 4.3 — Route-basiertes Code-Splitting
-- [ ] App.tsx: Routen via React.lazy + Suspense (Bundle ~987 kB aufteilen)
-- [ ] Verifizieren: build zeigt mehrere Chunks, App bootet
+## 4.3 — Route-basiertes Code-Splitting ← ABGESCHLOSSEN
+- [x] App.tsx: Routen via React.lazy + Suspense, Shell/Onboarding/GameLayer eager
+- [x] Ergebnis: Haupt-Bundle 987 kB → 440 kB (gzip 140 kB); modules/community
+      als eigene Chunks; 500-kB-Warnung weg
+- [x] Verifiziert: build (viele Chunks), eslint exit 0, Dev-Boot HTTP 200
 
 ## 4.4 — Community-Fixtures ehrlich kennzeichnen
 - [ ] Statische Demo-Inhalte als „Beispieldaten" markieren statt als „live"
